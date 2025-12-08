@@ -1,0 +1,17 @@
+{
+  "name": "heytex-texlive-server",
+  "version": "1.0.0",
+  "description": "TeXLive on-demand server for SwiftLaTeX",
+  "main": "texlive-server.js",
+  "scripts": {
+    "start": "node texlive-server.js",
+    "dev": "nodemon texlive-server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

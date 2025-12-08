@@ -1,0 +1,19 @@
+[Unit]
+Description=HeyTeX Frontend Client
+After=network.target heytex-server.service
+Wants=heytex-server.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/heytex/client
+Environment=NODE_ENV=production
+# Use preview command to serve the built production files
+ExecStart=/usr/bin/npm run preview -- --port 5173 --host 0.0.0.0
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

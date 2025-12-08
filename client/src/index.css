@@ -1,0 +1,130 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@theme {
+  --color-background: oklch(100% 0 0);
+  --color-foreground: oklch(15% 0.02 260);
+  --color-card: oklch(100% 0 0);
+  --color-card-foreground: oklch(15% 0.02 260);
+  --color-popover: oklch(100% 0 0);
+  --color-popover-foreground: oklch(15% 0.02 260);
+  --color-primary: oklch(55% 0.25 280);
+  --color-primary-foreground: oklch(98% 0 0);
+  --color-secondary: oklch(96% 0.01 260);
+  --color-secondary-foreground: oklch(15% 0.02 260);
+  --color-muted: oklch(96% 0.01 260);
+  --color-muted-foreground: oklch(55% 0.02 260);
+  --color-accent: oklch(96% 0.01 260);
+  --color-accent-foreground: oklch(15% 0.02 260);
+  --color-destructive: oklch(60% 0.25 25);
+  --color-destructive-foreground: oklch(98% 0 0);
+  --color-border: oklch(92% 0.01 260);
+  --color-input: oklch(92% 0.01 260);
+  --color-ring: oklch(55% 0.25 280);
+  --radius: 0.5rem;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+.dark {
+  --color-background: oklch(15% 0.02 260);
+  --color-foreground: oklch(98% 0 0);
+  --color-card: oklch(18% 0.02 260);
+  --color-card-foreground: oklch(98% 0 0);
+  --color-popover: oklch(18% 0.02 260);
+  --color-popover-foreground: oklch(98% 0 0);
+  --color-primary: oklch(60% 0.25 280);
+  --color-primary-foreground: oklch(98% 0 0);
+  --color-secondary: oklch(22% 0.02 260);
+  --color-secondary-foreground: oklch(98% 0 0);
+  --color-muted: oklch(22% 0.02 260);
+  --color-muted-foreground: oklch(70% 0.02 260);
+  --color-accent: oklch(22% 0.02 260);
+  --color-accent-foreground: oklch(98% 0 0);
+  --color-destructive: oklch(55% 0.22 25);
+  --color-destructive-foreground: oklch(98% 0 0);
+  --color-border: oklch(25% 0.02 260);
+  --color-input: oklch(25% 0.02 260);
+  --color-ring: oklch(60% 0.25 280);
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(50% 0 0 / 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(50% 0 0 / 0.4);
+}
+
+/* Monaco Editor custom styles */
+.monaco-editor {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.2s ease-out;
+}
+
+/* Glass effect */
+.glass {
+  background-color: oklch(from var(--color-background) l c h / 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid oklch(from var(--color-border) l c h / 0.5);
+}

@@ -1,0 +1,20 @@
+[Unit]
+Description=TeXLive On-Demand Server for HeyTeX
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/heytex
+ExecStart=/usr/bin/node /root/heytex/texlive-server.js
+Restart=always
+RestartSec=10
+Environment=NODE_ENV=production
+Environment=PORT=8082
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=texlive-server
+
+[Install]
+WantedBy=multi-user.target

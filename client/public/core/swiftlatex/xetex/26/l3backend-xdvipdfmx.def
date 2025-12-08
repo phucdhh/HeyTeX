@@ -1,0 +1,4 @@
+% Dummy l3backend-xdvipdfmx.def for SwiftLaTeX
+% SwiftLaTeX WASM doesn't need L3 backend
+\ProvidesFile{l3backend-xdvipdfmx.def}[2020/02/03 v0.1 Dummy L3 backend]
+% No-op - SwiftLaTeX handles PDF generation internally

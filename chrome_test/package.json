@@ -1,0 +1,15 @@
+{
+    "name": "heytex-chrome-test",
+    "version": "1.0.0",
+    "description": "Chrome headless tests for HeyTeX application",
+    "type": "module",
+    "scripts": {
+        "test": "node test-all.js",
+        "test:auth": "node test-auth.js",
+        "test:dashboard": "node test-dashboard.js",
+        "test:editor": "node test-editor.js"
+    },
+    "dependencies": {
+        "puppeteer": "^23.10.4"
+    }
+}

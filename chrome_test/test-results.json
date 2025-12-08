@@ -1,0 +1,41 @@
+{
+  "passed": 7,
+  "failed": 0,
+  "tests": [
+    {
+      "name": "Login page load",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "Register page navigation",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "User registration",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "Dashboard layout",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "Theme toggle",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "CSS loading",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "Viewport check",
+      "passed": true,
+      "error": null
+    }
+  ]
+}

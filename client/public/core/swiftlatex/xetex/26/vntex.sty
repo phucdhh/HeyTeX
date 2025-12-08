@@ -1,0 +1,100 @@
+%%
+%% File 'vntex.sty', generated from 'vntex.dtx'.
+%%
+%% Copyright 2000-2005 Werner Lemberg <WL@gnu.org> and
+%%                     Han The Thanh <HanTheThanh@gmail.com>.
+%%
+%% This file is part of vntex.
+%%
+%% This work may be distributed and/or modified under the conditions
+%% of the LaTeX Project Public License, either version 1.3 of this
+%% license or (at your option) any later version.
+%%
+%% The latest version of this license is
+%%
+%%         http://www.latex-project.org/lppl.txt
+%%
+%% The current maintainers are Werner Lemberg, Han The Thanh, and
+%% Reinhard Kotucha.
+%%
+%% vntex.sty is a variant of 'vietnam.sty' which is using UTF-8
+%% as the default input encoding.
+%% vntex.sty had been proposed by Huynh Ky Anh <xKyAnh@gmail.com>.
+%%
+\ProvidesPackage{vntex}[2009/07/12 v1.1 support for Vietnamese]
+
+\RequirePackage{ifthen}
+
+\newboolean{optenc}
+\newboolean{noinputenc}
+\newboolean{nocaptions}
+\newboolean{vnutf8}
+\newboolean{varioref}
+\newboolean{cmap}
+
+\DeclareOption{viscii}
+  {\PassOptionsToPackage{viscii}{inputenc}
+   \setboolean{optenc}{true}}
+\DeclareOption{tcvn}
+  {\PassOptionsToPackage{tcvn}{inputenc}
+   \setboolean{optenc}{true}}
+\DeclareOption{vps}
+  {\PassOptionsToPackage{vps}{inputenc}
+   \setboolean{optenc}{true}}
+\DeclareOption{mviscii}
+  {\PassOptionsToPackage{mviscii}{inputenc}
+   \setboolean{optenc}{true}}
+\DeclareOption{noinputenc}
+  {\setboolean{noinputenc}{true}}
+\DeclareOption{nocaptions}
+  {\setboolean{nocaptions}{true}}
+\DeclareOption{utf8}
+  {\PassOptionsToPackage{utf8}{inputenc}
+   \setboolean{optenc}{true}}
+\DeclareOption{utf8x}
+  {\PassOptionsToPackage{utf8x}{inputenc}
+   \setboolean{optenc}{true}
+   \setboolean{vnutf8}{true}}
+\DeclareOption{varioref}{\setboolean{varioref}{true}}
+\DeclareOption{cmap}{\setboolean{cmap}{true}}
+
+\ProcessOptions
+
+\ifthenelse{\boolean{vnutf8}}
+  {\RequirePackage{ucs}}
+  {}
+
+\ifthenelse{\boolean{cmap}}
+  {\RequirePackage{ifpdf}
+   \ifpdf\RequirePackage{cmap}\fi}
+  {}
+
+\RequirePackage[T5]{fontenc}
+
+\ifthenelse{\boolean{varioref}}
+  {\RequirePackage{varioref-vi}}
+  {}
+
+\ifthenelse{\boolean{noinputenc}}
+  {\ifthenelse{\boolean{optenc}}
+     {\PackageWarning{vntex}
+        {Selected input encoding is ignored if `noinputenc' is used}}
+     {}}
+  {\ifthenelse{\boolean{optenc}}
+     {}
+       {\PackageWarning{vntex}
+          {No input encoding specified, using UTF-8 as default}
+        \PassOptionsToPackage{utf8}{inputenc}}
+   \RequirePackage{inputenc}}
+
+\ifthenelse{\boolean{nocaptions}}
+  {}
+  {\input{vncaps.tex}
+   \AtBeginDocument{\captionsvietnam
+                    \datevietnam}}
+
+\frenchspacing
+
+\endinput
+%%
+%% End of file `vntex.sty'.

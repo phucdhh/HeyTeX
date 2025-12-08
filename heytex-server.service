@@ -1,0 +1,18 @@
+[Unit]
+Description=HeyTeX Backend Server
+After=network.target postgresql.service minio.service
+Wants=postgresql.service minio.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/heytex/server
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/npm run dev
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
