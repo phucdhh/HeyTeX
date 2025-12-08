@@ -1,6 +1,6 @@
 # 🚀 HeyTeX: The LaTeX & Typst Editor
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![License](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)
 ![Status](https://img.shields.io/badge/status-Alpha-orange.svg)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)
 ![Wasm](https://img.shields.io/badge/powered%20by-WebAssembly-purple)
@@ -67,29 +67,35 @@ Hệ thống biên dịch chạy hoàn toàn trên trình duyệt người dùng
 *   Docker (tùy chọn cho backend)
 
 ### Bước 1: Clone Repository
-git clone [https://github.com/username/nextex-studio.git](https://github.com/username/nextex-studio.git)
-cd nextex-studio
+```bash
+git clone https://github.com/phucdhh/HeyTeX.git
+cd HeyTeX
+```
 
 ### Bước 2: Cài đặt Dependencies
-Cài đặt cho Frontend
+```bash
+# Cài đặt cho Frontend
 cd client
 npm install
 
-Cài đặt cho Backend (Collab Server)
+# Cài đặt cho Backend (Collab Server)
 cd ../server
 npm install
+```
 
 ### Bước 3: Cấu hình Môi trường
 Tạo file .env trong thư mục client và server dựa trên file .env.example. Đảm bảo cấu hình đường dẫn tới TeXlyre Wasm assets.
 
 ### Bước 4: Chạy Dự án
-Terminal 1: Chạy Backend
+```bash
+# Terminal 1: Chạy Backend
 cd server
 npm run dev
 
-Terminal 2: Chạy Frontend
+# Terminal 2: Chạy Frontend
 cd client
 npm run dev
+```
 
 ## Roadmap & Đề xuất Mở rộng
 Dưới đây là các tính năng dự kiến sẽ phát triển thêm:
@@ -124,11 +130,20 @@ Dưới đây là các tính năng dự kiến sẽ phát triển thêm:
 ## 🤝 Đóng góp (Contributing)
 Chúng tôi hoan nghênh mọi đóng góp! Vui lòng đọc file CONTRIBUTING.md để biết quy trình Pull Request.
 
-## Các dự án tham khảo có trong thư mục dự án này
-Texlyre: /root/heytex/texlyre
-Texlyre Infrastructure: /root/heytex/texlyre-infrastructure
-wasm latex tool: /root/heytex/wasm-latex-tools
-Texlyre documentation: /root/heytex/texlyre.github.io
+## 📚 Các dự án tham khảo (References)
+
+HeyTeX được xây dựng dựa trên các dự án mã nguồn mở sau:
+
+- **[TeXlyre](https://github.com/texlyre/texlyre)** - Web-based LaTeX editor with WebAssembly
+- **[TeXlyre Infrastructure](https://github.com/texlyre/texlyre-infrastructure)** - Docker deployment infrastructure
+- **[WASM LaTeX Tools](https://github.com/SwiftLaTeX/wasm-latex-tools)** - WebAssembly compilation tools
+- **[TeXlyre Documentation](https://texlyre.github.io/)** - Official documentation
 
 ## 📄 License
-Dự án này được cấp phép dưới MIT License.
+
+Dự án này được cấp phép dưới [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE).
+
+AGPL-3.0 yêu cầu:
+- Công khai mã nguồn khi triển khai dịch vụ trực tuyến
+- Các tác phẩm phái sinh phải sử dụng cùng giấy phép
+- Bảo vệ quyền tự do phần mềm cho cộng đồng

@@ -53,4 +53,19 @@ coverage/
 
 # Production secrets
 cloudflare-tunnel-config.yml
+
+# Internal documentation
+Assessment.md
+
+# Submodules (external projects)
+texlyre/
+texlyre-infrastructure/
+texlyre.github.io/
+wasm-latex-tools/
 node_modules
+
+# References
+texlyre
+texlyre-infrastructure
+texlyre.github.io
+wasm-latex-tools
