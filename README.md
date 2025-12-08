@@ -11,7 +11,7 @@
 
 ## ✨ Tính Năng Chính (Key Features)
 
-### 1. 🖥️ Giao diện Đẳng cấp IDE (VS Code-like UI)
+### 1. 🖥️ Giao diện IDE thân thiện (VS Code-like UI)
 *   Sử dụng **Monaco Editor** (lõi của VS Code) để mang lại trải nghiệm gõ mã quen thuộc.
 *   Hỗ trợ IntelliSense, tự động hoàn thành (Auto-completion), và Snippets cho cả LaTeX và Typst.
 *   Giao diện thay đổi được (Dark Mode/ Light Mode) và tùy chỉnh theme.
@@ -22,7 +22,7 @@ Hệ thống biên dịch chạy hoàn toàn trên trình duyệt người dùng
 *   **Typst Project:** Tích hợp **Typst Wasm Renderer** cho tốc độ biên dịch siêu tốc (instant feedback).
 
 ### 3. 🤝 Biên tập Cộng tác Thời gian thực (Real-time Collaboration)
-*   Cho phép nhiều người dùng cùng chỉnh sửa một tài liệu cùng lúc (tương tự Overleaf/Google Docs).
+*   Cho phép nhiều người dùng cùng chỉnh sửa một tài liệu cùng lúc.
 *   Hiển thị con trỏ chuột của người khác theo thời gian thực.
 *   Sử dụng thuật toán **CRDT** (Conflict-free Replicated Data Types) qua **Yjs** để đảm bảo tính toàn vẹn dữ liệu.
 
@@ -110,9 +110,7 @@ Dưới đây là các tính năng dự kiến sẽ phát triển thêm:
 
 - [ ] Export Options: Xuất ra PDF, HTML, và ePub.
 
-## 💡 Các đề xuất bổ sung cho kiến trúc của bạn
-
-Để dự án này thực sự khả thi và mạnh mẽ, tôi có một số lời khuyên kỹ thuật bổ sung:
+## 💡 Các đề xuất cho kiến trúc của HeyTeX
 
 1.  **Xử lý WebAssembly (Wasm):**
     *   File `.wasm` của LaTeX rất nặng (có thể lên tới 20-50MB). Bạn cần sử dụng **Service Workers** để cache file này ngay lần tải đầu tiên, giúp người dùng không phải tải lại mỗi lần F5 trang.
@@ -145,5 +143,5 @@ Dự án này được cấp phép dưới [GNU Affero General Public License v3
 
 AGPL-3.0 yêu cầu:
 - Công khai mã nguồn khi triển khai dịch vụ trực tuyến
-- Các tác phẩm phái sinh phải sử dụng cùng giấy phép
+- Các sản phẩm phái sinh phải sử dụng cùng giấy phép
 - Bảo vệ quyền tự do phần mềm cho cộng đồng
