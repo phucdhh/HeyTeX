@@ -1,0 +1,1678 @@
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\def\fileversion{2.0.4}
+\def\filedate{2024/01/14}
+\ProvidesPackage{libertinust1math}
+    [\filedate\space v\fileversion---latex support for LibertinusT1Math (msharpe)]
+
+\RequirePackage{xkeyval,etoolbox}
+\def\ifiscseq#1{\ifcat$\expandafter\@gobble\string#1$\expandafter\@secondoftwo\else\expandafter\@firstoftwo\fi}
+
+\newif\iflibus@upint %\libus@upintfalse
+\newif\iflibus@ams % amsfonts
+\newif\iflibus@frenchm
+\newif\iflibus@slantedG % slanted capital Greek
+\newif\iflibus@sansmath %substitute sans for letters and operators
+\newif\iflibus@ISO % 
+\newif\iflibus@nosans % do not load sans math, \mathsf excepted
+\newif\iflibus@reuseMathAlphabets
+\newif\iflibus@mathsfit % 
+\let\libus@lcgc\mathord
+\newif\iflibus@thrm
+\newif\iflibus@sbc
+\newif\iflibus@subsfile
+\newcommand{\enablesbcorrection}{\libus@sbctrue\AtBeginDocument{\mathcode`\_=\string"8000 \catcode`\_=12\relax}}
+\newif\ifntx@amsthm
+\def\ntxmath@vecsep{.25ex}
+
+\def\libus@spc{.32em}
+\def\libus@stretch{.16em}
+\def\libus@shrink{.10em}
+
+\DeclareOptionX{spacing}{%
+\def\libus@spc{#1}
+}
+\DeclareOptionX{stretch}{%
+\def\libus@stretch{#1}
+}
+\DeclareOptionX{shrink}{%
+\def\libus@shrink{#1}
+}
+
+\DeclareOptionX{theoremfont}{\libus@thrmtrue}
+\DeclareOptionX{subscriptcorrectionfile}{\def\libus@subs{#1}\libus@subsfiletrue}
+\DeclareOptionX{nosubscriptcorrection}{\libus@sbcfalse}
+\DeclareOptionX{subscriptcorrection}{\libus@sbctrue}
+\DeclareOptionX{lcgreekalpha}{\let\libus@lcgc\mathalpha}
+\DeclareOptionX{upint}       {\libus@upinttrue}
+\DeclareOptionX{frenchmath}       {\libus@frenchmtrue}
+\DeclareOptionX{slantedGreek}       {\libus@slantedGtrue}
+\DeclareOptionX{uprightGreek}     {\libus@slantedGfalse}
+\DeclareOptionX{ISO}       {\libus@ISOtrue}
+\DeclareOptionX{nosans}       {\libus@nosanstrue}
+\DeclareOptionX{sansmath}       {\libus@sansmathtrue}
+\DeclareOptionX{reuseMathAlphabets}  {\libus@reuseMathAlphabetstrue}
+\DeclareOptionX{mathsfit}       {\libus@mathsfittrue}
+\DeclareOptionX{scale}       {\def\libus@scale{#1}}
+\DeclareOptionX{scaled}       {\def\libus@scale{#1}}
+\DeclareOptionX{amsthm}{\ntx@amsthmtrue}
+
+\ProcessOptionsX\relax
+
+\iflibus@frenchm\libus@slantedGfalse\fi
+\iflibus@sansmath\libus@nosanstrue\fi
+\iflibus@mathsfit\libus@nosansfalse\fi
+\iflibus@ISO\libus@sansmathfalse%
+ \let\libus@lcgc\mathalpha\libus@slantedGtrue\fi
+\iflibus@reuseMathAlphabets\libus@nosansfalse\fi
+
+\iflibus@reuseMathAlphabets
+  \PackageWarningNoLine{libertinust1math}{%
+    Re-using math alphabet `mathsf' for \protect \mathsfbfit
+    \MessageBreak and `mathbf' for \protect \mathbfit
+  }
+\fi
+
+\RequirePackage{amsmath}
+\ifntx@amsthm
+  \RequirePackage{amsthm}
+  \typeout{amsthm loaded}
+\else
+    \typeout{amsthm NOT loaded}
+\fi
+\def\libus@undefine#1{%
+    \if\relax\noexpand#1\let#1=\@undefined\fi}
+\def\libus@MathSymbol#1#2#3#4{%
+    \libus@undefine#1%
+    \DeclareMathSymbol{#1}{#2}{#3}{#4}}
+\def\libus@MathDelimiter#1#2#3#4#5#6{%
+    \libus@undefine#1%
+    \DeclareMathDelimiter{#1}{#2}{#3}{#4}{#5}{#6}}
+\def\libus@MathAccent#1#2#3#4{%
+    \libus@undefine#1%
+    \DeclareMathAccent{#1}{#2}{#3}{#4}}
+\def\libus@MathRadical#1#2#3#4{%
+    \libus@undefine#1%
+    \DeclareMathRadical{#1}{#2}{#3}{#4}}
+
+\DeclareFontEncoding{LS1}{}{}
+\DeclareFontEncoding{LS2}{}{\noaccents@}
+\DeclareFontSubstitution{LS1}{libertinust1math}{m}{n}
+\DeclareFontSubstitution{LS2}{libertinust1mathex}{m}{n}
+\DeclareFontSubstitution{LS2}{libertinust1mathsym}{m}{n}
+\DeclareSymbolFont{letters}       {LS1}{libertinust1math}     {m}{it}
+\DeclareSymbolFont{operators}     {LS1}{libertinust1math}     {m} {n}
+\DeclareSymbolFont{symbolsbb}      {LS1}{libertinust1mathbb}   {m} {n}
+\DeclareSymbolFont{symbols}       {LS2}{libertinust1mathsym}  {m} {n}
+\DeclareSymbolFont{largesymbols}  {LS2}{libertinust1mathex}   {m} {n}
+\DeclareMathAlphabet{\mathsf}{LS1}{libertinust1mathsf}   {m} {n}
+\DeclareMathAlphabet{\mathsfbf}   {LS1}{libertinust1mathsf}   {b} {n}
+\iflibus@nosans
+\else
+%  \DeclareSymbolFont{sans}       {LS1}{libertinust1mathsf}  {m} {n}
+%  \DeclareSymbolFont{sansi}       {LS1}{libertinust1mathsf}  {m} {it}
+%  \SetSymbolFont{sans}       {bold}{LS1}{libertinust1mathsf}  {b} {n}
+%  \SetSymbolFont{sansi}       {bold}{LS1}{libertinust1mathsf}  {b} {it}
+  \DeclareMathAlphabet{\mathsfbfit}  {LS1}{libertinust1mathsf} {b} {it}
+  \DeclareMathAlphabet{\mathsfbf}  {LS1}{libertinust1mathsf} {b} {n}
+\fi
+\SetSymbolFont{letters}     {bold}{LS1}{libertinust1math}     {b}{it}
+\SetSymbolFont{operators}   {bold}{LS1}{libertinust1math}     {b} {n}
+\DeclareSymbolFont{bold-operators}{LS1}{libertinust1math}     {b} {n}
+\DeclareSymbolFont{bold-letters}{LS1}{libertinust1math}     {b} {it}
+\DeclareSymbolFontAlphabet{\mathit}  {letters}
+\DeclareSymbolFontAlphabet{\mathrm}  {operators}
+\DeclareSymbolFontAlphabet{\mathbf}  {bold-operators}
+\iflibus@reuseMathAlphabets
+  \DeclareSymbolFontAlphabet{\mathbf}  {bold-letters}
+  \def\mathbfit{\mathbf}
+\else
+  \DeclareSymbolFontAlphabet{\mathbfit}{bold-letters}
+\fi
+\iflibus@nosans
+\else
+  \iflibus@ISO
+    %\DeclareSymbolFontAlphabet{\mathsf}  {sans}
+    \iflibus@mathsfit
+      %\DeclareSymbolFontAlphabet{\mathsfit}  {sansi}
+      \DeclareMathAlphabet{\mathsfit}{LS1}{libertinust1mathsf}{m}{it}		  \SetMathAlphabet{\mathsfit}{bold}{LS1}{libertinust1mathsf}{b}{it}
+  	  \def\mathsans{\mathsfit}
+    \fi
+	\iflibus@reuseMathAlphabets
+  	  \DeclareMathAlphabet{\mathsf}{LS1}{libertinust1mathsf}{b}{it}
+  	  \def\mathsfbfit{\mathsf}
+	\fi    
+	%\DeclareMathAlphabet{\mathsfbfit}{LS1}{libertinust1mathsf} {b}{it}
+	\def\mathboldsans{\mathsfbfit}
+	\def\mathbold{\mathbfit}
+	\providecommand*{\vectorsym}{\mathbfit}
+	\providecommand*{\matrixsym}{\mathbfit}
+	\providecommand*{\tensorsym}{\mathsfbfit}
+
+  \else % not ISO
+    \SetMathAlphabet{\mathsf}{bold}{LS1}{libertinust1mathsf}{b}{n}
+    \def\mathboldsans{\mathsfbfit}
+	\iflibus@mathsfit
+      %\DeclareSymbolFontAlphabet{\mathsfit}  {sansi}
+      \DeclareMathAlphabet{\mathsfit}{LS1}{libertinust1mathsf}{m}{it}		  \SetMathAlphabet{\mathsfit}{bold}{LS1}{libertinust1mathsf}{b}{it}
+  	  \def\mathsans{\mathsfit}
+    \fi
+  \fi
+\fi
+\DeclareFontFamily{U}{stixcal}{\skewchar\font127 }
+\DeclareFontShape{U}{stixcal}{m}{n} {<->  stix-mathcal}{}
+\DeclareFontShape{U}{stixcal}{b}{n} {<->  stix-mathcal-bold}{}
+\DeclareMathAlphabet{\mathcal}{U}{stixcal}{m}{n}
+\SetMathAlphabet{\mathcal}{bold}{U}{stixcal}{b}{n}
+\DeclareMathAlphabet{\mathbcal} {U}{stixcal}{b}{n}
+\DeclareSymbolFontAlphabet{\mathbb}  {symbolsbb}
+
+% Should test for which math italic font and customize these numbers.
+\def\tx@sb@dflt{% default subscript kerns, usually negative
+ \if\next f\mkern-2mu\else
+  \if\next j\mkern-2mu\else
+   \if\next p\mkern-2mu\else
+    \if\next y\mkern-\@ne mu\else
+     \if\next A\mkern-3mu\else
+      \if\next B\mkern-\@ne mu\else
+       \if\next D\mkern-\@ne mu\else
+        \if\next H\mkern-\@ne mu\else
+         \if\next I\mkern-\@ne mu\else
+          \if\next K\mkern-\@ne mu\else
+           \if\next L\mkern-\@ne mu\else
+            \if\next M\mkern-\@ne mu\else
+             \if\next N\mkern-0.5mu\else
+              \if\next P\mkern-\@ne mu\else
+               \if\next X\mkern-\@ne mu\else
+                \if\next \rho\mkern-2mu\else
+                 \if\next \beta\mkern-\@ne mu\else
+                 \fi
+                \fi
+               \fi%
+              \fi%
+             \fi%
+            \fi%
+           \fi%
+          \fi%
+         \fi%
+        \fi%
+       \fi%
+      \fi%
+     \fi%
+    \fi%
+   \fi%
+  \fi%
+ \fi}
+\newtoks\tx@tA
+\newtoks\tx@tB
+\newcommand*{\loadsubfile}[1]{\readsufile{#1}%creates toks tx@tA. tx@tB
+\tx@tA\expandafter{\the\expandafter\tx@tA\the\tx@tB}
+\expandafter\def\expandafter\tx@sb\expandafter{\the\tx@tA}}
+
+\def\libus@subs{libertinus-subs.tex}
+\newread\tx@su
+
+\def\readsufile#1{%
+  \tx@tA={}
+  \tx@tB={}
+  \openin\tx@su=#1
+  \loop\unless\ifeof\tx@su
+  \read\tx@su to \tx@line
+  \if\tx@line\par\else
+    \expandafter\tx@addrec\tx@line
+  \fi
+  \repeat
+}
+\def\tx@addrec#1#2{%
+\ifiscseq{#1}{\tx@tA\expandafter{\the\tx@tA\ifx}}{\tx@tA\expandafter{\the\tx@tA\if}}
+\tx@tA\expandafter{\the\tx@tA\next #1\mkern #2 mu\else}
+\tx@tB\expandafter{\the\tx@tB\fi}}
+\AtEndPreamble{%
+%\traceon
+\iflibus@sbc
+  \expandafter\ifx\csname xyversion\endcsname\relax \else
+	\PackageError{libust1math}{xy package is not compatible with the subscriptcorrection macros}{Either remove xy or disable  
+	subscriptcorrection by means of package option nosubscriptcorrection}
+  \fi
+	\IfFileExists{\libus@subs}{\loadsubfile{\libus@subs}}%
+	{\def\tx@sb{\tx@sb@dflt}\message{File \libus@subs\space not found. Using internal defaults for subscript correction.^^J}}
+\fi
+%\traceoff
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Subscript correction code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtoks\tx@sbptoks
+% next 2 macros borrowed from TeX by Topic
+\def\tx@Pop#1(into:)#2{%
+    \edef\tx@act{\noexpand\tx@SplitOff\the#1%
+    (tx@head:)\noexpand#2(tx@tail:)\noexpand#1}%
+    \tx@act}
+\def\tx@SplitOff#1#2(tx@head:)#3(tx@tail:)#4{\def#3{\noexpand #1}#4={#2}}
+
+\iflibus@sbc
+\AtBeginDocument{% first check if _ has been redefined
+ \mathcode`\_=\string"8000 \catcode`\_=12\relax} \begingroup
+ \catcode`\_=13
+ \gdef_{\expandafter\s@@b@}
+\endgroup
+%\def\s@@b{\expandafter\s@@b@}
+\def\s@@b@#1{\def\tx@next@{#1}%
+\tx@sbptoks={#1}%
+\tx@Pop\tx@sbptoks(into:)\next% first token is \next
+\sb{\tx@sb \tx@next@}} % \tx@sb provides mkern to insert before first tok
+\fi
+
+% Replacement handling of theorem italic in libertinus
+% to make for better spacing between text italics and math fragments
+\def\libus@spacing{%
+	\fontdimen2\font=\libus@spc
+	\fontdimen3\font=\libus@stretch
+	\fontdimen4\font=\libus@shrink}
+\expandafter\ifx\csname LibertinusSerif@scale\endcsname\relax
+    \let\LibertinusSerif@@scale\@empty
+\else
+    \edef\LibertinusSerif@@scale{s*[\csname LibertinusSerif@scale\endcsname]}%
+\fi
+\DeclareRobustCommand\thfamily % new family for theorem font
+        {\not@math@alphabet\thfamily\relax
+         \fontfamily\thdefault\selectfont}
+\newcommand*{\thdefault}{LibertinusSerifTH-tlf}
+\DeclareTextFontCommand{\textth}{\thfamily}
+
+\DeclareFontFamily{T1}{LibertinusSerifTH-tlf}{\libus@spacing}
+\DeclareFontShape{T1}{LibertinusSerifTH-tlf}{m}{it}{<-> \LibertinusSerif@@scale LibertinusSerifTH-Italic-tlf-t1}{\libus@spacing}
+\DeclareFontShape{T1}{LibertinusSerifTH-tlf}{m}{n}{<-> ssub * LibertinusSerifTH-tlf/m/it}{}
+
+\DeclareFontFamily{OT1}{LibertinusSerifTH-tlf}{\libus@spacing}
+\DeclareFontShape{OT1}{LibertinusSerifTH-tlf}{m}{it}{<-> \LibertinusSerif@@scale LibertinusSerifTH-Italic-tlf-ot1}{}
+\DeclareFontShape{OT1}{LibertinusSerifTH-tlf}{m}{n}{<-> ssub * LibertinusSerifTH-tlf/m/it}{}
+
+\iflibus@thrm
+	%\RequirePackage{amsmath,amsthm} % in case of theoremfont
+	\ifdefined\newtheoremstyle %amsthm and ntheorem, not theorem.sty
+		\@ifpackageloaded{ntheorem}\relax{%
+		\newtheoremstyle{plain}
+		{\medskipamount}   % ABOVESPACE, was \topsep
+    	{\medskipamount}   % BELOWSPACE, was \topsep
+    	{\thfamily}  % BODYFONT--\thfamily is italic with upright figures and punctuation
+    	{}       % INDENT (empty value is the same as 0pt)
+    	{\bfseries} % HEADFONT--you may want to add \tlfstyle so the number is tab lining, regardless of text figure selection
+    	{.}         % HEADPUNCT
+    	{5pt plus 1pt minus 1pt} % HEADSPACE
+    	{}          % CUSTOM-HEAD-SPEC\newtheorem{thm}{Theorem}[section]
+    	} % end @ifpackageloaded
+    \fi%
+	\@ifundefined{theoremstyle}{}{%
+    \theoremstyle{plain}
+    \patchcmd{\th@plain}{\itshape}{\thfamily}{\message{Replaced itshape by thfamily in theorem style plain.}}{\message{Unable to replace itshape by thfamily in theorem style plain.}}
+    }
+\fi%}		
+
+
+\libus@MathSymbol{\upGamma}      {\mathalpha}{operators}{"00}
+\libus@MathSymbol{\upDelta}      {\mathalpha}{operators}{"01}
+\libus@MathSymbol{\upTheta}      {\mathalpha}{operators}{"02}
+\libus@MathSymbol{\upLambda}     {\mathalpha}{operators}{"03}
+\libus@MathSymbol{\upXi}         {\mathalpha}{operators}{"04}
+\libus@MathSymbol{\upPi}         {\mathalpha}{operators}{"05}
+\libus@MathSymbol{\upSigma}      {\mathalpha}{operators}{"06}
+\libus@MathSymbol{\upUpsilon}    {\mathalpha}{operators}{"07}
+\libus@MathSymbol{\upPhi}        {\mathalpha}{operators}{"08}
+\libus@MathSymbol{\upPsi}        {\mathalpha}{operators}{"09}
+\libus@MathSymbol{\upOmega}      {\mathalpha}{operators}{"0A}
+\libus@MathSymbol{\upalpha}     {\libus@lcgc}{operators}{"0B}
+\libus@MathSymbol{\upbeta}      {\libus@lcgc}{operators}{"0C}
+\libus@MathSymbol{\upgamma}     {\libus@lcgc}{operators}{"0D}
+\libus@MathSymbol{\updelta}     {\libus@lcgc}{operators}{"0E}
+\libus@MathSymbol{\upepsilon}   {\libus@lcgc}{operators}{"0F}
+\libus@MathSymbol{\upzeta}      {\libus@lcgc}{operators}{"10}
+\libus@MathSymbol{\upeta}       {\libus@lcgc}{operators}{"11}
+\libus@MathSymbol{\uptheta}     {\libus@lcgc}{operators}{"12}
+\libus@MathSymbol{\upiota}      {\libus@lcgc}{operators}{"13}
+\libus@MathSymbol{\upkappa}     {\libus@lcgc}{operators}{"14}
+\libus@MathSymbol{\uplambda}    {\libus@lcgc}{operators}{"15}
+\libus@MathSymbol{\upmu}        {\libus@lcgc}{operators}{"16}
+\libus@MathSymbol{\upnu}        {\libus@lcgc}{operators}{"17}
+\libus@MathSymbol{\upxi}        {\libus@lcgc}{operators}{"18}
+\libus@MathSymbol{\uppi}        {\libus@lcgc}{operators}{"19}
+\libus@MathSymbol{\uprho}       {\libus@lcgc}{operators}{"1A}
+\libus@MathSymbol{\upsigma}     {\libus@lcgc}{operators}{"1B}
+\libus@MathSymbol{\uptau}       {\libus@lcgc}{operators}{"1C}
+\libus@MathSymbol{\upupsilon}   {\libus@lcgc}{operators}{"1D}
+\libus@MathSymbol{\upphi}       {\libus@lcgc}{operators}{"1E}
+\libus@MathSymbol{\upchi}       {\libus@lcgc}{operators}{"1F}
+\libus@MathSymbol{\uppsi}       {\libus@lcgc}{operators}{"20}
+\libus@MathSymbol{\upomega}     {\libus@lcgc}{operators}{"21}
+\libus@MathSymbol{\upvarepsilon}{\libus@lcgc}{operators}{"22}
+\libus@MathSymbol{\upvartheta}  {\libus@lcgc}{operators}{"23}
+\libus@MathSymbol{\upvarpi}     {\libus@lcgc}{operators}{"24}
+\libus@MathSymbol{\upvarrho}    {\libus@lcgc}{operators}{"25}
+\libus@MathSymbol{\upvarsigma}  {\libus@lcgc}{operators}{"26}
+\libus@MathSymbol{\upvarphi}    {\libus@lcgc}{operators}{"27}
+\libus@MathSymbol{\nabla}     {\libus@lcgc}{operators}{"28}
+\libus@MathSymbol{\uppartial}   {\libus@lcgc}{operators}{"29}
+\libus@MathSymbol{\partial}   {\libus@lcgc}{letters}{"29}
+\libus@MathSymbol{\upvarkappa}  {\libus@lcgc}{operators}{"FE}
+%
+\let\Gammaup\upGamma
+\let\Deltaup\upDelta
+\let\Thetaup\upTheta
+\let\Lambdaup\upLambda
+\let\Xiup\upXi
+\let\Piup\upPi
+\let\Gammaup\upGamma
+\let\Sigmaup\upSigma
+\let\Upsilonup\upUpsilon
+\let\Phiup\upPhi
+\let\Psiup\upPsi
+\let\Omegaup\upOmega
+\let\alphaup\upalpha
+\let\betaup\upbeta
+\let\gammaup\upgamma
+\let\deltaup\updelta
+\let\epsilonup\upepsilon
+\let\zetaup\upzeta
+\let\etaup\upeta
+\let\thetaup\uptheta
+\let\iotaup\upiota
+\let\kappaup\upkappa
+\let\lambdaup\uplambda
+\let\muup\upmu
+\let\nuup\upnu
+\let\xiup\upxi
+\let\piup\uppi
+\let\rhoup\uprho
+\let\sigmaup\upsigma
+\let\tauup\uptau
+\let\upsilonup\upupsilon
+\let\phiup\upphi
+\let\chiup\upchi
+\let\psiup\uppsi
+\let\omegaup\upomega
+\let\varepsilonup\upvarepsilon
+\let\varthetaup\upvartheta
+\let\varpiup\upvarpi
+\let\varrhoup\upvarrho
+\let\varsigmaup\upvarsigma
+\let\varphiup\upvarphi
+\let\varkappaup\upvarkappa
+%
+\libus@MathSymbol{\itGamma}{\mathalpha}{letters}{0}
+\libus@MathSymbol{\itDelta}{\mathalpha}{letters}{1}
+\libus@MathSymbol{\itTheta}{\mathalpha}{letters}{2}
+\libus@MathSymbol{\itLambda}{\mathalpha}{letters}{3}
+\libus@MathSymbol{\itXi}{\mathalpha}{letters}{4}
+\libus@MathSymbol{\itPi}{\mathalpha}{letters}{5}
+\libus@MathSymbol{\itSigma}{\mathalpha}{letters}{6}
+\libus@MathSymbol{\itUpsilon}{\mathalpha}{letters}{7}
+\libus@MathSymbol{\itPhi}{\mathalpha}{letters}{8}
+\libus@MathSymbol{\itPsi}{\mathalpha}{letters}{9}
+\libus@MathSymbol{\itOmega}{\mathalpha}{letters}{10}
+\libus@MathSymbol{\italpha}{\libus@lcgc}{letters}{11}
+\libus@MathSymbol{\itbeta}{\libus@lcgc}{letters}{12}
+\libus@MathSymbol{\itgamma}{\libus@lcgc}{letters}{13}
+\libus@MathSymbol{\itdelta}{\libus@lcgc}{letters}{14}
+\libus@MathSymbol{\itepsilon}{\libus@lcgc}{letters}{15}
+\libus@MathSymbol{\itzeta}{\libus@lcgc}{letters}{16}
+\libus@MathSymbol{\iteta}{\libus@lcgc}{letters}{17}
+\libus@MathSymbol{\ittheta}{\libus@lcgc}{letters}{18}
+\libus@MathSymbol{\itiota}{\libus@lcgc}{letters}{19}
+\libus@MathSymbol{\itkappa}{\libus@lcgc}{letters}{20}
+\libus@MathSymbol{\itlambda}{\libus@lcgc}{letters}{21}
+\libus@MathSymbol{\itmu}{\libus@lcgc}{letters}{22}
+\libus@MathSymbol{\itnu}{\libus@lcgc}{letters}{23}
+\libus@MathSymbol{\itxi}{\libus@lcgc}{letters}{24}
+\libus@MathSymbol{\itpi}{\libus@lcgc}{letters}{25}
+\libus@MathSymbol{\itrho}{\libus@lcgc}{letters}{26}
+\libus@MathSymbol{\itsigma}{\libus@lcgc}{letters}{27}
+\libus@MathSymbol{\ittau}{\libus@lcgc}{letters}{28}
+\libus@MathSymbol{\itupsilon}{\libus@lcgc}{letters}{29}
+\libus@MathSymbol{\itphi}{\libus@lcgc}{letters}{30}
+\libus@MathSymbol{\itchi}{\libus@lcgc}{letters}{31}
+\libus@MathSymbol{\itpsi}{\libus@lcgc}{letters}{32}
+\libus@MathSymbol{\itomega}{\libus@lcgc}{letters}{33}
+\libus@MathSymbol{\itvarepsilon}{\libus@lcgc}{letters}{34}
+\libus@MathSymbol{\itvartheta}{\libus@lcgc}{letters}{35}
+\libus@MathSymbol{\itvarpi}{\libus@lcgc}{letters}{36}
+\libus@MathSymbol{\itvarrho}{\libus@lcgc}{letters}{37}
+\libus@MathSymbol{\itvarsigma}{\libus@lcgc}{letters}{38}
+\libus@MathSymbol{\itvarphi}{\libus@lcgc}{letters}{39}
+\libus@MathSymbol{\itvarkappa}{\libus@lcgc}{letters}{"FE}
+\let\Gammait\itGamma
+\let\Deltait\itDelta
+\let\Thetait\itTheta
+\let\Lambdait\itLambda
+\let\Xiit\itXi
+\let\Piit\itPi
+\let\Gammait\itGamma
+\let\Sigmait\itSigma
+\let\Upsilonit\itUpsilon
+\let\Phiit\itPhi
+\let\Psiit\itPsi
+\let\Omegait\itOmega
+\let\alphait\italpha
+\let\betait\itbeta
+\let\gammait\itgamma
+\let\deltait\itdelta
+\let\epsilonit\itepsilon
+\let\zetait\itzeta
+\let\etait\iteta
+\let\thetait\ittheta
+\let\iotait\itiota
+\let\kappait\itkappa
+\let\lambdait\itlambda
+\let\muit\itmu
+\let\nuit\itnu
+\let\xiit\itxi
+\let\piit\itpi
+\let\rhoit\itrho
+\let\sigmait\itsigma
+\let\tauit\ittau
+\let\upsilonit\itupsilon
+\let\phiit\itphi
+\let\chiit\itchi
+\let\psiit\itpsi
+\let\omegait\itomega
+\let\varepsilonit\itvarepsilon
+\let\varthetait\itvartheta
+\let\varpiit\itvarpi
+\let\varrhoit\itvarrho
+\let\varsigmait\itvarsigma
+\let\varphiit\itvarphi
+\let\varkappait\itvarkappa
+
+\iflibus@slantedG
+    \let\Gamma\Gammait
+    \let\Delta\Deltait
+    \let\Theta\Thetait
+    \let\Lambda\Lambdait
+    \let\Xi\Xiit
+    \let\Pi\Piit       
+    \let\Sigma\Sigmait
+    \let\Upsilon\Upsilonit
+    \let\Phi\Phiit
+    \let\Psi\Psiit
+    \let\Omega\Omegait
+\else
+    \let\Gamma\upGamma      
+    \let\Delta\upDelta      
+    \let\Theta\upTheta      
+    \let\Lambda\upLambda     
+    \let\Xi\upXi         
+    \let\Pi\upPi         
+    \let\Sigma\upSigma      
+    \let\Upsilon\upUpsilon      
+    \let\Phi\upPhi        
+    \let\Psi\upPsi        
+    \let\Omega\upOmega      
+\fi
+%
+
+\libus@MathSymbol{0}     {\mathalpha}{operators}{`0}
+\libus@MathSymbol{1}     {\mathalpha}{operators}{`1}
+\libus@MathSymbol{2}     {\mathalpha}{operators}{`2}
+\libus@MathSymbol{3}     {\mathalpha}{operators}{`3}
+\libus@MathSymbol{4}     {\mathalpha}{operators}{`4}
+\libus@MathSymbol{5}     {\mathalpha}{operators}{`5}
+\libus@MathSymbol{6}     {\mathalpha}{operators}{`6}
+\libus@MathSymbol{7}     {\mathalpha}{operators}{`7}
+\libus@MathSymbol{8}     {\mathalpha}{operators}{`8}
+\libus@MathSymbol{9}     {\mathalpha}{operators}{`9}
+\libus@MathSymbol{A}     {\mathalpha}{letters}  {`A}
+\libus@MathSymbol{B}     {\mathalpha}{letters}  {`B}
+\libus@MathSymbol{C}     {\mathalpha}{letters}  {`C}
+\libus@MathSymbol{D}     {\mathalpha}{letters}  {`D}
+\libus@MathSymbol{E}     {\mathalpha}{letters}  {`E}
+\libus@MathSymbol{F}     {\mathalpha}{letters}  {`F}
+\libus@MathSymbol{G}     {\mathalpha}{letters}  {`G}
+\libus@MathSymbol{H}     {\mathalpha}{letters}  {`H}
+\libus@MathSymbol{I}     {\mathalpha}{letters}  {`I}
+\libus@MathSymbol{J}     {\mathalpha}{letters}  {`J}
+\libus@MathSymbol{K}     {\mathalpha}{letters}  {`K}
+\libus@MathSymbol{L}     {\mathalpha}{letters}  {`L}
+\libus@MathSymbol{M}     {\mathalpha}{letters}  {`M}
+\libus@MathSymbol{N}     {\mathalpha}{letters}  {`N}
+\libus@MathSymbol{O}     {\mathalpha}{letters}  {`O}
+\libus@MathSymbol{P}     {\mathalpha}{letters}  {`P}
+\libus@MathSymbol{Q}     {\mathalpha}{letters}  {`Q}
+\libus@MathSymbol{R}     {\mathalpha}{letters}  {`R}
+\libus@MathSymbol{S}     {\mathalpha}{letters}  {`S}
+\libus@MathSymbol{T}     {\mathalpha}{letters}  {`T}
+\libus@MathSymbol{U}     {\mathalpha}{letters}  {`U}
+\libus@MathSymbol{V}     {\mathalpha}{letters}  {`V}
+\libus@MathSymbol{W}     {\mathalpha}{letters}  {`W}
+\libus@MathSymbol{X}     {\mathalpha}{letters}  {`X}
+\libus@MathSymbol{Y}     {\mathalpha}{letters}  {`Y}
+\libus@MathSymbol{Z}     {\mathalpha}{letters}  {`Z}
+\libus@MathSymbol{a}     {\mathalpha}{letters}  {`a}
+\libus@MathSymbol{b}     {\mathalpha}{letters}  {`b}
+\libus@MathSymbol{c}     {\mathalpha}{letters}  {`c}
+\libus@MathSymbol{d}     {\mathalpha}{letters}  {`d}
+\libus@MathSymbol{e}     {\mathalpha}{letters}  {`e}
+\libus@MathSymbol{f}     {\mathalpha}{letters}  {`f}
+\libus@MathSymbol{g}     {\mathalpha}{letters}  {`g}
+\libus@MathSymbol{h}     {\mathalpha}{letters}  {`h}
+\libus@MathSymbol{i}     {\mathalpha}{letters}  {`i}
+\libus@MathSymbol{j}     {\mathalpha}{letters}  {`j}
+\libus@MathSymbol{k}     {\mathalpha}{letters}  {`k}
+\libus@MathSymbol{l}     {\mathalpha}{letters}  {`l}
+\libus@MathSymbol{m}     {\mathalpha}{letters}  {`m}
+\libus@MathSymbol{n}     {\mathalpha}{letters}  {`n}
+\libus@MathSymbol{o}     {\mathalpha}{letters}  {`o}
+\libus@MathSymbol{p}     {\mathalpha}{letters}  {`p}
+\libus@MathSymbol{q}     {\mathalpha}{letters}  {`q}
+\libus@MathSymbol{r}     {\mathalpha}{letters}  {`r}
+\libus@MathSymbol{s}     {\mathalpha}{letters}  {`s}
+\libus@MathSymbol{t}     {\mathalpha}{letters}  {`t}
+\libus@MathSymbol{u}     {\mathalpha}{letters}  {`u}
+\libus@MathSymbol{v}     {\mathalpha}{letters}  {`v}
+\libus@MathSymbol{w}     {\mathalpha}{letters}  {`w}
+\libus@MathSymbol{x}     {\mathalpha}{letters}  {`x}
+\libus@MathSymbol{y}     {\mathalpha}{letters}  {`y}
+\libus@MathSymbol{z}     {\mathalpha}{letters}  {`z}
+\libus@MathSymbol{\imath}{\mathalpha}{letters}  {"7B}
+\libus@MathSymbol{\jmath}{\mathalpha}{letters}  {"7C}
+\libus@MathSymbol{\aleph} {\mathord}{letters}{"2A}
+\libus@MathSymbol{\beth}  {\mathord}{letters}{"2B}
+\libus@MathSymbol{\gimel} {\mathord}{letters}{"2C}
+\libus@MathSymbol{\daleth}{\mathord}{letters}{"2D}
+\libus@MathSymbol{\hbar}  {\mathord}{letters}{"60}
+\libus@MathSymbol{\hslash}{\mathord}{letters}{"3D}
+%%\libus@MathSymbol{\ell}       {\mathord}  {symbols}{`l}
+%\libus@MathSymbol{\wp}        {\mathord}  {symbols}{"7D}
+%\libus@MathSymbol{\Re}        {\mathord}  {symbols}{"7B}
+%\libus@MathSymbol{\Im}        {\mathord}  {symbols}{"7C}
+\libus@MathSymbol{-}          {\mathbin}  {operators}{"2A}
+\libus@MathSymbol{+}          {\mathbin}  {operators}{`+}
+\libus@MathSymbol{\pm}        {\mathbin}  {operators}{"2C}
+\libus@MathSymbol{\mp}        {\mathbin}  {operators}{"2D}
+\libus@MathSymbol{:}          {\mathrel}  {operators}{`:}
+\libus@MathSymbol{;}          {\mathpunct}{operators}{`;}
+\libus@MathSymbol{*}          {\mathrel}  {operators}{"3C}
+\libus@MathSymbol{\ast}       {\mathrel}  {operators}{"3C}
+\libus@MathSymbol{=}          {\mathrel}  {operators}{`=}
+\libus@MathSymbol{\mathdollar}{\mathord}  {operators}{"3E}
+\libus@MathSymbol{?}          {\mathclose}{operators}{`?}
+\libus@MathSymbol{!}          {\mathclose}{operators}{"40}
+\libus@MathSymbol{#}          {\mathord}  {operators}{"7D}
+\mathcode`\%="007E % can't use \libus@MathSymbol
+\libus@MathSymbol{&}          {\mathord}  {operators}{"99}
+\libus@MathSymbol{@}          {\mathord}  {operators}{"9A}
+\libus@MathSymbol{.}          {\mathord}  {letters}  {"3A}
+\libus@MathSymbol{\ldotp}     {\mathpunct}{letters}  {"3A}
+\libus@MathSymbol{,}          {\mathpunct}{letters}  {"3B}
+\libus@MathSymbol{\star}      {\mathbin}  {letters}  {"3F}
+\libus@MathSymbol{\flat}      {\mathord}  {letters}  {"5B}
+\libus@MathSymbol{\natural}   {\mathord}  {letters}  {"5C}
+\libus@MathSymbol{\sharp}     {\mathord}  {letters}  {"5D}
+\libus@MathSymbol{\smile}     {\mathrel}  {letters}  {"5E}
+\libus@MathSymbol{\frown}     {\mathrel}  {letters}  {"5F}
+\libus@MathSymbol{\triangleright} {\mathbin}{letters}{"2E}
+\libus@MathSymbol{\triangleleft}  {\mathbin}{letters}{"2F}
+
+\iflibus@frenchm
+  \let\alpha\alphaup
+  \let\beta\betaup
+  \let\gamma\gammaup
+  \let\delta\deltaup
+  \let\epsilon\epsilonup
+  \let\zeta\zetaup
+  \let\eta\etaup
+  \let\theta\thetaup
+  \let\iota\iotaup
+  \let\kappa\kappaup
+  \let\lambda\lambdaup
+  \let\mu\muup
+  \let\nu\nuup
+  \let\xi\xiup
+  \let\pi\piup
+  \let\rho\rhoup
+  \let\sigma\sigmaup
+  \let\tau\tauup
+  \let\upsilon\upsilonup
+  \let\phi\phiup
+  \let\chi\chiup
+  \let\psi\psiup
+  \let\omega\omegaup
+  \let\varepsilon\varepsilonup
+  \let\vartheta\varthetaup
+  \let\varpi\varpiup
+  \let\varrho\varrhoup
+  \let\varsigma\varsigmaup
+  \let\varphi\varphiup
+  \let\varkappa\varkappaup
+  \DeclareMathSymbol{A}{\mathalpha}{operators}{65}
+  \DeclareMathSymbol{B}{\mathalpha}{operators}{66}
+  \DeclareMathSymbol{C}{\mathalpha}{operators}{67}
+  \DeclareMathSymbol{D}{\mathalpha}{operators}{68}
+  \DeclareMathSymbol{E}{\mathalpha}{operators}{69}
+  \DeclareMathSymbol{F}{\mathalpha}{operators}{70}
+  \DeclareMathSymbol{G}{\mathalpha}{operators}{71}
+  \DeclareMathSymbol{H}{\mathalpha}{operators}{72}
+  \DeclareMathSymbol{I}{\mathalpha}{operators}{73}
+  \DeclareMathSymbol{J}{\mathalpha}{operators}{74}
+  \DeclareMathSymbol{K}{\mathalpha}{operators}{75}
+  \DeclareMathSymbol{L}{\mathalpha}{operators}{76}
+  \DeclareMathSymbol{M}{\mathalpha}{operators}{77}
+  \DeclareMathSymbol{N}{\mathalpha}{operators}{78}
+  \DeclareMathSymbol{O}{\mathalpha}{operators}{79}
+  \DeclareMathSymbol{P}{\mathalpha}{operators}{80}
+  \DeclareMathSymbol{Q}{\mathalpha}{operators}{81}
+  \DeclareMathSymbol{R}{\mathalpha}{operators}{82}
+  \DeclareMathSymbol{S}{\mathalpha}{operators}{83}
+  \DeclareMathSymbol{T}{\mathalpha}{operators}{84}
+  \DeclareMathSymbol{U}{\mathalpha}{operators}{85}
+  \DeclareMathSymbol{V}{\mathalpha}{operators}{86}
+  \DeclareMathSymbol{W}{\mathalpha}{operators}{87}
+  \DeclareMathSymbol{X}{\mathalpha}{operators}{88}
+  \DeclareMathSymbol{Y}{\mathalpha}{operators}{89}
+  \DeclareMathSymbol{Z}{\mathalpha}{operators}{90}
+\else
+    \let\alpha\alphait
+    \let\beta\betait
+    \let\gamma\gammait
+    \let\delta\deltait
+    \let\epsilon\epsilonit
+    \let\zeta\zetait
+    \let\eta\etait
+    \let\theta\thetait
+    \let\iota\iotait
+    \let\kappa\kappait
+    \let\lambda\lambdait
+    \let\mu\muit
+    \let\nu\nuit
+    \let\xi\xiit
+    \let\pi\piit
+    \let\rho\rhoit
+    \let\sigma\sigmait
+    \let\tau\tauit
+    \let\upsilon\upsilonit
+    \let\phi\phiit
+    \let\chi\chiit
+    \let\psi\psiit
+    \let\omega\omegait
+    \let\varepsilon\varepsilonit
+    \let\vartheta\varthetait
+    \let\varpi\varpiit
+    \let\varrho\varrhoit
+    \let\varsigma\varsigmait
+    \let\varphi\varphiit
+    \let\varkappa\varkappait
+\fi
+
+%\@ifpackageloaded{amsmath}{}{
+%    \libus@MathSymbol{\colon}      {\mathpunct}{operators}{`:}
+%}
+\libus@MathDelimiter{(}          {\mathopen} {operators}   {"2E}{largesymbols}{"00}
+\libus@MathDelimiter{)}          {\mathclose}{operators}   {"2F}{largesymbols}{"01}
+%\libus@MathDelimiter{\lParen}    {\mathopen} {largesymbols}{"DE}{largesymbols}{"02}
+%\libus@MathDelimiter{\rParen}    {\mathclose}{largesymbols}{"DF}{largesymbols}{"03}
+\libus@MathDelimiter{[}          {\mathopen} {operators}   {"5B}{largesymbols}{"04}
+\libus@MathDelimiter{]}          {\mathclose}{operators}   {"5D}{largesymbols}{"05}
+\libus@MathDelimiter{\lBrack}    {\mathopen} {largesymbols}{"E0}{largesymbols}{"E0} % was "06
+\let\dlb\lBrack
+\libus@MathDelimiter{\rBrack}    {\mathclose}{largesymbols}{"E1}{largesymbols}{"E1} % was 07
+\let\drb\rBrack
+\libus@MathDelimiter{\lfloor}    {\mathopen} {largesymbols}{"E2}{largesymbols}{"08}
+\libus@MathDelimiter{\rfloor}    {\mathclose}{largesymbols}{"E3}{largesymbols}{"09}
+\libus@MathDelimiter{\lceil}     {\mathopen} {largesymbols}{"E4}{largesymbols}{"0A}
+\libus@MathDelimiter{\rceil}     {\mathclose}{largesymbols}{"E5}{largesymbols}{"0B}
+\libus@MathDelimiter{\lmoustache}{\mathopen} {largesymbols}{"E6}{largesymbols}{"EC} % was "EC
+\libus@MathDelimiter{\rmoustache}{\mathclose}{largesymbols}{"E7}{largesymbols}{"ED} % was "ED
+\libus@MathDelimiter{\lbrace}    {\mathopen} {operators}   {"5E}{largesymbols}{"0C}
+\libus@MathDelimiter{\rbrace}    {\mathclose}{operators}   {"60}{largesymbols}{"0D}
+%\libus@MathDelimiter{\lBrace}    {\mathopen} {largesymbols}{"E8}{largesymbols}{"0E}
+%\libus@MathDelimiter{\rBrace}    {\mathclose}{largesymbols}{"E9}{largesymbols}{"0F}
+\libus@MathDelimiter{\langle}    {\mathopen} {largesymbols}{"EA}{largesymbols}{"10}
+\libus@MathDelimiter{\rangle}    {\mathclose}{largesymbols}{"EB}{largesymbols}{"11}
+\libus@MathDelimiter{<}          {\mathopen} {largesymbols}{"EA}{largesymbols}{"10}
+\libus@MathDelimiter{>}          {\mathclose}{largesymbols}{"EB}{largesymbols}{"11}
+\libus@MathSymbol   {<}          {\mathrel}  {letters}{"3C}
+\libus@MathSymbol   {>}          {\mathrel}  {letters}{"3E}
+%\libus@MathDelimiter{\lAngle}    {\mathopen} {largesymbols}{"EC}{largesymbols}{"12}
+%\libus@MathDelimiter{\rAngle}    {\mathclose}{largesymbols}{"ED}{largesymbols}{"13}
+%\libus@MathDelimiter{\lbrbrak}   {\mathopen} {largesymbols}{"EE}{largesymbols}{"14}
+%\libus@MathDelimiter{\rbrbrak}   {\mathclose}{largesymbols}{"EF}{largesymbols}{"15}
+\libus@MathDelimiter{/}          {\mathord}  {operators}   {"5F}{largesymbols}{"16}
+\libus@MathDelimiter{\backslash} {\mathord}  {operators}   {"5C}{largesymbols}{"17}
+\expandafter\DeclareMathDelimiter\@backslashchar{\mathord}{operators}{"5C}{largesymbols}{"17}
+\libus@MathDelimiter{\lgroup}    {\mathopen} {largesymbols}{"DC}{largesymbols}{"6A}
+\libus@MathDelimiter{\rgroup}    {\mathclose}{largesymbols}{"DD}{largesymbols}{"6B}
+\libus@MathDelimiter{\bracevert} {\mathord}  {largesymbols}{"6E}{largesymbols}{"6E}
+\libus@MathDelimiter{|}          {\mathord}  {largesymbols}{"F0}{largesymbols}{"F3}
+\libus@MathDelimiter{\vert}      {\mathord}  {largesymbols}{"F0}{largesymbols}{"F3}
+\libus@MathDelimiter{\Vert}      {\mathord}  {largesymbols}{"F1}{largesymbols}{"F4}
+        \let\|=\Vert
+\libus@MathDelimiter{\Vvert}     {\mathord}  {largesymbols}{"F2}{largesymbols}{"F5}
+%\@ifpackageloaded{amsmath}{
+    \libus@MathDelimiter{\lvert} {\mathopen}  {largesymbols}{"F0}{largesymbols}{"F3}
+    \libus@MathDelimiter{\rvert} {\mathclose} {largesymbols}{"F0}{largesymbols}{"F3}
+    \libus@MathDelimiter{\lVert} {\mathopen}  {largesymbols}{"F1}{largesymbols}{"F4}
+    \libus@MathDelimiter{\rVert} {\mathclose} {largesymbols}{"F1}{largesymbols}{"F4}
+%}{}
+\libus@MathDelimiter{\uparrow}    {\mathrel}{symbols}{"44}{symbols}{"44}
+\libus@MathDelimiter{\downarrow}  {\mathrel}{symbols}{"46}{symbols}{"46}
+\libus@MathDelimiter{\updownarrow}{\mathrel}{symbols}{"48}{symbols}{"48}
+\libus@MathDelimiter{\Uparrow}    {\mathrel}{symbols}{"F3}{symbols}{"F3}
+\libus@MathDelimiter{\Downarrow}  {\mathrel}{symbols}{"F5}{symbols}{"F5}
+\libus@MathDelimiter{\Updownarrow}{\mathrel}{symbols}{"F7}{symbols}{"F7}
+\libus@MathDelimiter{\arrowvert}  {\mathrel}{symbols}{"74}{symbols}{"74}
+\libus@MathDelimiter{\Arrowvert}  {\mathrel}{symbols}{"75}{symbols}{"74}
+\libus@MathRadical{\sqrtsign}    {largesymbols}{"F9}{largesymbols}{"74}
+%\libus@MathRadical{\longdivision}{largesymbols}{"FA}{largesymbols}{"FA}
+\def\surd{{\mathchar"13F9}}
+\libus@MathSymbol{\smallintsl}             {\mathop}{symbols}{"08}
+\libus@MathSymbol{\smalliintsl}            {\mathop}{symbols}{"09}
+\libus@MathSymbol{\smalliiintsl}           {\mathop}{symbols}{"0A}
+\libus@MathSymbol{\smallointsl}            {\mathop}{symbols}{"0B}
+\libus@MathSymbol{\smalloiintsl}           {\mathop}{symbols}{"8D}
+\libus@MathSymbol{\smalliiiintsl}          {\mathop}{symbols}{"0D}
+\libus@MathSymbol{\smallintup}             {\mathop}{symbols}{"03}
+\libus@MathSymbol{\smalliintup}            {\mathop}{symbols}{"04}
+\libus@MathSymbol{\smalliiintup}           {\mathop}{symbols}{"05}
+\libus@MathSymbol{\smallointup}            {\mathop}{symbols}{"06}
+\libus@MathSymbol{\smalloiintup}           {\mathop}{symbols}{"8C}
+%\libus@MathSymbol{\smalloiiintup}          {\mathop}{integrals}{"20}
+\libus@MathSymbol{\smalliiiintup}          {\mathop}{symbols}{"07}
+\libus@MathSymbol{\intslop}                {\mathop}{largesymbols}{"88}
+\libus@MathSymbol{\iintslop}               {\mathop}{largesymbols}{"8A}
+\libus@MathSymbol{\iiintslop}              {\mathop}{largesymbols}{"8C}
+\libus@MathSymbol{\ointslop}               {\mathop}{largesymbols}{"8E}
+\libus@MathSymbol{\oiintslop}              {\mathop}{largesymbols}{"93}
+\libus@MathSymbol{\iiiintslop}             {\mathop}{largesymbols}{"90}
+\libus@MathSymbol{\intupop}                {\mathop}{largesymbols}{"7E}
+\libus@MathSymbol{\iintupop}               {\mathop}{largesymbols}{"80}
+\libus@MathSymbol{\iiintupop}              {\mathop}{largesymbols}{"82}
+\libus@MathSymbol{\ointupop}               {\mathop}{largesymbols}{"84}
+\libus@MathSymbol{\oiintupop}              {\mathop}{largesymbols}{"92}
+\libus@MathSymbol{\iiiintupop}             {\mathop}{largesymbols}{"86}
+
+%\libus@MathSymbol{\circledS}               {\mathord}{integrals}{"3B}
+%\libus@MathSymbol{\diagdown}               {\mathord}{integrals}{"3C}
+%\libus@MathSymbol{\diagup}                 {\mathord}{integrals}{"3D}
+%\libus@MathSymbol{\eth}                    {\mathord}{integrals}{"3E}
+%\libus@MathSymbol{\smallfrown}             {\mathrel}{integrals}{"3F}
+%\libus@MathSymbol{\smallsmile}             {\mathrel}{integrals}{"40}
+%\libus@MathSymbol{\maltesemath}            {\mathord}{arrows3}{"83}
+%\libus@MathSymbol{\circledstar}            {\mathord}{arrows3}{"84}
+%\DeclareRobustCommand\yen{%
+%  \ifmmode\yenmath\else{\fontencoding{TS1}\selectfont\char"A5}\fi}
+%\DeclareRobustCommand\circledR{%
+%  \ifmmode\circledRmath\else{\fontencoding{TS1}\selectfont\char"AE}\fi}
+\DeclareRobustCommand\checkmark{\ensuremath{\checkmarkmath}}
+%\DeclareRobustCommand\maltese{\ensuremath{\maltesemath}}
+\iflibus@upint
+    \let\smallint=\smallintup
+    \let\smalliint=\smalliintup
+    \let\smalliiint=\smalliiintup
+    \let\smalloint=\smallointup
+    \let\smalloiint=\smalloiintup
+    \let\smalliiiint=\smalliiiintup
+    \let\intop=\intupop
+    \let\iintop=\iintupop
+    \let\iiintop=\iiintupop
+    \let\ointop=\ointupop
+    \let\oiintop=\oiintupop
+    \let\iiiintop=\iiiintupop
+\else
+    \let\smallint=\smallintsl
+    \let\smalliint=\smalliintsl
+    \let\smalliiint=\smalliiintsl
+    \let\smalloint=\smallointsl
+    \let\smalloiint=\smalloiintsl
+    \let\smalliiiint=\smalliiiintsl
+    \let\intop=\intslop
+    \let\iintop=\iintslop
+    \let\iiintop=\iiintslop
+    \let\ointop=\ointslop
+    \let\oiintop=\oiintslop
+    \let\iiiintop=\iiiintslop
+\fi
+\def\int{\DOTSI\intop\ilimits@}
+\def\iint{\DOTSI\iintop\ilimits@}
+\def\iiint{\DOTSI\iiintop\ilimits@}
+\def\oint{\DOTSI\ointop\ilimits@}
+\def\oiint{\DOTSI\oiintop\ilimits@}
+\def\iiiint{\DOTSI\iiiintop\ilimits@}
+%\def\iintup{\DOTSI\iintupop\ilimits@}
+%\def\iiintup{\DOTSI\iiintupop\ilimits@}
+%\def\ointup{\DOTSI\ointupop\ilimits@}
+%\def\oiintup{\DOTSI\oiintupop\ilimits@}
+%\def\oiiintup{\DOTSI\oiiintupop\ilimits@}
+%\libus@MathSymbol{\Bbbsumop}               {\mathop}{largesymbols}{"B0}
+\libus@MathSymbol{\prodop}                 {\mathop}{largesymbols}{"B1}
+\libus@MathSymbol{\coprodop}               {\mathop}{largesymbols}{"B2}
+\libus@MathSymbol{\sumop}                  {\mathop}{largesymbols}{"B3}
+\libus@MathSymbol{\bigwedgeop}             {\mathop}{largesymbols}{"B4}
+\libus@MathSymbol{\bigveeop}               {\mathop}{largesymbols}{"B5}
+\libus@MathSymbol{\bigcapop}               {\mathop}{largesymbols}{"B6}
+\libus@MathSymbol{\bigcupop}               {\mathop}{largesymbols}{"B7}
+\libus@MathSymbol{\xsolop}                 {\mathop}{largesymbols}{"B8}
+\libus@MathSymbol{\xbsolop}                {\mathop}{largesymbols}{"B9}
+\libus@MathSymbol{\bigodotop}              {\mathop}{largesymbols}{"BA}
+\libus@MathSymbol{\bigoplusop}             {\mathop}{largesymbols}{"BB}
+\libus@MathSymbol{\bigotimesop}            {\mathop}{largesymbols}{"BC}
+\libus@MathSymbol{\bigcupdotop}            {\mathop}{largesymbols}{"BD}
+\libus@MathSymbol{\biguplusop}             {\mathop}{largesymbols}{"BE}
+\libus@MathSymbol{\bigsqcapop}             {\mathop}{largesymbols}{"BF}
+\libus@MathSymbol{\bigsqcupop}             {\mathop}{largesymbols}{"C0}
+%\def\Bbbsum{\DOTSI\Bbbsumop\slimits@}
+\def\prod{\DOTSI\prodop\slimits@}
+\def\coprod{\DOTSI\coprodop\slimits@}
+\def\sum{\DOTSI\sumop\slimits@}
+\def\bigwedge{\DOTSI\bigwedgeop\slimits@}
+\def\bigvee{\DOTSI\bigveeop\slimits@}
+\def\bigcap{\DOTSI\bigcapop\slimits@}
+\def\bigcup{\DOTSI\bigcupop\slimits@}
+\def\xsol{\DOTSI\xsolop\slimits@}
+\def\xbsol{\DOTSI\xbsolop\slimits@}
+\def\bigodot{\DOTSI\bigodotop\slimits@}
+\def\bigoplus{\DOTSI\bigoplusop\slimits@}
+\def\bigotimes{\DOTSI\bigotimesop\slimits@}
+\def\bigcupdot{\DOTSI\bigcupdotop\slimits@}
+\def\biguplus{\DOTSI\biguplusop\slimits@}
+\def\bigsqcap{\DOTSI\bigsqcapop\slimits@}
+\def\bigsqcup{\DOTSI\bigsqcupop\slimits@}
+\libus@MathAccent{\grave}                {\mathalpha}{letters}{"80}
+\libus@MathAccent{\acute}                {\mathalpha}{letters}{"81}
+\libus@MathAccent{\hat}                  {\mathalpha}{letters}{"82}
+\libus@MathAccent{\tilde}                {\mathalpha}{letters}{"83}
+\libus@MathAccent{\bar}                  {\mathalpha}{letters}{"84}
+\libus@MathAccent{\breve}                {\mathalpha}{letters}{"85}
+\libus@MathAccent{\dot}                  {\mathalpha}{letters}{"86}
+\libus@MathAccent{\ddot}                 {\mathalpha}{letters}{"87}
+\libus@MathAccent{\ovhook}               {\mathalpha}{letters}{"88}
+\libus@MathAccent{\mathring}             {\mathalpha}{letters}{"89}
+\libus@MathAccent{\check}                {\mathalpha}{letters}{"8A}
+\libus@MathAccent{\candra}               {\mathalpha}{letters}{"8B}
+\libus@MathAccent{\oturnedcomma}         {\mathalpha}{letters}{"8C}
+\libus@MathAccent{\ocommatopright}       {\mathalpha}{letters}{"8D}
+\libus@MathAccent{\droang}               {\mathalpha}{letters}{"8E}
+\libus@MathAccent{\leftharpoonaccent}    {\mathalpha}{letters}{"8F}
+\libus@MathAccent{\rightharpoonaccent}   {\mathalpha}{letters}{"90}
+\libus@MathAccent{\leftarrowaccent}      {\mathalpha}{letters}{"91}
+\libus@MathAccent{\vec}                  {\mathalpha}{letters}{"92}
+        % not \let because amsmath redefines \vec
+        \def\rightarrowaccent{\vec}
+\libus@MathAccent{\dddot}                {\mathalpha}{letters}{"93}
+\libus@MathAccent{\ddddot}               {\mathalpha}{letters}{"94}
+\libus@MathAccent{\leftrightarrowaccent} {\mathalpha}{letters}{"95}
+\libus@MathAccent{\annuity}              {\mathalpha}{letters}{"96}
+\libus@MathAccent{\widebridgeabove}      {\mathalpha}{letters}{"97}
+\libus@MathAccent{\asteraccent}          {\mathalpha}{letters}{"98}
+\begingroup
+  \def\set@mathaccent#1#2#3#4{%
+      \xdef#2{\mathaccent"\mathchar@type#3\hexnumber@#1#4\relax}}
+  %\libus@MathAccent{\widehat}            {\mathord}{letters}{"9A}
+  %\libus@MathAccent{\widetilde}          {\mathord}{letters}{"9B}
+  %\libus@MathAccent{\widecheck}          {\mathord}{letters}{"9C}
+%temporary, perhaps
+\xdef\widehat#1{\mathaccent"0\hexnumber@\symletters 9A{#1}}
+\xdef\widetilde#1{\mathaccent"0\hexnumber@\symletters 9B{#1}}
+\xdef\widecheck#1{\mathaccent"0\hexnumber@\symletters 9C{#1}}
+
+\endgroup
+\libus@MathSymbol{\braceld}{\mathord}{letters}{"A9}
+\libus@MathSymbol{\bracerd}{\mathord}{letters}{"AA}
+\libus@MathSymbol{\bracelu}{\mathord}{letters}{"AB}
+\libus@MathSymbol{\braceru}{\mathord}{letters}{"AC}
+\libus@MathSymbol{\braceex}{\mathord}{letters}{"AD}
+\libus@MathSymbol{\bracemu}{\mathord}{letters}{"AE}
+\libus@MathSymbol{\bracemd}{\mathord}{letters}{"AF}
+\libus@MathSymbol{\parenld}{\mathord}{letters}{"B0}
+\libus@MathSymbol{\parenrd}{\mathord}{letters}{"B1}
+\libus@MathSymbol{\parenlu}{\mathord}{letters}{"B2}
+\libus@MathSymbol{\parenru}{\mathord}{letters}{"B3}
+\libus@MathSymbol{\bracketld}{\mathord}{letters}{"B4}
+\libus@MathSymbol{\bracketrd}{\mathord}{letters}{"B5}
+\libus@MathSymbol{\bracketlu}{\mathord}{letters}{"B6}
+\libus@MathSymbol{\bracketru}{\mathord}{letters}{"B7}
+\libus@MathSymbol{\bracketex}{\mathord}{symbols}{"89}
+\libus@MathSymbol{\parenex}{\mathord}{symbols}{"8A}
+\def\libus@braceglue{\hskip -.1em plus .05em}
+\def\downbracefill{$\m@th%
+    \braceld\libus@braceglue%
+    \cleaders\hbox{$\braceex$}\hfill%
+    \libus@braceglue\bracemu\libus@braceglue%
+    \cleaders\hbox{$\braceex$}\hfill%
+    \libus@braceglue\bracerd$}
+\def\upbracefill{$\m@th%
+    \bracelu\libus@braceglue%
+    \cleaders\hbox{$\braceex$}\hfill%
+    \libus@braceglue\bracemd\libus@braceglue%
+    \cleaders\hbox{$\braceex$}\hfill%
+    \libus@braceglue\braceru$}
+\def\libus@parenglue{\hskip -.15em plus .05em}
+\def\downparenfill{$\m@th%
+    \parenld\libus@parenglue%
+    \cleaders\hbox{$\parenex$}\hfill%
+    \libus@parenglue\parenrd$}
+\def\upparenfill{$\m@th%
+    \parenlu\libus@parenglue%
+    \cleaders\hbox{$\parenex$}\hfill%
+    \libus@parenglue\parenru$}
+\def\libus@overbrace#1#2{%
+    \mathop {%
+        \vbox {%
+            \m@th%
+            \ialign{##\crcr%
+                \noalign{\kern.3\fontdimen5\textfont2}%
+                    \csname down#1fill\endcsname\crcr%
+                \noalign{\kern.5\fontdimen5\textfont2\nointerlineskip}%
+                $\hfil\displaystyle{#2}\hfil$\crcr%
+            }%
+        }%
+    }%
+    \limits%
+}
+\def\libus@underbrace#1#2{
+    \mathop {%
+        \vtop {%
+            \m@th%
+            \ialign{##\crcr%
+                $\hfil\displaystyle{#2}\hfil$\crcr%
+                \noalign{\kern.5\fontdimen5\textfont2\nointerlineskip}%
+                \csname up#1fill\endcsname\crcr%
+                \noalign{\kern.3\fontdimen5\textfont2}%
+            }%
+        }%
+    }%
+    \limits%
+}
+\def\overbrace#1{\libus@overbrace{brace}{#1}}
+\def\overparen#1{\libus@overbrace{paren}{#1}}
+\def\underbrace#1{\libus@underbrace{brace}{#1}}
+\def\underparen#1{\libus@underbrace{paren}{#1}}
+\AtBeginDocument{
+    \@ifpackageloaded{mathtools}{}{
+        \def\libus@bracketglue{\hskip -.85em plus .85em}
+        \def\downbracketfill{$\m@th%
+            \bracketld\libus@bracketglue%
+            \cleaders\hbox{$\bracketex$}\hfill%
+            \libus@bracketglue\bracketrd$}
+        \def\upbracketfill{$\m@th%
+            \bracketlu\libus@bracketglue%
+            \cleaders\hbox{$\bracketex$}\hfill%
+            \libus@bracketglue\bracketru$}
+        \def\underbracket#1{\libus@underbrace{bracket}{#1}}
+        \def\overbracket#1{\libus@overbrace{bracket}{#1}}
+    }
+}
+
+%%%%%%%%%%% Begin removed code in favor of ams
+%\libus@MathSymbol{\arrowaccentex}  {\mathord}{letters}{"99}
+%\libus@MathSymbol{\harpoonaccentlt}{\mathord}{letters}{"8F}
+%\libus@MathSymbol{\harpoonaccentrt}{\mathord}{letters}{"90}
+%\libus@MathSymbol{\arrowaccentlt}  {\mathord}{letters}{"91}
+%\libus@MathSymbol{\arrowaccentrt}  {\mathord}{letters}{"92}
+%\def\libus@arrowaccentglue{\hskip -.23em plus .01em}
+%\def\overleftarrowfill{$\m@th%
+%    \arrowaccentlt\libus@arrowaccentglue%
+%    \cleaders\hbox{$\arrowaccentex$}\hfill$}
+%\def\overrightarrowfill{$\m@th%
+%    \cleaders\hbox{$\arrowaccentex$}\hfill%
+%    \libus@arrowaccentglue\arrowaccentrt$}
+%\def\overleftrightarrowfill{$\m@th%
+%    \arrowaccentlt\libus@arrowaccentglue%
+%    \cleaders\hbox{$\arrowaccentex$}\hfill%
+%    \libus@arrowaccentglue\arrowaccentrt$}
+%\def\overleftharpoonfill{$\m@th%
+%    \harpoonaccentlt\libus@arrowaccentglue%
+%    \cleaders\hbox{$\arrowaccentex$}\hfill$}
+%\def\overrightharpoonfill{$\m@th%
+%   \cleaders\hbox{$\arrowaccentex$}\hfill%
+%   \libus@arrowaccentglue\harpoonaccentrt$}
+%\def\libus@overarrow#1#2#3{%
+%    \vbox {%
+%        \m@th%
+%        \ialign{##\crcr%
+%            \csname over#1fill\endcsname\crcr%
+%            \noalign{\kern -1ex\nointerlineskip}%
+%            $\hfil#2#3\hfil$\crcr%
+%        }%
+%    }%
+%}
+%\def\libus@underarrow#1#2#3{
+%    \vtop {%
+%        \m@th%
+%        \ialign{##\crcr%
+%            $\hfil#2#3\hfil$\crcr%
+%            \noalign{\kern .2ex\nointerlineskip}%
+%            \csname over#1fill\endcsname\crcr%
+%            \noalign{\kern -1ex\nointerlineskip}%
+%        }%
+%    }%
+%}
+%\def\overleftarrow{\mathpalette{\libus@overarrow{leftarrow}}}
+%\def\overrightarrow{\mathpalette{\libus@overarrow{rightarrow}}}
+%\def\overleftrightarrow{\mathpalette{\libus@overarrow{leftrightarrow}}}
+%\def\overleftharpoon{\mathpalette{\libus@overarrow{leftharpoon}}}
+%\def\overrightharpoon{\mathpalette{\libus@overarrow{rightharpoon}}}
+%\def\underleftarrow{\mathpalette{\libus@underarrow{leftarrow}}}
+%\def\underrightarrow{\mathpalette{\libus@underarrow{rightarrow}}}
+%\def\underleftrightarrow{\mathpalette{\libus@underarrow{leftrightarrow}}}
+%\def\underleftharpoon{\mathpalette{\libus@underarrow{leftharpoon}}}
+%\def\underrightharpoon{\mathpalette{\libus@underarrow{rightharpoon}}}
+%%%%%%%%end removed in favor of amsmath version
+
+%\libus@MathSymbol{\lhook}                    {\mathrel}{arrows1}{"2A}
+%\libus@MathSymbol{\rhook}                    {\mathrel}{arrows1}{"2B}
+%\libus@MathSymbol{\relbar}                   {\mathrel}{arrows1}{"2C}
+%\libus@MathSymbol{\Relbar}                   {\mathrel}{arrows1}{"2D}
+%\libus@MathSymbol{\Rrelbar}                  {\mathrel}{arrows1}{"2E}
+%\libus@MathSymbol{\RRelbar}                  {\mathrel}{arrows1}{"2F}
+%
+%\libus@MathSymbol{\mapsfromchar}             {\mathrel}{arrows1}{"3A}
+%\libus@MathSymbol{\mapstochar}               {\mathrel}{arrows1}{"3B}
+%\libus@MathSymbol{\leftarrow}                {\mathrel}{arrows1}{"7D} \let\gets=\leftarrow
+%\libus@MathSymbol{\rightarrow}               {\mathrel}{arrows1}{"99} \let\to=\rightarrow
+\libus@MathSymbol{\neg}                      {\mathord}{operators}{"9B} \let\lnot=\neg
+\libus@MathSymbol{\cdotp}                    {\mathbin}{operators}{"9C} \let\centerdot=\cdotp
+\libus@MathSymbol{\times}                    {\mathbin}{operators}{"9D}
+\libus@MathSymbol{\preceq}                   {\mathrel}{operators}{"9E}
+\libus@MathSymbol{\div}                      {\mathbin}{operators}{"9F}
+
+\libus@MathSymbol{\Zbar}                     {\mathord}{operators}{"A0}
+\libus@MathSymbol{\notchar}                  {\mathrel}{operators}{"A1}
+\libus@MathSymbol{\upbackepsilon}            {\mathord}{operators}{"A2}
+\libus@MathSymbol{\dagger}                   {\mathbin}{operators}{"A3}
+\libus@MathSymbol{\ddagger}                  {\mathbin}{operators}{"A4}
+\libus@MathSymbol{\smblkcircle}              {\mathbin}{operators}{"A5}
+\libus@MathSymbol{\enleadertwodots}          {\mathord}{operators}{"A6}
+\libus@MathSymbol{\unicodeellipsis}          {\mathord}{operators}{"A7} \def\mathellipsis{\mathinner{\unicodeellipsis}}
+\libus@MathSymbol{\prime}                    {\mathord}{operators}{"A8}
+\libus@MathSymbol{\dprime}                   {\mathord}{operators}{"A9}
+\libus@MathSymbol{\trprime}                  {\mathord}{operators}{"AA}
+\libus@MathSymbol{\backprime}                {\mathord}{operators}{"AB}
+\libus@MathSymbol{\backdprime}               {\mathord}{operators}{"AC}
+\libus@MathSymbol{\backtrprime}              {\mathord}{operators}{"AD}
+\libus@MathSymbol{\caretinsert}              {\mathord}{operators}{"AE}
+\libus@MathSymbol{\Exclam}                   {\mathord}{operators}{"AF}
+
+\libus@MathSymbol{\hyphenbullet}             {\mathord}{operators}{"B0}
+\libus@MathSymbol{\fracslash}                {\mathbin}{operators}{"B1}
+\libus@MathSymbol{\Question}                 {\mathord}{operators}{"B2}
+\libus@MathSymbol{\closure}                  {\mathrel}{operators}{"B3}
+\libus@MathSymbol{\qprime}                   {\mathord}{operators}{"B4}
+\libus@MathSymbol{\vertoverlay}              {\mathrel}{operators}{"B5}
+\libus@MathSymbol{\enclosecircle}            {\mathord}{operators}{"B6}
+\libus@MathSymbol{\enclosesquare}            {\mathord}{operators}{"B7}
+\libus@MathSymbol{\asymp}                    {\mathrel}{operators}{"B8}
+%\libus@MathSymbol{\enclosediamond}           {\mathord}{operators}{"B8}
+\libus@MathSymbol{\enclosetriangle}          {\mathord}{operators}{"B9}
+\libus@MathSymbol{\Eulerconst}               {\mathord}{operators}{"BA}
+\libus@MathSymbol{\mho}                      {\mathord}{operators}{"BB}
+\libus@MathSymbol{\turnediota}               {\mathord}{operators}{"BC}
+\libus@MathSymbol{\Angstrom}                 {\mathord}{operators}{"BD}
+\libus@MathSymbol{\Finv}                     {\mathord}{operators}{"BE}
+\libus@MathSymbol{\Game}                     {\mathord}{operators}{"BF}
+
+\libus@MathSymbol{\sansLturned}              {\mathord}{operators}{"C0}
+\libus@MathSymbol{\sansLmirrored}            {\mathord}{operators}{"C1}
+\libus@MathSymbol{\Yup}                      {\mathord}{operators}{"C2}
+%\libus@MathSymbol{\PropertyLine}             {\mathord}{operators}{"C3}
+\libus@MathSymbol{\upand}                    {\mathbin}{operators}{"C4}
+\libus@MathSymbol{\forall}                   {\mathord}{operators}{"C5}
+\libus@MathSymbol{\complement}               {\mathord}{operators}{"C6}
+\libus@MathSymbol{\exists}                   {\mathord}{operators}{"C7}
+\libus@MathSymbol{\nexists}                  {\mathord}{operators}{"C8}
+\libus@MathSymbol{\varnothing}               {\mathord}{operators}{"C9}
+\libus@MathSymbol{\increment}                {\mathord}{operators}{"CA}
+\libus@MathSymbol{\in}                       {\mathrel}{operators}{"CB}
+\libus@MathSymbol{\notin}                    {\mathrel}{operators}{"CC}
+\libus@MathSymbol{\smallin}                  {\mathrel}{operators}{"CD}
+\libus@MathSymbol{\ni}                       {\mathrel}{operators}{"CE} \let\owns=\ni
+\libus@MathSymbol{\nni}                      {\mathrel}{operators}{"CF}
+
+\libus@MathSymbol{\smallni}                  {\mathrel}{operators}{"D0}
+\libus@MathSymbol{\QED}                      {\mathord}{operators}{"D1}
+\libus@MathSymbol{\dotplus}                  {\mathbin}{operators}{"D2}
+\libus@MathSymbol{\succeq}                   {\mathrel}{operators}{"D3}
+\libus@MathSymbol{\smallsetminus}            {\mathbin}{operators}{"D4}
+\libus@MathSymbol{\vysmwhtcircle}            {\mathbin}{operators}{"D5}
+\libus@MathSymbol{\vysmblkcircle}            {\mathbin}{operators}{"D6} \let\bullet=\vysmblkcircle
+\libus@MathSymbol{\propto}                   {\mathrel}{operators}{"D7}
+\libus@MathSymbol{\infty}                    {\mathord}{operators}{"D8}
+\libus@MathSymbol{\rightangle}               {\mathord}{operators}{"D9}
+\libus@MathSymbol{\angle}                    {\mathord}{operators}{"DA}
+\libus@MathSymbol{\measuredangle}            {\mathord}{operators}{"DB}
+\libus@MathSymbol{\sphericalangle}           {\mathord}{operators}{"DC}
+\libus@MathSymbol{\mid}                      {\mathrel}{operators}{"DD}
+\libus@MathSymbol{\nmid}                     {\mathrel}{operators}{"DE}
+\libus@MathSymbol{\parallel}                 {\mathrel}{operators}{"DF}
+
+\libus@MathSymbol{\nparallel}                {\mathrel}{operators}{"E0}
+\libus@MathSymbol{\wedge}                    {\mathbin}{operators}{"E1} \let\land=\wedge
+\libus@MathSymbol{\vee}                      {\mathbin}{operators}{"E2} \let\lor=\vee
+\libus@MathSymbol{\cap}                      {\mathbin}{operators}{"E3}
+\libus@MathSymbol{\cup}                      {\mathbin}{operators}{"E4}
+\libus@MathSymbol{\therefore}                {\mathord}{operators}{"E5}
+\libus@MathSymbol{\because}                  {\mathord}{operators}{"E6}
+\libus@MathSymbol{\emptyset}                 {\mathord}{operators}{"E7}
+\libus@MathSymbol{\Colon}                    {\mathrel}{operators}{"E8}
+\libus@MathSymbol{\dotminus}                 {\mathbin}{operators}{"E9}
+\libus@MathSymbol{\dashcolon}                {\mathrel}{operators}{"EA}
+\libus@MathSymbol{\dotsminusdots}            {\mathrel}{operators}{"EB}
+\libus@MathSymbol{\kernelcontraction}        {\mathrel}{operators}{"EC}
+\libus@MathSymbol{\sim}                      {\mathrel}{operators}{"ED} \libus@MathSymbol{\thicksim}{\mathrel}{bold-operators}{"ED}
+\libus@MathSymbol{\backsim}                  {\mathrel}{operators}{"EE}
+\libus@MathSymbol{\invlazys}                 {\mathbin}{operators}{"EF}
+
+\libus@MathSymbol{\sinewave}                 {\mathord}{operators}{"F0}
+\libus@MathSymbol{\wr}                       {\mathbin}{operators}{"F1}
+\libus@MathSymbol{\nsim}                     {\mathrel}{operators}{"F2}
+\libus@MathSymbol{\eqsim}                    {\mathrel}{operators}{"F3}
+\libus@MathSymbol{\simeq}                    {\mathrel}{operators}{"F4}
+\libus@MathSymbol{\nsime}                    {\mathrel}{operators}{"F5}
+\libus@MathSymbol{\cong}                     {\mathrel}{operators}{"F6}
+\libus@MathSymbol{\simneqq}                  {\mathrel}{operators}{"F7}
+\libus@MathSymbol{\ncong}                    {\mathrel}{operators}{"F8}
+\libus@MathSymbol{\approx}                   {\mathrel}{operators}{"F9} \libus@MathSymbol{\thickapprox}			{\mathrel}{bold-operators}{"F9}
+\libus@MathSymbol{\napprox}                  {\mathrel}{operators}{"FA}
+\libus@MathSymbol{\approxeq}                 {\mathrel}{operators}{"FB}
+\libus@MathSymbol{\approxident}              {\mathrel}{operators}{"FC}
+\libus@MathSymbol{\backcong}                 {\mathrel}{operators}{"FD}
+%\libus@MathSymbol{\upvarkappa}               {\mathrel}{operators}{"FE}
+\libus@MathSymbol{\Bumpeq}                   {\mathrel}{operators}{"FF}
+
+\libus@MathSymbol{\lneqq}                    {\mathrel}{letters}{"40}
+\libus@MathSymbol{\gneqq}                    {\mathrel}{letters}{"7D}
+\libus@MathSymbol{\ll}                       {\mathrel}{letters}{"7E}
+\libus@MathSymbol{\gg}                       {\mathrel}{letters}{"B8}
+\libus@MathSymbol{\between}                  {\mathrel}{letters}{"B9}
+\libus@MathSymbol{\nasymp}                   {\mathrel}{letters}{"BA}
+\libus@MathSymbol{\nless}                    {\mathrel}{letters}{"BB}
+\libus@MathSymbol{\ngtr}                     {\mathrel}{letters}{"BC}
+\libus@MathSymbol{\nleq}                     {\mathrel}{letters}{"BD}
+\libus@MathSymbol{\ngeq}                     {\mathrel}{letters}{"BE}
+\libus@MathSymbol{\lesssim}                  {\mathrel}{letters}{"BF}
+\libus@MathSymbol{\gtrsim}                   {\mathrel}{letters}{"C0}
+\libus@MathSymbol{\nlesssim}                 {\mathrel}{letters}{"C1}
+\libus@MathSymbol{\ngtrsim}                  {\mathrel}{letters}{"C2}
+\libus@MathSymbol{\lessgtr}                  {\mathrel}{letters}{"C3}
+\libus@MathSymbol{\gtrless}                  {\mathrel}{letters}{"C4}
+\libus@MathSymbol{\nlessgtr}                 {\mathrel}{letters}{"C5}
+\libus@MathSymbol{\ngtrless}                 {\mathrel}{letters}{"C6}
+\libus@MathSymbol{\prec}                     {\mathrel}{letters}{"C7}
+\libus@MathSymbol{\succ}                     {\mathrel}{letters}{"C8}
+\libus@MathSymbol{\preccurlyeq}              {\mathrel}{letters}{"C9}
+\libus@MathSymbol{\succcurlyeq}              {\mathrel}{letters}{"CA}
+\libus@MathSymbol{\precsim}                  {\mathrel}{letters}{"CB}
+\libus@MathSymbol{\succsim}                  {\mathrel}{letters}{"CC}
+\libus@MathSymbol{\nprec}                    {\mathrel}{letters}{"CD}
+\libus@MathSymbol{\nsucc}                    {\mathrel}{letters}{"CE}
+\libus@MathSymbol{\subset}                   {\mathrel}{letters}{"CF}
+\libus@MathSymbol{\supset}                   {\mathrel}{letters}{"D0}
+\libus@MathSymbol{\nsubset}                  {\mathrel}{letters}{"D1}
+\libus@MathSymbol{\nsupset}                  {\mathrel}{letters}{"D2}
+\libus@MathSymbol{\subseteq}                 {\mathrel}{letters}{"D3}
+\libus@MathSymbol{\supseteq}                 {\mathrel}{letters}{"D4}
+\libus@MathSymbol{\nsubseteq}                {\mathrel}{letters}{"D5}
+\libus@MathSymbol{\nsupseteq}                {\mathrel}{letters}{"D6}
+\libus@MathSymbol{\subsetneq}                {\mathrel}{letters}{"D7}
+\libus@MathSymbol{\supsetneq}                {\mathrel}{letters}{"D8}
+\libus@MathSymbol{\cupleftarrow}             {\mathbin}{letters}{"D9}
+\libus@MathSymbol{\cupdot}                   {\mathbin}{letters}{"DA}
+\libus@MathSymbol{\uplus}                    {\mathbin}{letters}{"DB}
+\libus@MathSymbol{\sqsubset}                 {\mathrel}{letters}{"DC}
+\libus@MathSymbol{\sqsupset}                 {\mathrel}{letters}{"DD}
+\libus@MathSymbol{\sqsubseteq}               {\mathrel}{letters}{"DE}
+\libus@MathSymbol{\sqsupseteq}               {\mathrel}{letters}{"DF}
+\libus@MathSymbol{\sqcap}                    {\mathbin}{letters}{"E0}
+\libus@MathSymbol{\sqcup}                    {\mathbin}{letters}{"E1}
+\libus@MathSymbol{\oplus}                    {\mathbin}{letters}{"E2}
+\libus@MathSymbol{\ominus}                   {\mathbin}{letters}{"E3}
+\libus@MathSymbol{\otimes}                   {\mathbin}{letters}{"E4}
+\libus@MathSymbol{\oslash}                   {\mathbin}{letters}{"E5}
+\libus@MathSymbol{\odot}                     {\mathbin}{letters}{"E6}
+\libus@MathSymbol{\circledcirc}              {\mathbin}{letters}{"E7}
+\libus@MathSymbol{\circledast}               {\mathbin}{letters}{"E8}
+\libus@MathSymbol{\circledequal}             {\mathbin}{letters}{"E9}
+\libus@MathSymbol{\circleddash}              {\mathbin}{letters}{"EA}
+\libus@MathSymbol{\boxplus}                  {\mathbin}{letters}{"EB}
+\libus@MathSymbol{\boxminus}                 {\mathbin}{letters}{"EC}
+\libus@MathSymbol{\boxtimes}                 {\mathbin}{letters}{"ED}
+\libus@MathSymbol{\boxdot}                   {\mathbin}{letters}{"EE}
+\libus@MathSymbol{\vdash}                    {\mathrel}{letters}{"EF}
+\libus@MathSymbol{\dashv}                    {\mathrel}{letters}{"F0}
+\libus@MathSymbol{\top}                      {\mathord}{letters}{"F1}
+\libus@MathSymbol{\bot}                      {\mathord}{letters}{"F2}
+\libus@MathSymbol{\assert}                   {\mathrel}{letters}{"F3}
+\libus@MathSymbol{\models}                   {\mathrel}{letters}{"F4}
+\libus@MathSymbol{\vDash}                    {\mathrel}{letters}{"F5}
+\libus@MathSymbol{\Vdash}                    {\mathrel}{letters}{"F6}
+\libus@MathSymbol{\Vvdash}                   {\mathrel}{letters}{"F7}
+\libus@MathSymbol{\VDash}                    {\mathrel}{letters}{"F8}
+\libus@MathSymbol{\nvdash}                   {\mathrel}{letters}{"F9}
+\libus@MathSymbol{\nvDash}                   {\mathrel}{letters}{"FA}
+\libus@MathSymbol{\nVdash}                   {\mathrel}{letters}{"FB}
+\libus@MathSymbol{\nVDash}                   {\mathrel}{letters}{"FC}
+\libus@MathSymbol{\prurel}                   {\mathrel}{letters}{"FD}
+%\libus@MathSymbol{\varkappait}                 {\mathrel}{letters}{"FE}
+%\libus@MathSymbol{\scurel}                   {\mathrel}{letters}{"FE}
+\libus@MathSymbol{\trianglelefteq}           {\mathrel}{letters}{"FF}
+\libus@MathSymbol{\unlhd}                    {\mathbin}{letters}{"FF}
+%symbols
+\libus@MathSymbol{\trianglerighteq}          {\mathrel}{symbols}{"00}
+\libus@MathSymbol{\unrhd}                    {\mathbin}{symbols}{"00}
+\libus@MathSymbol{\origof}                   {\mathrel}{symbols}{"01}
+% Small integrals are in "03.."0B, "0D
+\libus@MathSymbol{\cdot}                     {\mathbin}{symbols}{"0C}
+\libus@MathSymbol{\bowtie}                   {\mathrel}{symbols}{"0E}
+\libus@MathSymbol{\ltimes}                   {\mathbin}{symbols}{"0F}
+\libus@MathSymbol{\rtimes}                   {\mathbin}{symbols}{"10}
+%\libus@MathSymbol{\smallintsl}             {\mathop}{symbols}{"08}
+\libus@MathSymbol{\smallprod}             {\mathop}{symbols}{"11}
+\libus@MathSymbol{\smallcoprod}             {\mathop}{symbols}{"12}
+\let\amalg\smallcoprod
+\libus@MathSymbol{\backsimeq}                {\mathrel}{symbols}{"13}
+\libus@MathSymbol{\curlyvee}                 {\mathbin}{symbols}{"14}
+\libus@MathSymbol{\curlywedge}               {\mathbin}{symbols}{"15}
+\libus@MathSymbol{\smallsum}                   {\mathop}{symbols}{"16}
+\libus@MathSymbol{\perp}                   {\mathrel}{symbols}{"17}
+\libus@MathSymbol{\Hfraktur}             {\mathord}{symbols}{"18}
+\libus@MathSymbol{\setminus}             {\mathbin}{symbols}{"19}
+\libus@MathSymbol{\dsol}             {\mathbin}{symbols}{"1A}
+\libus@MathSymbol{\rsolbar}             {\mathbin}{symbols}{"1B}
+\libus@MathSymbol{\lessdot}                  {\mathrel}{symbols}{"1C}
+\libus@MathSymbol{\gtrdot}                   {\mathrel}{symbols}{"1D}
+\libus@MathSymbol{\lll}                      {\mathrel}{symbols}{"1E}
+        \let\llless=\lll
+\libus@MathSymbol{\ggg}                      {\mathrel}{symbols}{"1F}
+        \let\gggtr=\ggg
+\libus@MathSymbol{\lesseqgtr}                {\mathrel}{symbols}{"20}
+\libus@MathSymbol{\gtreqless}                {\mathrel}{symbols}{"21}
+\libus@MathSymbol{\eqless}                   {\mathrel}{symbols}{"22}
+\libus@MathSymbol{\eqgtr}                    {\mathrel}{symbols}{"23}
+\libus@MathSymbol{\curlyeqprec}              {\mathrel}{symbols}{"24}
+\libus@MathSymbol{\curlyeqsucc}              {\mathrel}{symbols}{"25}
+\libus@MathSymbol{\npreccurlyeq}             {\mathrel}{symbols}{"26}
+\libus@MathSymbol{\nsucccurlyeq}             {\mathrel}{symbols}{"27}
+\libus@MathSymbol{\nsqsubseteq}              {\mathrel}{symbols}{"28}
+\libus@MathSymbol{\nsqsupseteq}              {\mathrel}{symbols}{"29}
+\libus@MathSymbol{\sqsubsetneq}              {\mathrel}{symbols}{"2A}
+\libus@MathSymbol{\sqsupsetneq}              {\mathrel}{symbols}{"2B}
+\libus@MathSymbol{\lnsim}                    {\mathrel}{symbols}{"2C}
+\libus@MathSymbol{\gnsim}                    {\mathrel}{symbols}{"2D}
+\libus@MathSymbol{\precnsim}                 {\mathrel}{symbols}{"2E}
+\libus@MathSymbol{\succnsim}                 {\mathrel}{symbols}{"2F}
+\libus@MathSymbol{\nvartriangleleft}         {\mathrel}{symbols}{"30}
+\libus@MathSymbol{\nvartriangleright}        {\mathrel}{symbols}{"31}
+\libus@MathSymbol{\ntrianglelefteq}          {\mathrel}{symbols}{"32}
+\libus@MathSymbol{\ntrianglerighteq}         {\mathrel}{symbols}{"33}
+\libus@MathSymbol{\vdotsmath}                {\mathrel}{symbols}{"34}
+  \DeclareRobustCommand\vdots{%
+       \ifmmode\vdotsmath\else%
+          {\usefont{LS2}{libertinust1mathsym}{\f@series}{n}\char"34}
+          %{\usefont{LS1}{libusscr}{\f@series}{n}\char"34}%
+       \fi}
+\libus@MathSymbol{\unicodecdots}             {\mathord}{symbols}{"35} \let\@cdots=\unicodecdots \DeclareRobustCommand\cdots{\mathinner{\unicodecdots}}
+\libus@MathSymbol{\adots}                    {\mathrel}{symbols}{"36}
+\libus@MathSymbol{\ddots}                    {\mathrel}{symbols}{"37}
+\libus@MathSymbol{\succneq}                  {\mathrel}{symbols}{"38}
+\libus@MathSymbol{\preceqq}                  {\mathrel}{symbols}{"39}
+\libus@MathSymbol{\succeqq}                  {\mathrel}{symbols}{"3A}
+\libus@MathSymbol{\precneqq}                 {\mathrel}{symbols}{"3B}
+\libus@MathSymbol{\succneqq}                 {\mathrel}{symbols}{"3C}
+\libus@MathSymbol{\precneq}                  {\mathrel}{symbols}{"3D}
+%\libus@MathSymbol{\varkappa}                  {\mathord}{symbols}{"3E}
+\libus@MathSymbol{\digamma}                  {\mathord}{symbols}{"3F}
+\libus@MathSymbol{\backepsilon}               {\mathord}{symbols}{"40}
+%\libus@MathSymbol{\top}							
+\libus@MathSymbol{\lhook}                    {\mathrel}{symbols}{"41}
+\libus@MathSymbol{\rhook}                    {\mathrel}{symbols}{"42}
+\libus@MathSymbol{\leftarrow}                {\mathrel}{symbols}{"43} \let\gets=\leftarrow
+%\libus@MathSymbol{\uparrow}               {\mathrel}{symbols}{"44}
+\libus@MathSymbol{\rightarrow}               {\mathrel}{symbols}{"45}
+  \let\to=\rightarrow
+%\libus@MathSymbol{\downarrow}               {\mathrel}{symbols}{"46}
+ \libus@MathSymbol{\leftrightarrow}           {\mathrel}{symbols}{"47}
+%\libus@MathSymbol{\updownarrow}           {\mathrel}{symbols}{"48}
+\libus@MathSymbol{\nwarrow}                  {\mathrel}{symbols}{"49}
+\libus@MathSymbol{\nearrow}                  {\mathrel}{symbols}{"4A}
+\libus@MathSymbol{\searrow}                  {\mathrel}{symbols}{"4B}
+
+\libus@MathSymbol{\swarrow}                  {\mathrel}{symbols}{"4C}
+\libus@MathSymbol{\nleftarrow}               {\mathrel}{symbols}{"4D}
+\libus@MathSymbol{\nrightarrow}              {\mathrel}{symbols}{"4E}
+\libus@MathSymbol{\mapsfrom}		          {\mathrel}{symbols}{"4F}
+\libus@MathSymbol{\mapsto} 			         {\mathrel}{symbols}{"50}
+\libus@MathSymbol{\hookleftarrow}            {\mathrel}{symbols}{"51}
+\libus@MathSymbol{\hookrightarrow}           {\mathrel}{symbols}{"52}
+\libus@MathSymbol{\nleftrightarrow}          {\mathrel}{symbols}{"53}
+\libus@MathSymbol{\leftharpoonup}            {\mathrel}{symbols}{"54}
+\libus@MathSymbol{\leftharpoondown}          {\mathrel}{symbols}{"55}
+\libus@MathSymbol{\rightharpoonup}           {\mathrel}{symbols}{"56}
+\libus@MathSymbol{\rightharpoondown}         {\mathrel}{symbols}{"57}
+\libus@MathSymbol{\leftrightharpoons}        {\mathrel}{symbols}{"58}
+\libus@MathSymbol{\rightleftharpoons}        {\mathrel}{symbols}{"59}
+\libus@MathSymbol{\longleftarrow}            {\mathrel}{symbols}{"5A}
+\libus@MathSymbol{\longrightarrow}           {\mathrel}{symbols}{"5B}
+\libus@MathSymbol{\longleftrightarrow}       {\mathrel}{symbols}{"5C}
+\libus@MathSymbol{\longmapsfrom}             {\mathrel}{symbols}{"5D}
+\libus@MathSymbol{\longmapsto}               {\mathrel}{symbols}{"5E}
+%\libus@MathSymbol{\downharpoonright}         {\mathrel}{arrows1}{"C9}
+%\libus@MathSymbol{\downharpoonleft}          {\mathrel}{arrows1}{"CA}
+%\libus@MathSymbol{\rightleftarrows}          {\mathrel}{arrows1}{"CB}
+%\libus@MathSymbol{\updownarrows}             {\mathrel}{arrows1}{"CC}
+%\libus@MathSymbol{\leftrightarrows}          {\mathrel}{arrows1}{"CD}
+%\libus@MathSymbol{\leftleftarrows}           {\mathrel}{arrows1}{"CE}
+%\libus@MathSymbol{\upuparrows}               {\mathrel}{arrows1}{"CF}
+\libus@MathSymbol{\diameter}                 {\mathord}{symbols}{"5F}
+\libus@MathSymbol{\bumpeq}                   {\mathrel}{symbols}{"60}
+\libus@MathSymbol{\doteq}                    {\mathrel}{symbols}{"61}
+\libus@MathSymbol{\Doteq}                    {\mathrel}{symbols}{"62}
+        \let\doteqdot=\Doteq
+\libus@MathSymbol{\fallingdotseq}            {\mathrel}{symbols}{"63}
+\libus@MathSymbol{\risingdotseq}             {\mathrel}{symbols}{"64}
+\libus@MathSymbol{\coloneq}                  {\mathrel}{symbols}{"65}
+\libus@MathSymbol{\eqcolon}                  {\mathrel}{symbols}{"66}
+\libus@MathSymbol{\eqcirc}                   {\mathrel}{symbols}{"67}
+\libus@MathSymbol{\circeq}                   {\mathrel}{symbols}{"68}
+\libus@MathSymbol{\arceq}                    {\mathrel}{symbols}{"69}
+\libus@MathSymbol{\wedgeq}                   {\mathrel}{symbols}{"6A}
+\libus@MathSymbol{\veeeq}                    {\mathrel}{symbols}{"6B}
+\libus@MathSymbol{\stareq}                   {\mathrel}{symbols}{"6C}
+\libus@MathSymbol{\triangleq}                {\mathrel}{symbols}{"6D}
+\libus@MathSymbol{\eqdef}                    {\mathrel}{symbols}{"6E}
+\libus@MathSymbol{\measeq}                   {\mathrel}{symbols}{"6F}
+\libus@MathSymbol{\questeq}                  {\mathrel}{symbols}{"70}
+\libus@MathSymbol{\ne}                       {\mathrel}{symbols}{"71}
+        \let\neq=\ne
+\libus@MathSymbol{\equiv}                    {\mathrel}{symbols}{"72}
+\libus@MathSymbol{\nequiv}                   {\mathrel}{symbols}{"73}
+\libus@MathSymbol{\Equiv}                    {\mathrel}{symbols}{"76}
+\libus@MathSymbol{\leq}                      {\mathrel}{symbols}{"77}
+        \let\le=\leq
+\libus@MathSymbol{\geq}                      {\mathrel}{symbols}{"78}
+        \let\ge=\geq
+\libus@MathSymbol{\leqq}                     {\mathrel}{symbols}{"79}
+\libus@MathSymbol{\geqq}                     {\mathrel}{symbols}{"7A}
+
+\libus@MathSymbol{\Re}        {\mathord}  {symbols}{"7B}
+\libus@MathSymbol{\Im}        {\mathord}  {symbols}{"7C}
+\libus@MathSymbol{\wp}        {\mathord}  {symbols}{"7D}
+\libus@MathSymbol{\house}                    {\mathord}{symbols}{"7E}
+
+\libus@MathSymbol{\clubsuit}                {\mathord}{symbols}{"80}
+\libus@MathSymbol{\diamondsuit}              {\mathord}{symbols}{"81}
+\libus@MathSymbol{\heartsuit}                {\mathord}{symbols}{"82}
+\libus@MathSymbol{\spadesuit}                 {\mathord}{symbols}{"83}
+\libus@MathSymbol{\musicalnote}                 {\mathord}{symbols}{"84}
+\libus@MathSymbol{\degree}                 {\mathord}{symbols}{"85}
+\libus@MathSymbol{\mathsection}              {\mathord}{symbols}{"86}
+\libus@MathSymbol{\mathparagraph}            {\mathord}{symbols}{"87}
+\libus@MathSymbol{\checkmarkmath}            {\mathord}{symbols}{"88}
+% two extension glyphs in "89, "8A
+\libus@MathSymbol{\ell}       {\mathord}  {symbols}{"8B}
+% "8E--"8F currently .notdef
+
+
+%\libus@MathSymbol{\varbarwedge}              {\mathbin}{symbols}{"99}
+%\libus@MathSymbol{\vardoublebarwedge}        {\mathbin}{symbols}{"9A}
+\libus@MathSymbol{\invnot}                   {\mathord}{symbols}{"9B}
+%\libus@MathSymbol{\sqlozenge}                {\mathord}{symbols}{"9C}
+%\libus@MathSymbol{\profline}                 {\mathord}{symbols}{"9D}
+%\libus@MathSymbol{\profsurf}                 {\mathord}{symbols}{"9E}
+%\libus@MathSymbol{\viewdata}                 {\mathord}{symbols}{"9F}
+
+%\libus@MathSymbol{\turnednot}                {\mathord}{symbols}{"A0}
+%\libus@MathSymbol{\ulcorner}                {\mathopen}{symbols}{"A1}
+%\libus@MathSymbol{\urcorner}               {\mathclose}{symbols}{"A2}
+%\libus@MathSymbol{\llcorner}                {\mathopen}{symbols}{"A3}
+%\libus@MathSymbol{\lrcorner}               {\mathclose}{symbols}{"A4}
+%\libus@MathSymbol{\varhexagonlrbonds}        {\mathord}{symbols}{"A5}
+%\libus@MathSymbol{\conictaper}               {\mathord}{symbols}{"A6}
+%\libus@MathSymbol{\topbot}                   {\mathord}{symbols}{"A7}
+%\libus@MathSymbol{\obar}                     {\mathbin}{symbols}{"A8}
+%\libus@MathSymbol{\APLnotslash}              {\mathrel}{symbols}{"A9}
+%\libus@MathSymbol{\APLnotbackslash}          {\mathord}{symbols}{"AA}
+%\libus@MathSymbol{\APLboxupcaret}            {\mathord}{symbols}{"AB}
+%\libus@MathSymbol{\APLboxquestion}           {\mathord}{symbols}{"AC}
+%\libus@MathSymbol{\rangledownzigzagarrow}    {\mathord}{symbols}{"AD}
+%\libus@MathSymbol{\hexagon}                  {\mathord}{symbols}{"AE}
+%\libus@MathSymbol{\varcarriagereturn}        {\mathord}{symbols}{"AF}
+
+%\libus@MathSymbol{\trapezium}                {\mathord}{symbols}{"B0}
+%\libus@MathSymbol{\benzenr}                  {\mathord}{symbols}{"B1}
+%\libus@MathSymbol{\strns}                    {\mathord}{symbols}{"B2}
+%\libus@MathSymbol{\fltns}                    {\mathord}{symbols}{"B3}
+%\libus@MathSymbol{\accurrent}                {\mathord}{symbols}{"B4}
+%\libus@MathSymbol{\elinters}                 {\mathord}{symbols}{"B5}
+\libus@MathSymbol{\mathvisiblespace}         {\mathord}{symbols}{"B6}
+\libus@MathSymbol{\mdlgblksquare}            {\mathord}{symbols}{"B7} \let\blacksquare=\mdlgblksquare
+\libus@MathSymbol{\mdlgwhtsquare}            {\mathord}{symbols}{"B8} \let\square=\mdlgwhtsquare \let\Box=\mdlgwhtsquare
+%\libus@MathSymbol{\squoval}                  {\mathord}{symbols}{"B9}
+%\libus@MathSymbol{\blackinwhitesquare}       {\mathord}{symbols}{"BA}
+%\libus@MathSymbol{\squarehfill}              {\mathord}{symbols}{"BB}
+%\libus@MathSymbol{\squarevfill}              {\mathord}{symbols}{"BC}
+%\libus@MathSymbol{\squarehvfill}             {\mathord}{symbols}{"BD}
+%\libus@MathSymbol{\squarenwsefill}           {\mathord}{symbols}{"BE}
+%\libus@MathSymbol{\squareneswfill}           {\mathord}{symbols}{"BF}
+
+%\libus@MathSymbol{\squarecrossfill}          {\mathord}{symbols}{"C0}
+%\libus@MathSymbol{\smblksquare}              {\mathord}{symbols}{"C1}
+%\libus@MathSymbol{\smwhtsquare}              {\mathord}{symbols}{"C2}
+%\libus@MathSymbol{\hrectangleblack}          {\mathord}{symbols}{"C3}
+%\libus@MathSymbol{\hrectangle}               {\mathord}{symbols}{"C4}
+%\libus@MathSymbol{\vrectangleblack}          {\mathord}{symbols}{"C5}
+%\libus@MathSymbol{\vrectangle}               {\mathord}{symbols}{"C6}
+%\libus@MathSymbol{\parallelogramblack}       {\mathord}{symbols}{"C7}
+%\libus@MathSymbol{\parallelogram}            {\mathord}{symbols}{"C8}
+\libus@MathSymbol{\bigblacktriangleup}       {\mathord}{symbols}{"C9}
+\libus@MathSymbol{\bigtriangleup}            {\mathbin}{symbols}{"CA} \let\varbigtriangleup=\bigtriangleup \let\triangle=\bigtriangleup
+\libus@MathSymbol{\Perp}            {\mathrel}{symbols}{"CB}
+\libus@MathSymbol{\nPerp}              {\mathrel}{symbols}{"CC}
+\libus@MathSymbol{\blacktriangleright}       {\mathord}{symbols}{"CD}
+\libus@MathSymbol{\vartriangleright}         {\mathrel}{symbols}{"CE} \libus@MathSymbol{\rhd}{\mathbin}{symbols}{"CE}
+%\libus@MathSymbol{\smallblacktriangleright}  {\mathord}{symbols}{"CF}
+
+%\libus@MathSymbol{\smalltriangleright}       {\mathord}{symbols}{"D0}
+%\libus@MathSymbol{\blackpointerright}        {\mathord}{symbols}{"D1}
+%\libus@MathSymbol{\whitepointerright}        {\mathord}{symbols}{"D2}
+\libus@MathSymbol{\bigblacktriangledown}     {\mathord}{symbols}{"D3}
+\libus@MathSymbol{\bigtriangledown}          {\mathord}{symbols}{"D4} \let\varbigtriangledown=\bigtriangledown
+\libus@MathSymbol{\blacktriangledown}        {\mathord}{symbols}{"D5}
+\libus@MathSymbol{\triangledown}             {\mathord}{symbols}{"D6}
+\libus@MathSymbol{\blacktriangleleft}        {\mathord}{symbols}{"D7}
+\libus@MathSymbol{\vartriangleleft}          {\mathrel}{symbols}{"D8} \libus@MathSymbol{\lhd}						{\mathbin}{symbols}{"D8}
+\libus@MathSymbol{\Longleftarrow}            {\mathrel}{symbols}{"D9}
+\libus@MathSymbol{\Longrightarrow}           {\mathrel}{symbols}{"DA}
+\libus@MathSymbol{\Longleftrightarrow}       {\mathrel}{symbols}{"DB}
+\libus@MathSymbol{\Longmapsfrom}             {\mathrel}{symbols}{"DC}
+\libus@MathSymbol{\mdlgblkdiamond}           {\mathord}{symbols}{"DD}
+\libus@MathSymbol{\mdlgwhtdiamond}           {\mathord}{symbols}{"DE}
+\libus@MathSymbol{\Longmapsto}               {\mathrel}{symbols}{"DF}
+
+\libus@MathSymbol{\fisheye}                  {\mathord}{symbols}{"E0}
+\libus@MathSymbol{\mdlgwhtlozenge}           {\mathord}{symbols}{"E1} \let\lozenge=\mdlgwhtlozenge \let\Diamond=\mdlgwhtlozenge
+\libus@MathSymbol{\mdlgwhtcircle}            {\mathbin}{symbols}{"E2} \let\bigcirc=\mdlgwhtcircle
+%\libus@MathSymbol{\relbar}             {\mathord}{symbols}{"E3}
+%\libus@MathSymbol{\Relbar}           {\mathord}{symbols}{"E4}
+\libus@MathSymbol{\bullseye}                 {\mathord}{symbols}{"E5}
+\libus@MathSymbol{\mdlgblkcircle}            {\mathord}{symbols}{"E6}
+
+\libus@MathSymbol{\nLeftarrow}               {\mathrel}{symbols}{"EF}
+\libus@MathSymbol{\nLeftrightarrow}          {\mathrel}{symbols}{"F0}
+\libus@MathSymbol{\nRightarrow}              {\mathrel}{symbols}{"F1}
+\libus@MathSymbol{\Leftarrow}                {\mathrel}{symbols}{"F2}
+%\libus@MathSymbol{\Uparrow}                {\mathrel}{symbols}{"F3}
+\libus@MathSymbol{\Rightarrow}               {\mathrel}{symbols}{"F4}
+%\libus@MathSymbol{\Downarrow}                {\mathrel}{symbols}{"F5}
+\libus@MathSymbol{\Leftrightarrow}           {\mathrel}{symbols}{"F6}
+%\libus@MathSymbol{\Updownarrow}           {\mathrel}{symbols}{"F7}
+
+\libus@MathSymbol{\Nwarrow}                  {\mathrel}{symbols}{"F8}
+\libus@MathSymbol{\Nearrow}                  {\mathrel}{symbols}{"F9}
+\libus@MathSymbol{\Searrow}                  {\mathrel}{symbols}{"FA}
+\libus@MathSymbol{\Swarrow}                  {\mathrel}{symbols}{"FB}
+
+\libus@MathSymbol{\Mapsfrom}          {\mathord}{symbols}{"FC}
+\libus@MathSymbol{\smwhtcircle}              {\mathbin}{symbols}{"FD} \let\circ=\smwhtcircle
+\libus@MathSymbol{\smwhtdiamond}             {\mathbin}{symbols}{"FE}
+        \let\diamond=\smwhtdiamond
+\libus@MathSymbol{\Mapsto}         {\mathord}{symbols}{"FF}
+%
+%\DeclareMathSizes{10}{10}{8}{6.5}
+\def\defaultscriptratio{0.8}
+\def\defaultscriptscriptratio{0.65}
+\AtBeginDocument{
+%        \renewcommand{\big}{\bBigg@{1.2}}
+        \renewcommand{\Bigg}{\bBigg@{2.55}}
+        \let\dotsb@\@cdots
+        \let\dotsb\cdots
+        \let\dotsm\cdots
+}
+\@ifpackageloaded{amsopn}{
+    \begingroup \catcode`\"=12
+    \gdef\newmcodes@{%
+      \mathcode`\'="007F\relax%
+      \mathcode`\*="003C\relax%
+      \mathcode`\.="613A\relax%
+      \ifnum\mathcode`\-="002A \else
+        \mathchardef\std@minus\mathcode`\-\relax
+      \fi
+      \mathcode`\-="002A\relax%
+      \mathcode`\/="005F\relax%
+      \mathcode`\:="603A\relax%
+    }
+    \endgroup
+}{}
+\DeclareTextSymbol{\i}{LS1}{123}
+\DeclareTextSymbol{\j}{LS1}{124}
+\@namedef{not=}{\ne}
+\@namedef{not>}{\ngtr}
+\@namedef{not<}{\nless}
+\let\ngets\nleftarrow
+\let\nsimeq\nsime
+\let\nforksnot\forks
+\let\nle\nleq
+\let\nge\ngeq
+\DeclareRobustCommand*{\not}[1]{%
+    \begingroup \escapechar\m@ne\xdef\@gtempa{not\string#1}\endgroup
+    \@ifundefined{\@gtempa}%
+        {\not@n@{#1}}%
+        {\@nameuse{\@gtempa}}}
+\def\not@n@#1{%
+    \begingroup \escapechar\m@ne\xdef\@gtempa{n\string#1}\endgroup
+    \@ifundefined{\@gtempa}%
+        {\notchar #1}%
+        {\@nameuse{\@gtempa}}}
+\def\libus@dotlessi{\ifmmode\imath\else\i\fi}
+\@ifundefined{es@dotlessi}{}{\let\es@dotlessi\libus@dotlessi}
+
+\def\txf@ntname#1{\expandafter\let\expandafter\@ntx@\csname sym#1\endcsname
+  \ifx\@ntx@\relax %
+  \else
+    \expandafter\def\csname @@@X\number\@ntx@ \endcsname{#1}
+  \fi}
+\newcommand{\ShowMathFonts}{%
+\txf@ntname{operators}
+\txf@ntname{symbols}
+\txf@ntname{largesymbols}
+\txf@ntname{letters}
+\txf@ntname{bold-operators}
+\txf@ntname{bold-letters}
+\txf@ntname{symbolsbb}
+\txf@ntname{sans}
+\txf@ntname{sansi}
+  \typeout{*** Mathgroups ***}
+  \count@\z@
+  \loop\ifnum\count@<16
+    \def\@@ntx@{}
+    \expandafter\let\expandafter\@ntx@\csname @@@X\the\count@\endcsname
+    \ifx\@ntx@\relax\else\def\@@ntx@{\space[\@ntx@]}\fi
+    \typeout{(\the\count@: \the\textfont\count@ = \fontname\textfont\count@\@@ntx@)}
+    \advance\count@\@ne
+  \repeat
+  \typeout{***}}
+
+% Code from Murray Eisenberg for a macro \widebar to complement \widehat and \widetilde
+% Original by Hendrik Vogt
+% http://tex.stackexchange.com/questions/16337/can-i-get-a-widebar-without-using-the-mathabx-package/60253#60253
+% Modified at http://tex.stackexchange.com/questions/186607/combine-boldsymbol-and-widebar
+\newcommand*\if@single[3]{%
+  \setbox0\hbox{${\mathaccent"0\hexnumber@\symletters 9A{#1}}^H$}%
+  \setbox2\hbox{${\mathaccent"0\hexnumber@\symletters 9A{\kern0pt#1}}^H$}%
+  \ifdim\ht0=\ht2 #3\else #2\fi
+  }
+%The bar will be moved to the right by a half of \macc@kerna, which is computed by amsmath:
+\newcommand*\rel@kern[1]{\kern#1\dimexpr\macc@kerna}
+%If there's a superscript following the bar, then no negative kern may follow the bar;
+%an additional {} makes sure that the superscript is high enough in this case:
+\newcommand*\widebar[1]{\@ifnextchar^{{\wide@bar{#1}{0}}}{\wide@bar{#1}{1}}}
+%Use a separate algorithm for single symbols:
+\newcommand*\wide@bar[2]{\if@single{#1}{\wide@bar@{#1}{#2}{1}}{\wide@bar@{#1}{#2}{2}}}
+\newcommand*\wide@bar@[3]{%
+  \begingroup
+  \def\mathaccent##1##2{%
+%If there's more than a single symbol, use the first character instead (see below):
+    \if#32 \let\macc@nucleus\first@char \fi
+%Determine the italic correction:
+    \setbox\z@\hbox{$\macc@style{\macc@nucleus}_{}$}%
+    \setbox\tw@\hbox{$\macc@style{\macc@nucleus}{}_{}$}%
+    \dimen@\wd\tw@
+    \advance\dimen@-\wd\z@
+%Now \dimen@ is the italic correction of the symbol.
+    \divide\dimen@ 3
+    \@tempdima\wd\tw@
+    \advance\@tempdima-\scriptspace
+%Now \@tempdima is the width of the symbol.
+    \divide\@tempdima 10
+    \advance\dimen@-\@tempdima
+%Now \dimen@ = (italic correction / 3) - (Breite / 10)
+    \ifdim\dimen@>\z@ \dimen@0pt\fi
+%The bar will be shortened in the case \dimen@<0 !
+    \rel@kern{0.6}\kern-\dimen@
+    \if#31
+      \overline{\rel@kern{-0.6}\kern\dimen@\macc@nucleus\rel@kern{0.4}\kern\dimen@}%
+      \advance\dimen@0.4\dimexpr\macc@kerna
+%Place the combined final kern (-\dimen@) if it is >0 or if a superscript follows:
+      \let\final@kern#2%
+      \ifdim\dimen@<\z@ \let\final@kern1\fi
+      \if\final@kern1 \kern-\dimen@\fi
+    \else
+      \overline{\rel@kern{-0.6}\kern\dimen@#1}%
+    \fi
+  }%
+  \macc@depth\@ne
+  \let\math@bgroup\@empty \let\math@egroup\macc@set@skewchar
+  \mathsurround\z@ \frozen@everymath{\mathgroup\macc@group\relax}%
+  \macc@set@skewchar\relax
+  \let\mathaccentV\macc@nested@a
+%The following initialises \macc@kerna and calls \mathaccent:
+  \if#31
+    \macc@nested@a\relax111{#1}%
+  \else
+%If the argument consists of more than one symbol, and if the first token is
+%a letter, use that letter for the computations:
+    \def\gobble@till@marker##1\endmarker{}%
+    \futurelet\first@char\gobble@till@marker#1\endmarker
+    \ifcat\noexpand\first@char A\else
+      \def\first@char{}%
+    \fi
+    \macc@nested@a\relax111{\first@char}%
+  \fi
+  \endgroup
+}
+%%%%%%% Begin txvec code 2019-07-31 (adaptive vec)
+\DeclareMathSymbol{\rVec@h}{\mathrel}{symbols}{199}% vector head
+\DeclareMathSymbol{\rVec@x}{\mathrel}{symbols}{200}% vector extension
+%% borrow interfacefrom esvect
+\def\vv{\@ifstar{\vvstar}{\txvec}}
+
+\def\vvstar#1#2{{\txvec{#1}}_{\mkern-1mu\relax#2}}
+%%
+\newcommand{\txvec}{\mathpalette{\overVec@\Vecfill@}}
+%
+\def\Vecfill@{\@rrowfill@\rVec@x\rVec@h}
+%
+\def\@rrowfill@#1#2#3{$\m@th\mkern2mu%
+\relax#3#1\mkern-1.5mu\cleaders\hbox{$#3\mkern-.4mu#1\mkern-.4mu$}\hfill\mkern-1.5mu#2$}
+%
+\def\overVec@#1#2#3{\mathop{\vbox{\ialign{##\crcr\noalign{\kern-.2ex}%
+#1#2\crcr\noalign{\kern\ntxmath@vecsep\nointerlineskip}% kern controls sep to arrow
+$\m@th\hfil #2#3\hfil$\crcr}}}}
+%%%%%%%% End txvec code 
+
+\endinput

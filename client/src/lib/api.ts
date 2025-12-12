@@ -1,6 +1,6 @@
 import type { User, Project, ProjectFile } from './types';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5433/api';
 
 interface ApiOptions {
     method?: string;
@@ -104,6 +104,19 @@ class ApiClient {
 
     async deleteProject(id: string) {
         return this.request(`/projects/${id}`, { method: 'DELETE' });
+    }
+
+    async addCollaborator(projectId: string, email: string, role: 'VIEWER' | 'EDITOR') {
+        return this.request(`/projects/${projectId}/collaborators`, {
+            method: 'POST',
+            body: { email, role },
+        });
+    }
+
+    async removeCollaborator(projectId: string, userId: string) {
+        return this.request(`/projects/${projectId}/collaborators/${userId}`, {
+            method: 'DELETE',
+        });
     }
 
     // Files

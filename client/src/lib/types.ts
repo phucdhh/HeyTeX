@@ -17,12 +17,22 @@ export interface Project {
     ownerId: string;
     owner?: User;
     files?: ProjectFile[];
+    collaborators?: ProjectCollaborator[];
     createdAt: string;
     updatedAt: string;
     _count?: {
         files: number;
         collaborators: number;
     };
+}
+
+export interface ProjectCollaborator {
+    id: string;
+    projectId: string;
+    userId: string;
+    role: 'VIEWER' | 'EDITOR';
+    user: User;
+    createdAt: string;
 }
 
 export interface ProjectFile {

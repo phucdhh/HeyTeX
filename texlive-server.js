@@ -13,7 +13,7 @@ const cors = require('cors');
 
 const execAsync = promisify(exec);
 const app = express();
-const PORT = process.env.PORT || 8082;
+const PORT = process.env.PORT || 5435;
 
 // Ensure TeXLive binaries are in PATH
 if (!process.env.PATH.includes('/opt/homebrew/bin')) {

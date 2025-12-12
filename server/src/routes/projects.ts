@@ -234,4 +234,32 @@ router.post('/:id/collaborators', authMiddleware, async (req: AuthRequest, res: 
     }
 });
 
+// Remove collaborator from project
+router.delete('/:id/collaborators/:userId', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+        const { id, userId } = req.params;
+
+        const project = await prisma.project.findFirst({
+            where: { id, ownerId: req.userId },
+        });
+
+        if (!project) {
+            res.status(404).json({ error: 'Project not found or not authorized' });
+            return;
+        }
+
+        await prisma.projectCollaborator.deleteMany({
+            where: {
+                projectId: id,
+                userId: userId,
+            },
+        });
+
+        res.json({ message: 'Collaborator removed successfully' });
+    } catch (error) {
+        console.error('Remove collaborator error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 export default router;

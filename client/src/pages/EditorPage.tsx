@@ -27,10 +27,12 @@ import {
     Users,
     Save,
     Download,
+    Share2,
 } from 'lucide-react';
 import { cn, getFileIcon } from '../lib/utils';
+import { ShareModal } from '../components/ShareModal';
 
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3001';
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5433';
 
 export function EditorPage() {
     const { projectId } = useParams<{ projectId: string }>();
@@ -63,6 +65,7 @@ export function EditorPage() {
     const [isSaving, setIsSaving] = useState(false);
     const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set(['/']));
     const [collaborators, setCollaborators] = useState<Array<{ id: string; name: string; color: string }>>([]);
+    const [showShareModal, setShowShareModal] = useState(false);
 
     const socketRef = useRef<Socket | null>(null);
     const ydocRef = useRef<Y.Doc | null>(null);
@@ -194,9 +197,9 @@ export function EditorPage() {
                 const engine = new XeTeXEngine();
                 await engine.initialize();
 
-                // Use TeXLive on-demand server running on port 8082
-                // Worker will construct: http://localhost:8082/ + "xetex/" + format/filename
-                engine.setTexliveEndpoint('http://localhost:8082/');
+                // Use TeXLive on-demand server running on port 5435
+                // Worker will construct: http://localhost:5435/ + "xetex/" + format/filename
+                engine.setTexliveEndpoint('http://localhost:5435/');
 
                 xeTeXEngineRef.current = engine;
                 // Expose for tests
@@ -211,7 +214,7 @@ export function EditorPage() {
                 const { DvipdfmxEngineWrapper } = await import('../engines/DvipdfmxEngine');
                 const engine = new DvipdfmxEngineWrapper();
                 await engine.initialize();
-                engine.setTexliveEndpoint('http://localhost:8082/');
+                engine.setTexliveEndpoint('http://localhost:5435/');
                 
                 dvipdfmxEngineRef.current = engine;
                 console.log('DvipdfmxEngine initialized');
@@ -445,6 +448,16 @@ export function EditorPage() {
                     </div>
 
                     <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowShareModal(true)}
+                        className="gap-2"
+                    >
+                        <Share2 className="h-4 w-4" />
+                        Chia sẻ
+                    </Button>
+
+                    <Button
                         size="sm"
                         onClick={handleCompile}
                         disabled={compilationStatus === 'compiling'}
@@ -665,6 +678,24 @@ export function EditorPage() {
                     </span>
                 </div>
             </footer>
+
+            {/* Share Modal */}
+            {showShareModal && currentProject && (
+                <ShareModal
+                    isOpen={showShareModal}
+                    onClose={() => setShowShareModal(false)}
+                    projectId={currentProject.id}
+                    projectName={currentProject.name}
+                    collaborators={currentProject.collaborators || []}
+                    onCollaboratorAdded={async () => {
+                        // Reload project to get updated collaborators
+                        if (projectId) {
+                            const { project } = await api.getProject(projectId);
+                            setCurrentProject(project);
+                        }
+                    }}
+                />
+            )}
         </div>
     );
 }
