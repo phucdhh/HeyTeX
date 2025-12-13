@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.heytex.postgresql</string>
+    
+    <key>UserName</key>
+    <string>mac</string>
+    
+    <key>GroupName</key>
+    <string>staff</string>
+    
+    <key>ProgramArguments</key>
+    <array>
+        <string>/opt/homebrew/opt/postgresql@16/bin/postgres</string>
+        <string>-D</string>
+        <string>/opt/homebrew/var/postgresql@16</string>
+    </array>
+    
+    <key>RunAtLoad</key>
+    <true/>
+    
+    <key>KeepAlive</key>
+    <true/>
+    
+    <key>StandardOutPath</key>
+    <string>/tmp/heytex-postgres.log</string>
+    
+    <key>StandardErrorPath</key>
+    <string>/tmp/heytex-postgres-error.log</string>
+    
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+        <key>LC_ALL</key>
+        <string>en_US.UTF-8</string>
+        <key>LANG</key>
+        <string>en_US.UTF-8</string>
+    </dict>
+</dict>
+</plist>

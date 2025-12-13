@@ -87,15 +87,29 @@ npm install
 Tạo file .env trong thư mục client và server dựa trên file .env.example. Đảm bảo cấu hình đường dẫn tới TeXlyre Wasm assets.
 
 ### Bước 4: Chạy Dự án
-```bash
-# Terminal 1: Chạy Backend
-cd server
-npm run dev
 
-# Terminal 2: Chạy Frontend
-cd client
-npm run dev
+**macOS:**
+```bash
+# Setup lần đầu
+./setup-mac.sh
+
+# Services tự động start với LaunchDaemon (sau khi reboot)
+# Xem chi tiết: LAUNCHDAEMON.md
+
+# Hoặc start thủ công
+./start-services.sh
 ```
+
+**Development:**
+```bash
+# Terminal 1: Backend
+cd server && npm run dev
+
+# Terminal 2: Frontend  
+cd client && npm run dev
+```
+
+📖 Xem thêm: [SCRIPTS.md](SCRIPTS.md) - Danh sách scripts & configs
 
 ## Roadmap & Đề xuất Mở rộng
 Dưới đây là các tính năng dự kiến sẽ phát triển thêm:
