@@ -1,0 +1,18 @@
+# Docker ignore file for HeyTeX Server
+node_modules/
+npm-debug.log
+dist/
+.env
+.env.local
+.env.*.local
+*.log
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.git/
+.gitignore
+README.md
+# tsconfig.json must be included for the build

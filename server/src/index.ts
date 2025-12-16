@@ -2,14 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { createServer } from 'http';
-import { config } from './config/index.js';
-import { prisma } from './lib/prisma.js';
-import { setupCollaborationServer } from './websocket/collab.js';
+import { config } from './config/index';
+import { prisma } from './lib/prisma';
+import { setupCollaborationServer } from './websocket/collab';
 
 // Import routes
-import authRoutes from './routes/auth.js';
-import projectRoutes from './routes/projects.js';
-import fileRoutes from './routes/files.js';
+import authRoutes from './routes/auth';
+import projectRoutes from './routes/projects';
+import fileRoutes from './routes/files';
 
 const app = express();
 const httpServer = createServer(app);
@@ -35,13 +35,15 @@ app.get('/health', (req, res) => {
 
 // API routes
 import texlyreRoutes from './routes/texlyre';
-
-// ...
+import compileRoutes from './routes/compile';
+import storageRoutes from './routes/storage';
 
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/files', fileRoutes);
 app.use('/api/texlyre', texlyreRoutes);
+app.use('/api/compile', compileRoutes);
+app.use('/api/storage', storageRoutes);
 
 // Error handling middleware
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {

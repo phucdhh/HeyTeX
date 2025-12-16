@@ -1,8 +1,9 @@
 import { Router, Response } from 'express';
-import { prisma } from '../lib/prisma.js';
-import { authMiddleware, AuthRequest } from '../middleware/auth.js';
-import { uploadFile, getFileUrl, deleteFile } from '../lib/minio.js';
-import { config } from '../config/index.js';
+import { prisma } from '../lib/prisma';
+import { authMiddleware, AuthRequest } from '../middleware/auth';
+import { uploadFile, getFileUrl, deleteFile } from '../lib/minio';
+import { config } from '../config/index';
+import { fileStorage } from '../services/FileStorage';
 
 const router = Router();
 
@@ -130,6 +131,18 @@ router.post('/', authMiddleware, async (req: AuthRequest, res: Response): Promis
             },
         });
 
+        // Save to local file storage
+        try {
+            if (isFolder) {
+                await fileStorage.createFolder(project.ownerId, projectId, path);
+            } else {
+                await fileStorage.saveFile(project.ownerId, projectId, path, content);
+            }
+        } catch (storageError) {
+            console.error('[FileStorage] Failed to save file:', storageError);
+            // Continue even if storage fails - database is source of truth
+        }
+
         res.status(201).json({ file });
     } catch (error) {
         console.error('Create file error:', error);
@@ -178,6 +191,22 @@ router.patch('/:id', authMiddleware, async (req: AuthRequest, res: Response): Pr
                 ...(name && { name }),
             },
         });
+
+        // Update local file storage
+        try {
+            if (content !== undefined && !file.isFolder) {
+                await fileStorage.saveFile(file.project.ownerId, file.projectId, file.path, content);
+            }
+            if (name && name !== file.name) {
+                // Handle rename - update path if needed
+                const newPath = file.path.replace(file.name, name);
+                if (newPath !== file.path) {
+                    await fileStorage.renameFile(file.project.ownerId, file.projectId, file.path, newPath);
+                }
+            }
+        } catch (storageError) {
+            console.error('[FileStorage] Failed to update file:', storageError);
+        }
 
         res.json({ file: updated });
     } catch (error) {
@@ -232,6 +261,17 @@ router.delete('/:id', authMiddleware, async (req: AuthRequest, res: Response): P
         }
 
         await prisma.file.delete({ where: { id } });
+
+        // Delete from local file storage
+        try {
+            if (file.isFolder) {
+                await fileStorage.deleteFolder(file.project.ownerId, file.projectId, file.path);
+            } else {
+                await fileStorage.deleteFile(file.project.ownerId, file.projectId, file.path);
+            }
+        } catch (storageError) {
+            console.error('[FileStorage] Failed to delete file:', storageError);
+        }
 
         res.json({ message: 'File deleted successfully' });
     } catch (error) {
@@ -293,6 +333,13 @@ router.post('/upload', authMiddleware, async (req: AuthRequest, res: Response): 
                 size: buffer.length,
             },
         });
+
+        // Save to local file storage
+        try {
+            await fileStorage.saveFile(project.ownerId, projectId, path, buffer);
+        } catch (storageError) {
+            console.error('[FileStorage] Failed to save uploaded file:', storageError);
+        }
 
         res.status(201).json({ file });
     } catch (error) {

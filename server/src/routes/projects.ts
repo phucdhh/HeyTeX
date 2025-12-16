@@ -1,7 +1,8 @@
 import { Router, Response } from 'express';
-import { prisma } from '../lib/prisma.js';
-import { authMiddleware, AuthRequest } from '../middleware/auth.js';
+import { prisma } from '../lib/prisma';
+import { authMiddleware, AuthRequest } from '../middleware/auth';
 import { Engine } from '@prisma/client';
+import { fileStorage } from '../services/FileStorage';
 
 const router = Router();
 
@@ -89,6 +90,17 @@ Hello, World! This is your first Typst document.
                 files: true,
             },
         });
+
+        // Create project directory structure
+        try {
+            await fileStorage.createProjectDir(req.userId!, project.id);
+            // Save main file to disk
+            await fileStorage.saveFile(req.userId!, project.id, `/${mainFile}`, defaultContent);
+            console.log(`[FileStorage] Created project structure for ${req.userId}/${project.id}`);
+        } catch (storageError) {
+            console.error('[FileStorage] Failed to create project directory:', storageError);
+            // Continue even if storage fails
+        }
 
         res.status(201).json({ project });
     } catch (error) {
@@ -182,6 +194,14 @@ router.delete('/:id', authMiddleware, async (req: AuthRequest, res: Response): P
         }
 
         await prisma.project.delete({ where: { id } });
+
+        // Delete project directory from file storage
+        try {
+            await fileStorage.deleteProject(req.userId!, id);
+            console.log(`[FileStorage] Deleted project ${req.userId}/${id}`);
+        } catch (storageError) {
+            console.error('[FileStorage] Failed to delete project directory:', storageError);
+        }
 
         res.json({ message: 'Project deleted successfully' });
     } catch (error) {

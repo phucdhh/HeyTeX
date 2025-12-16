@@ -1,6 +1,7 @@
 {
   "name": "heytex-server",
   "version": "1.0.0",
+  "type": "commonjs",
   "description": "HeyTeX Backend - Real-time collaborative LaTeX/Typst editor",
   "main": "dist/index.js",
   "scripts": {
