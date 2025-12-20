@@ -7,7 +7,7 @@
 
 **HeyTeX** là một nền tảng biên tập tài liệu khoa học trực tuyến mã nguồn mở, mang đến trải nghiệm giống **Visual Studio Code** ngay trên trình duyệt.
 
-Điểm đặc biệt của dự án là khả năng hỗ trợ song song hai "động cơ" (engines): **LaTeX** (dựa trên TeXlyre Wasm) và **Typst**, kết hợp với khả năng làm việc nhóm thời gian thực (Real-time Collaboration).
+Điểm đặc biệt của dự án là khả năng hỗ trợ song song hai "động cơ" (engines): **LaTeX** (server-side TeXLive) và **Typst** (client-side Wasm), kết hợp với khả năng làm việc nhóm thời gian thực (Real-time Collaboration).
 
 ## ✨ Tính Năng Chính (Key Features)
 
@@ -16,10 +16,10 @@
 *   Hỗ trợ IntelliSense, tự động hoàn thành (Auto-completion), và Snippets cho cả LaTeX và Typst.
 *   Giao diện thay đổi được (Dark Mode/ Light Mode) và tùy chỉnh theme.
 
-### 2. ⚡ Dual-Engine Compilation (Client-side)
-Hệ thống biên dịch chạy hoàn toàn trên trình duyệt người dùng nhờ công nghệ **WebAssembly (Wasm)**, giảm tải cho server và bảo mật dữ liệu:
-*   **LaTeX Project:** Tích hợp **TeXlyre Wasm Engine** (dựa trên XeTeX/LuaTeX) để biên dịch tự động, hỗ trợ đầy đủ các gói (packages) phổ biến.
-*   **Typst Project:** Tích hợp **Typst Wasm Renderer** cho tốc độ biên dịch siêu tốc (instant feedback).
+### 2. ⚡ Dual-Engine Compilation (Hybrid)
+Hệ thống biên dịch sử dụng mô hình hỗn hợp để cân bằng hiệu năng và khả năng tương thích:
+*   **LaTeX Project:** Biên dịch bằng TeXLive trên server (server-side TeXLive)
+*   **Typst Project:** Tích hợp **Typst Wasm Renderer** chạy trên trình duyệt để có phản hồi nhanh (client-side Wasm).
 
 ### 3. 🤝 Biên tập Cộng tác Thời gian thực (Real-time Collaboration)
 *   Cho phép nhiều người dùng cùng chỉnh sửa một tài liệu cùng lúc.
@@ -45,8 +45,8 @@ Hệ thống biên dịch chạy hoàn toàn trên trình duyệt người dùng
 *   **UI Components:** [Tailwind CSS](https://tailwindcss.com/) + [Shadcn/UI](https://ui.shadcn.com/)
 
 ### Compilation Engines (The Core)
-*   **LaTeX:** `texlyre-wasm-backend` (Custom WebAssembly build of TeXLive).
-*   **Typst:** `@typst/compiler` (Official Wasm compiler).
+*   **LaTeX:** `texlive` (Server-side TeXLive; not a Wasm build).
+*   **Typst:** `@typst/compiler` (Official Wasm compiler, runs client-side).
 
 ### Real-time Backend (Collab)
 *   **Protocol:** WebSocket.
@@ -127,8 +127,8 @@ Dưới đây là các tính năng dự kiến sẽ phát triển thêm:
 ## 💡 Các đề xuất cho kiến trúc của HeyTeX
 
 1.  **Xử lý WebAssembly (Wasm):**
-    *   File `.wasm` của LaTeX rất nặng (có thể lên tới 20-50MB). Bạn cần sử dụng **Service Workers** để cache file này ngay lần tải đầu tiên, giúp người dùng không phải tải lại mỗi lần F5 trang.
-    *   Sử dụng **Web Workers** để chạy quá trình biên dịch ở một luồng riêng (background thread), tránh làm đơ giao diện UI khi đang biên dịch tài liệu lớn.
+    *   File `.wasm` chủ yếu liên quan đến **Typst** (client-side). Bạn nên sử dụng **Service Workers** để cache file này ngay lần tải đầu tiên, giúp người dùng không phải tải lại mỗi lần F5 trang.
+    *   Sử dụng **Web Workers** để chạy quá trình biên dịch Typst ở một luồng riêng (background thread), tránh làm đơ giao diện UI khi đang biên dịch tài liệu lớn.
 
 2.  **Cơ chế lưu trữ (Persistence):**
     *   Vì bạn cho phép cộng tác (collaboration), bạn không thể chỉ lưu file cục bộ trên trình duyệt. Bạn cần một cơ chế để đồng bộ trạng thái `Yjs` (từ RAM) vào Database định kỳ (Persistence Layer) để dữ liệu không bị mất khi tất cả người dùng thoát khỏi phòng.

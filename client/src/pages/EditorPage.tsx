@@ -21,7 +21,6 @@ import {
     FileText,
     Folder,
     FolderOpen,
-    Plus,
     Sun,
     Moon,
     Users,
@@ -31,6 +30,7 @@ import {
 } from 'lucide-react';
 import { cn, getFileIcon } from '../lib/utils';
 import { ShareModal } from '../components/ShareModal';
+import { PDFViewer } from '../components/PDFViewer';
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5433';
 
@@ -55,6 +55,7 @@ export function EditorPage() {
         theme,
         toggleTheme,
         compilationStatus,
+        compilationError,
         setCompilationStatus,
         pdfData,
         setPdfData,
@@ -66,8 +67,15 @@ export function EditorPage() {
     const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set(['/']));
     const [collaborators, setCollaborators] = useState<Array<{ id: string; name: string; color: string }>>([]);
     const [showShareModal, setShowShareModal] = useState(false);
+    const [queueStats, setQueueStats] = useState<{ compiling: number; queued: number; available: number } | null>(null);
+    
+    // Resizable columns state
+    const [sidebarWidth, setSidebarWidth] = useState(256); // default w-64 = 256px
+    const [editorWidth, setEditorWidth] = useState(50); // 50% of available space
+    const [isResizing, setIsResizing] = useState<'sidebar' | 'editor' | null>(null);
 
     const socketRef = useRef<Socket | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
     const ydocRef = useRef<Y.Doc | null>(null);
     const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
     const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -156,6 +164,59 @@ export function EditorPage() {
         monacoInstance.languages.register({ id: 'latex' });
         monacoInstance.languages.register({ id: 'typst' });
 
+        // LaTeX syntax highlighting
+        monacoInstance.languages.setMonarchTokensProvider('latex', {
+            tokenizer: {
+                root: [
+                    [/\\[a-zA-Z@]+/, 'keyword'],
+                    [/\\[^a-zA-Z@]/, 'keyword'],
+                    [/%.*$/, 'comment'],
+                    [/\{/, 'delimiter.curly'],
+                    [/\}/, 'delimiter.curly'],
+                    [/\[/, 'delimiter.square'],
+                    [/\]/, 'delimiter.square'],
+                    [/\$\$/, 'string', '@displaymath'],
+                    [/\$/, 'string', '@inlinemath'],
+                    [/\\begin\{[^}]+\}/, 'keyword.control'],
+                    [/\\end\{[^}]+\}/, 'keyword.control'],
+                ],
+                inlinemath: [
+                    [/[^$]+/, 'string'],
+                    [/\$/, 'string', '@pop'],
+                ],
+                displaymath: [
+                    [/[^$]+/, 'string'],
+                    [/\$\$/, 'string', '@pop'],
+                ],
+            },
+        });
+
+        // Typst syntax highlighting
+        monacoInstance.languages.setMonarchTokensProvider('typst', {
+            tokenizer: {
+                root: [
+                    [/#[a-zA-Z]+/, 'keyword'],
+                    [/\/\/.*$/, 'comment'],
+                    [/\/\*/, 'comment', '@comment'],
+                    [/\[/, 'delimiter.square'],
+                    [/\]/, 'delimiter.square'],
+                    [/\{/, 'delimiter.curly'],
+                    [/\}/, 'delimiter.curly'],
+                    [/"([^"\\]|\\.)*$/, 'string.invalid'],
+                    [/"/, 'string', '@string'],
+                ],
+                comment: [
+                    [/[^/*]+/, 'comment'],
+                    [/\*\//, 'comment', '@pop'],
+                    [/[/*]/, 'comment'],
+                ],
+                string: [
+                    [/[^\\"]+/, 'string'],
+                    [/"/, 'string', '@pop'],
+                ],
+            },
+        });
+
         // Set initial content
         if (currentFile?.content) {
             editor.setValue(currentFile.content);
@@ -191,38 +252,47 @@ export function EditorPage() {
 
     useEffect(() => {
         const initEngines = async () => {
-            // Initialize XeTeX Engine
-            try {
-                const { XeTeXEngine } = await import('../engines/XeTeXEngine');
-                const engine = new XeTeXEngine();
-                await engine.initialize();
+            // Allow opting out of WASM LaTeX engines via env var.
+            // If VITE_USE_WASM_LATEX === 'true' then load client-side WASM engines,
+            // otherwise prefer server-side TeXLive compilation and skip loading large WASM bundles.
+            const useWasmLatex = import.meta.env.VITE_USE_WASM_LATEX === 'true';
 
-                // Use TeXLive on-demand server running on port 5435
-                // Worker will construct: http://localhost:5435/ + "xetex/" + format/filename
-                engine.setTexliveEndpoint('http://localhost:5435/');
+            if (useWasmLatex) {
+                // Initialize XeTeX Engine
+                try {
+                    const { XeTeXEngine } = await import('../engines/XeTeXEngine');
+                    const engine = new XeTeXEngine();
+                    await engine.initialize();
 
-                xeTeXEngineRef.current = engine;
-                // Expose for tests
-                (window as any).currentEngine = engine;
-                console.log('XeTeXEngine initialized');
-            } catch (e) {
-                console.error('Failed to init XeTeXEngine:', e);
+                    // Use TeXLive on-demand server running on port 5435
+                    // Worker will construct: http://localhost:5435/ + "xetex/" + format/filename
+                    engine.setTexliveEndpoint('http://localhost:5435/');
+
+                    xeTeXEngineRef.current = engine;
+                    // Expose for tests
+                    (window as any).currentEngine = engine;
+                    console.log('XeTeXEngine initialized (WASM)');
+                } catch (e) {
+                    console.error('Failed to init XeTeXEngine (WASM):', e);
+                }
+
+                // Initialize Dvipdfmx Engine for XDV → PDF conversion
+                try {
+                    const { DvipdfmxEngineWrapper } = await import('../engines/DvipdfmxEngine');
+                    const engine = new DvipdfmxEngineWrapper();
+                    await engine.initialize();
+                    engine.setTexliveEndpoint('http://localhost:5435/');
+                    
+                    dvipdfmxEngineRef.current = engine;
+                    console.log('DvipdfmxEngine initialized (WASM)');
+                } catch (e) {
+                    console.error('Failed to init DvipdfmxEngine (WASM):', e);
+                }
+            } else {
+                console.log('🚀 [HeyTeX v2] Skipping WASM XeTeX/Dvipdfmx engines; using server-side TeXLive compilation');
             }
 
-            // Initialize Dvipdfmx Engine for XDV → PDF conversion
-            try {
-                const { DvipdfmxEngineWrapper } = await import('../engines/DvipdfmxEngine');
-                const engine = new DvipdfmxEngineWrapper();
-                await engine.initialize();
-                engine.setTexliveEndpoint('http://localhost:5435/');
-                
-                dvipdfmxEngineRef.current = engine;
-                console.log('DvipdfmxEngine initialized');
-            } catch (e) {
-                console.error('Failed to init DvipdfmxEngine:', e);
-            }
-
-            // Initialize Typst Engine
+            // Initialize Typst Engine (always client-side)
             try {
                 const { TypstCompilerEngine } = await import('../engines/TypstCompilerEngine');
                 const engine = new TypstCompilerEngine();
@@ -247,6 +317,29 @@ export function EditorPage() {
         };
     }, []);
 
+    // Poll queue stats periodically (for LaTeX projects)
+    useEffect(() => {
+        if (currentProject?.engine !== 'LATEX') return;
+
+        const updateStats = async () => {
+            try {
+                const { compilationAPI } = await import('../api/compilation');
+                const stats = await compilationAPI.getStats();
+                setQueueStats(stats.stats);
+            } catch (error) {
+                console.error('[Queue Stats] Failed to fetch:', error);
+            }
+        };
+
+        // Initial fetch
+        updateStats();
+
+        // Poll every 3 seconds
+        const interval = setInterval(updateStats, 3000);
+
+        return () => clearInterval(interval);
+    }, [currentProject?.engine]);
+
     // Save file
     const saveFile = async (fileId: string, content: string) => {
         setIsSaving(true);
@@ -269,10 +362,9 @@ export function EditorPage() {
             const engineType = currentProject?.engine || 'LATEX';
 
             if (engineType === 'TYPST') {
+                // Typst vẫn sử dụng WASM (client-side compilation)
                 if (!typstEngineRef.current) throw new Error('Typst engine not ready');
 
-                // Gather sources (mocking single file for now or gathering all)
-                // ideally we pass all files. For now let's pass the current file content as main
                 const result = await typstEngineRef.current.compile(
                     'main.typ',
                     { 'main.typ': currentFile.content },
@@ -289,64 +381,51 @@ export function EditorPage() {
                 }
 
             } else {
-                // LaTeX (XeTeX) - Two-step process: XeTeX → XDV → PDF
-                if (!xeTeXEngineRef.current) throw new Error('LaTeX engine not ready');
-                if (!dvipdfmxEngineRef.current) throw new Error('Dvipdfmx engine not ready');
-
-                const xetexEngine = xeTeXEngineRef.current;
-                const dvipdfmxEngine = dvipdfmxEngineRef.current;
-
-                const encoder = new TextEncoder();
-                const data = encoder.encode(currentFile.content);
+                // LaTeX - Sử dụng Server-side TeXLive compilation
+                const { compilationAPI } = await import('../api/compilation');
                 
-                // Step 1: Compile LaTeX to XDV using XeTeX
-                await xetexEngine.writeMemFSFile("/work/main.tex", data);
-                await new Promise(resolve => setTimeout(resolve, 100));
-                await xetexEngine.setEngineMainFile("main.tex");
+                console.log('[Compile] Submitting job to server...');
                 
-                const xdvResult = await xetexEngine.compile("main.tex", []);
-                console.log('[Compile] XeTeX result:', xdvResult);
+                // Submit compilation job
+                const submitResult = await compilationAPI.submitJob(
+                    currentFile.name,
+                    currentFile.content,
+                    currentProject?.id
+                );
 
-                if (xdvResult.status !== 0) {
-                    console.error('[Compile] XeTeX failed:', xdvResult.log);
-                    setCompilationStatus('error', xdvResult.log || 'XeTeX compilation failed');
-                    return;
+                console.log('[Compile] Job submitted:', submitResult.jobId, 
+                    `Queue: ${submitResult.stats.queued}, Compiling: ${submitResult.stats.compiling}`);
+
+                // Poll for completion
+                const finalStatus = await compilationAPI.pollJobStatus(
+                    submitResult.jobId,
+                    (status) => {
+                        // Update UI với queue position
+                        console.log('[Compile] Job status:', status.job.status, 
+                            status.job.queuePosition ? `Position: ${status.job.queuePosition}` : '');
+                    }
+                );
+
+                if (finalStatus.job.status === 'completed') {
+                    // Download PDF
+                    console.log('[Compile] Downloading PDF...');
+                    const pdfBlob = await compilationAPI.getPDF(submitResult.jobId);
+                    const url = URL.createObjectURL(pdfBlob);
+                    setPdfData(url);
+                    setCompilationStatus('success');
+                    console.log('[Compile] PDF ready');
+                } else if (finalStatus.job.status === 'failed') {
+                    // Get error log
+                    const log = await compilationAPI.getLog(submitResult.jobId);
+                    const parsedErrors = parseLatexLog(log);
+                    const formattedErrors = formatErrorsForDisplay(parsedErrors);
+                    setCompilationStatus('error', formattedErrors || finalStatus.job.error || 'Compilation failed');
                 }
-
-                const xdvData = xdvResult.pdf || xdvResult.xdv;
-                if (!xdvData) {
-                    throw new Error('No XDV output from XeTeX');
-                }
-
-                // Step 1.5: Dump font files from XeTeX MemFS
-                let fonts: Record<string, ArrayBuffer> | undefined;
-                try {
-                    fonts = await xetexEngine.dumpDirectory('/tex');
-                    console.log('[Compile] Copying fonts to Dvipdfmx:', Object.keys(fonts || {}).length, 'files');
-                } catch (e) {
-                    console.warn('[Compile] Could not copy fonts:', e);
-                }
-
-                // Step 2: Convert XDV to PDF using Dvipdfmx (with fonts)
-                console.log('[Compile] Converting XDV to PDF...');
-                const pdfData = await dvipdfmxEngine.convertXdvToPdf(xdvData, 'main.xdv', fonts);
-                
-                const blob = new Blob([pdfData], { type: 'application/pdf' });
-                const url = URL.createObjectURL(blob);
-                setPdfData(url);
-                setCompilationStatus('success');
-                console.log('[Compile] PDF generated successfully');
             }
         } catch (error) {
-            console.error(error);
+            console.error('[Compile] Error:', error);
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-            
-            // Try to parse error log if available
-            const logText = (error as any).log || errorMessage;
-            const parsedErrors = parseLatexLog(logText);
-            const formattedErrors = formatErrorsForDisplay(parsedErrors);
-            
-            setCompilationStatus('error', formattedErrors || errorMessage);
+            setCompilationStatus('error', errorMessage);
         }
     };
 
@@ -362,6 +441,181 @@ export function EditorPage() {
             return next;
         });
     };
+
+    // File operations handlers
+    const handleNewFile = async () => {
+        const fileName = prompt('Enter file name (e.g., main.tex or document.typ):');
+        if (!fileName || !currentProject) return;
+        
+        try {
+            const { file } = await api.createFile({
+                projectId: currentProject.id,
+                name: fileName,
+                path: `/${fileName}`,
+                content: '',
+            });
+            setFiles([...files, file]);
+            addOpenFile(file);
+        } catch (error) {
+            console.error('Failed to create file:', error);
+            alert('Failed to create file');
+        }
+    };
+
+    const handleNewFolder = async () => {
+        const folderName = prompt('Enter folder name:');
+        if (!folderName || !currentProject) return;
+        
+        try {
+            const { file } = await api.createFile({
+                projectId: currentProject.id,
+                name: folderName,
+                path: `/${folderName}`,
+                isFolder: true,
+            });
+            setFiles([...files, file]);
+        } catch (error) {
+            console.error('Failed to create folder:', error);
+            alert('Failed to create folder');
+        }
+    };
+
+    const handleUpload = () => {
+        fileInputRef.current?.click();
+    };
+
+    const handleFileInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFiles = e.target.files;
+        if (!selectedFiles || selectedFiles.length === 0 || !currentProject) return;
+
+        for (const file of Array.from(selectedFiles)) {
+            try {
+                // Read file as base64
+                const reader = new FileReader();
+                const base64Data = await new Promise<string>((resolve, reject) => {
+                    reader.onload = () => {
+                        const result = reader.result as string;
+                        // Remove data URL prefix (e.g., "data:text/plain;base64,")
+                        const base64 = result.split(',')[1] || result;
+                        resolve(base64);
+                    };
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+
+                // Upload file
+                const { file: uploadedFile } = await api.uploadFile({
+                    projectId: currentProject.id,
+                    path: `/${file.name}`,
+                    name: file.name,
+                    mimeType: file.type || 'application/octet-stream',
+                    data: base64Data,
+                });
+
+                setFiles([...files, uploadedFile]);
+                
+                // If it's a text file, open it
+                if (file.name.endsWith('.tex') || file.name.endsWith('.typ') || file.name.endsWith('.txt')) {
+                    addOpenFile(uploadedFile);
+                }
+            } catch (error) {
+                console.error(`Failed to upload ${file.name}:`, error);
+                alert(`Failed to upload ${file.name}`);
+            }
+        }
+
+        // Reset input
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+        }
+    };
+
+    const handleRename = async () => {
+        if (!currentFile) {
+            alert('Please select a file to rename');
+            return;
+        }
+        
+        const newName = prompt('Enter new name:', currentFile.name);
+        if (!newName || newName === currentFile.name) return;
+        
+        try {
+            await api.updateFile(currentFile.id, { name: newName });
+            const updatedFiles = files.map(f => 
+                f.id === currentFile.id ? { ...f, name: newName } : f
+            );
+            setFiles(updatedFiles);
+            if (currentFile.id === currentFile.id) {
+                setCurrentFile({ ...currentFile, name: newName });
+            }
+        } catch (error) {
+            console.error('Failed to rename file:', error);
+            alert('Failed to rename file');
+        }
+    };
+
+    const handleDelete = async () => {
+        if (!currentFile) {
+            alert('Please select a file to delete');
+            return;
+        }
+        
+        if (!confirm(`Are you sure you want to delete "${currentFile.name}"?`)) {
+            return;
+        }
+        
+        try {
+            await api.deleteFile(currentFile.id);
+            const updatedFiles = files.filter(f => f.id !== currentFile.id);
+            setFiles(updatedFiles);
+            removeOpenFile(currentFile.id);
+            if (openFiles.length > 1) {
+                setCurrentFile(openFiles[0]);
+            } else {
+                setCurrentFile(null);
+            }
+        } catch (error) {
+            console.error('Failed to delete file:', error);
+            alert('Failed to delete file');
+        }
+    };
+
+    // Resize handlers
+    const handleMouseDown = (type: 'sidebar' | 'editor') => (e: React.MouseEvent) => {
+        e.preventDefault();
+        setIsResizing(type);
+    };
+
+    useEffect(() => {
+        if (!isResizing) return;
+
+        const handleMouseMove = (e: MouseEvent) => {
+            if (isResizing === 'sidebar') {
+                const newWidth = Math.max(200, Math.min(500, e.clientX));
+                setSidebarWidth(newWidth);
+            } else if (isResizing === 'editor') {
+                const container = document.querySelector('.editor-preview-container');
+                if (container) {
+                    const containerRect = container.getBoundingClientRect();
+                    const relativeX = e.clientX - containerRect.left;
+                    const percentage = Math.max(30, Math.min(70, (relativeX / containerRect.width) * 100));
+                    setEditorWidth(percentage);
+                }
+            }
+        };
+
+        const handleMouseUp = () => {
+            setIsResizing(null);
+        };
+
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
+
+        return () => {
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+        };
+    }, [isResizing]);
 
     // Build file tree structure - kept for future use
     /* const buildFileTree = useCallback(() => {
@@ -457,11 +711,38 @@ export function EditorPage() {
                         Chia sẻ
                     </Button>
 
+                    {/* Queue stats for LaTeX projects */}
+                    {currentProject?.engine === 'LATEX' && queueStats && (
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground border rounded px-2 py-1">
+                            <div className="flex items-center gap-1">
+                                <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                                <span>{queueStats.compiling} đang dịch</span>
+                            </div>
+                            {queueStats.queued > 0 && (
+                                <>
+                                    <span>•</span>
+                                    <div className="flex items-center gap-1">
+                                        <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                                        <span>{queueStats.queued} đang chờ</span>
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    )}
+
                     <Button
                         size="sm"
                         onClick={handleCompile}
-                        disabled={compilationStatus === 'compiling'}
+                        disabled={
+                            compilationStatus === 'compiling' || 
+                            (currentProject?.engine === 'LATEX' && !!(queueStats && queueStats.available === 0))
+                        }
                         className="gap-2"
+                        title={
+                            queueStats && queueStats.available === 0 
+                                ? 'Server đang đầy, vui lòng chờ...' 
+                                : undefined
+                        }
                     >
                         {compilationStatus === 'compiling' ? (
                             <Spinner size="sm" />
@@ -479,20 +760,77 @@ export function EditorPage() {
 
             {/* Main Content */}
             <div className="flex-1 flex overflow-hidden">
+                {/* Hidden file input for upload */}
+                <input
+                    ref={fileInputRef}
+                    type="file"
+                    multiple
+                    className="hidden"
+                    onChange={handleFileInputChange}
+                />
+                
                 {/* Sidebar */}
                 <aside
+                    style={{ width: isSidebarOpen ? `${sidebarWidth}px` : '0' }}
                     className={cn(
-                        'w-64 border-r bg-card flex flex-col transition-all duration-200 shrink-0',
-                        !isSidebarOpen && 'w-0 border-r-0'
+                        'border-r bg-card flex flex-col transition-all duration-200 shrink-0',
+                        !isSidebarOpen && 'border-r-0'
                     )}
                 >
                     {isSidebarOpen && (
                         <>
-                            <div className="p-3 border-b flex items-center justify-between">
-                                <span className="text-sm font-medium text-muted-foreground">EXPLORER</span>
-                                <Button variant="ghost" size="icon" className="h-6 w-6">
-                                    <Plus className="h-4 w-4" />
-                                </Button>
+                            <div className="px-2 py-1.5 border-b flex items-center justify-between gap-1">
+                                <div className="flex items-center gap-1">
+                                    <Button 
+                                        variant="ghost" 
+                                        size="icon" 
+                                        className="h-7 w-7"
+                                        title="New file"
+                                        onClick={handleNewFile}
+                                    >
+                                        <FileText className="h-4 w-4" />
+                                    </Button>
+                                    <Button 
+                                        variant="ghost" 
+                                        size="icon" 
+                                        className="h-7 w-7"
+                                        title="New folder"
+                                        onClick={handleNewFolder}
+                                    >
+                                        <FolderOpen className="h-4 w-4" />
+                                    </Button>
+                                    <Button 
+                                        variant="ghost" 
+                                        size="icon" 
+                                        className="h-7 w-7"
+                                        title="Upload"
+                                        onClick={handleUpload}
+                                    >
+                                        <Download className="h-4 w-4 rotate-180" />
+                                    </Button>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <Button 
+                                        variant="ghost" 
+                                        size="icon" 
+                                        className="h-7 w-7"
+                                        title="Rename"
+                                        onClick={handleRename}
+                                    >
+                                        <FileCode2 className="h-4 w-4" />
+                                    </Button>
+                                    <Button 
+                                        variant="ghost" 
+                                        size="icon" 
+                                        className="h-7 w-7 hover:text-destructive"
+                                        title="Delete"
+                                        onClick={handleDelete}
+                                    >
+                                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                    </Button>
+                                </div>
                             </div>
 
                             <div className="flex-1 overflow-y-auto p-2">
@@ -517,6 +855,17 @@ export function EditorPage() {
                     )}
                 </aside>
 
+                {/* Sidebar Resize Handle */}
+                {isSidebarOpen && (
+                    <div
+                        onMouseDown={handleMouseDown('sidebar')}
+                        className={cn(
+                            'w-1 hover:w-1.5 bg-border hover:bg-primary/50 cursor-col-resize transition-all shrink-0',
+                            isResizing === 'sidebar' && 'bg-primary w-1.5'
+                        )}
+                    />
+                )}
+
                 {/* Toggle Sidebar Button */}
                 <button
                     onClick={toggleSidebar}
@@ -530,9 +879,12 @@ export function EditorPage() {
                 </button>
 
                 {/* Editor + Preview */}
-                <div className="flex-1 flex overflow-hidden">
+                <div className="flex-1 flex overflow-hidden editor-preview-container">
                     {/* Editor Panel */}
-                    <div className={cn('flex-1 flex flex-col min-w-0', isPreviewOpen && 'w-1/2')}>
+                    <div 
+                        style={{ width: isPreviewOpen ? `${editorWidth}%` : '100%' }}
+                        className="flex flex-col min-w-0 transition-all duration-200"
+                    >
                         {/* Tabs */}
                         <div className="h-9 flex items-center border-b bg-card/50 overflow-x-auto shrink-0">
                             {openFiles.map(file => (
@@ -573,7 +925,7 @@ export function EditorPage() {
                                     theme={theme === 'dark' ? 'vs-dark' : 'light'}
                                     options={{
                                         fontSize: 14,
-                                        fontFamily: 'JetBrains Mono, monospace',
+                                        fontFamily: 'JetBrains Mono, Consolas, monospace',
                                         minimap: { enabled: false },
                                         wordWrap: 'on',
                                         lineNumbers: 'on',
@@ -581,6 +933,11 @@ export function EditorPage() {
                                         automaticLayout: true,
                                         scrollBeyondLastLine: false,
                                         padding: { top: 16 },
+                                        bracketPairColorization: { enabled: true },
+                                        matchBrackets: 'always',
+                                        colorDecorators: true,
+                                        renderWhitespace: 'selection',
+                                        occurrencesHighlight: 'multiFile',
                                     }}
                                 />
                             ) : (
@@ -606,9 +963,23 @@ export function EditorPage() {
                         )}
                     </button>
 
+                    {/* Editor-Preview Resize Handle */}
+                    {isPreviewOpen && (
+                        <div
+                            onMouseDown={handleMouseDown('editor')}
+                            className={cn(
+                                'w-1 hover:w-1.5 bg-border hover:bg-primary/50 cursor-col-resize transition-all shrink-0',
+                                isResizing === 'editor' && 'bg-primary w-1.5'
+                            )}
+                        />
+                    )}
+
                     {/* Preview Panel */}
                     {isPreviewOpen && (
-                        <div className="w-1/2 flex flex-col bg-muted/30 min-w-0">
+                        <div 
+                            style={{ width: `${100 - editorWidth}%` }}
+                            className="flex flex-col bg-muted/30 min-w-0"
+                        >
                             <div className="h-9 flex items-center justify-between px-4 border-b bg-card/50 shrink-0">
                                 <span className="text-sm font-medium text-muted-foreground">PDF PREVIEW</span>
                                 <Button variant="ghost" size="sm" className="h-7 gap-2">
@@ -631,9 +1002,14 @@ export function EditorPage() {
                                                 Compilation encountered errors. Please fix them and try again.
                                             </p>
                                         </div>
-                                        <pre className="bg-card p-4 rounded-lg text-sm font-mono whitespace-pre-wrap overflow-auto max-h-96 border">
-                                            {compilationStatus}
-                                        </pre>
+                                        <div className="bg-card border rounded-lg overflow-hidden mb-4">
+                                            <div className="bg-muted px-4 py-2 border-b font-semibold text-sm">
+                                                📋 Error Details
+                                            </div>
+                                            <pre className="p-4 text-sm font-mono whitespace-pre-wrap overflow-auto max-h-96">
+                                                {compilationError || 'Compilation failed. No detailed error message available.'}
+                                            </pre>
+                                        </div>
                                         <div className="mt-4 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
                                             <h4 className="font-semibold text-blue-600 mb-2">💡 Need Help?</h4>
                                             <ul className="text-sm space-y-2">
@@ -644,9 +1020,7 @@ export function EditorPage() {
                                         </div>
                                     </div>
                                 ) : pdfData ? (
-                                    <div className="w-full h-full bg-white rounded shadow-lg overflow-hidden">
-                                        <iframe src={pdfData} className="w-full h-full border-none" title="PDF Preview" />
-                                    </div>
+                                    <PDFViewer pdfUrl={pdfData} />
                                 ) : (
                                     <div className="text-center text-muted-foreground">
                                         <Eye className="h-12 w-12 mx-auto mb-4 opacity-50" />

@@ -40,12 +40,16 @@ class CompilationQueue {
     private queue: CompilationJob[] = [];
     private activeJobs: Map<string, CompilationJob> = new Map();
     private completedJobs: Map<string, CompilationJob> = new Map();
-    private readonly maxConcurrent: number = 10; // Mac Mini M2 24GB RAM có thể handle ~10 concurrent
+    private readonly maxConcurrent: number; // configurable via COMPILATION_MAX_CONCURRENT env var
     private readonly tempDir: string = path.join(os.tmpdir(), 'heytex-compile');
 
     constructor() {
         // Tạo temp directory nếu chưa tồn tại
         this.initTempDir();
+        // Configure max concurrent jobs from env or default to 10
+        const envVal = process.env.COMPILATION_MAX_CONCURRENT || process.env.MAX_CONCURRENT;
+        const parsed = envVal ? parseInt(envVal, 10) : NaN;
+        this.maxConcurrent = !isNaN(parsed) && parsed > 0 ? parsed : 10;
     }
 
     private async initTempDir() {

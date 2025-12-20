@@ -1,0 +1,112 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: heytex-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-heytex}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-heytex123}
+      POSTGRES_DB: ${POSTGRES_DB:-heytex}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-heytex}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MinIO Object Storage
+  minio:
+    image: minio/minio:latest
+    container_name: heytex-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-heytex}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-heytex123}
+    volumes:
+      - minio_data:/data
+    ports:
+      - "${MINIO_PORT:-5434}:9000"
+      - "${MINIO_CONSOLE_PORT:-9001}:9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # Backend Server với TeXLive
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: heytex-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-heytex}:${POSTGRES_PASSWORD:-heytex123}@postgres:5432/${POSTGRES_DB:-heytex}
+      JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-change-this}
+      PORT: 5433
+      MINIO_ENDPOINT: minio
+      MINIO_PORT: 9000
+      MINIO_USE_SSL: "false"
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-heytex}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-heytex123}
+      MINIO_BUCKET_ASSETS: heytex-assets
+      MINIO_BUCKET_PROJECTS: heytex-projects
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:5173}
+    volumes:
+      - compile_temp:/tmp/heytex-compile
+    ports:
+      - "${BACKEND_PORT:-5433}:5433"
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:5433/health', (r) => { process.exit(r.statusCode === 200 ? 0 : 1); })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend (optional - có thể chạy với Vite dev server riêng)
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        VITE_USE_WASM_LATEX: ${VITE_USE_WASM_LATEX:-false}
+    container_name: heytex-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:5433}
+      VITE_SOCKET_URL: ${VITE_SOCKET_URL:-http://localhost:5433}
+      # Prefer server-side LaTeX compilation by default
+      VITE_USE_WASM_LATEX: ${VITE_USE_WASM_LATEX:-false}
+    ports:
+      - "${FRONTEND_PORT:-5176}:80"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  postgres_data:
+    driver: local
+  minio_data:
+    driver: local
+  compile_temp:
+    driver: local
+
+networks:
+  default:
+    name: heytex-network

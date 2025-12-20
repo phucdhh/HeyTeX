@@ -1,0 +1,22 @@
+\documentclass[border=2mm]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc,patterns,angles,quotes}
+\begin{document}
+\begin{tikzpicture}[scale=1.5]
+    \draw[->, gray] (-2.2,0) -- (2.2,0) node[right] {$x$};
+    \draw[->, gray] (0,-0.5) -- (0,2.2) node[above] {$y$};
+    \node at (0,0) [below left] {$O$};
+    \foreach \x in {-2,-1,1,2}
+        \draw (\x,0.05) -- (\x,-0.05) node[below] {$\x$};
+    \foreach \y in {1,2}
+        \draw (0.05,\y) -- (-0.05,\y) node[left] {$\y$};
+    \draw[blue, thick, domain=-1.6:1.6, samples=100] plot (\x, {(\x)^4 - 2*(\x)^2 + 1});
+    \fill[red] (-1,0) circle (1pt) node[below left] {$(-1,0)$};
+    \fill[red] (1,0) circle (1pt) node[below right] {$(1,0)$};
+    \fill[red] (0,1) circle (1pt) node[above left] {$(0,1)$};
+    \fill[green] (0.577,0.444) circle (1pt);
+    \fill[green] (-0.577,0.444) circle (1pt);
+    \draw[gray, dashed] (-2,1) -- (2,1);
+    \draw[gray, dashed] (-2,0) -- (2,0);
+\end{tikzpicture}
+\end{document}

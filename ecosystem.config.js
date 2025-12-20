@@ -3,17 +3,21 @@ module.exports = {
     {
       name: 'heytex-backend',
       cwd: '/Users/mac/heytex/server',
-      script: '/Users/mac/heytex/server/src/index.ts',
+      // Use the compiled production bundle to avoid runtime tsx/interpreter issues
+      script: '/Users/mac/heytex/server/dist/index.js',
       interpreter: 'node',
-      interpreter_args: '--require tsx/cjs',
+      // Run single instance in fork mode for predictable startup and port binding
       instances: 1,
-      exec_mode: 'cluster',
+      exec_mode: 'fork',
       autorestart: true,
       watch: false,
       max_memory_restart: '500M',
       error_file: '/tmp/heytex-backend-error.log',
       out_file: '/tmp/heytex-backend.log',
       log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+      env: {
+        NODE_ENV: 'production',
+      },
     },
     {
       name: 'heytex-texlive',

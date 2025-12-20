@@ -28,6 +28,15 @@ app.use(cors({
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
+// Handle malformed JSON bodies gracefully (prevent crash)
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    if (err && err instanceof SyntaxError && 'body' in err) {
+        console.warn('[Express] Invalid JSON received:', err.message);
+        return res.status(400).json({ error: 'Invalid JSON body' });
+    }
+    return next(err);
+});
+
 // Health check
 app.get('/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
@@ -67,6 +76,16 @@ process.on('SIGINT', async () => {
     console.log('SIGINT received. Shutting down gracefully...');
     await prisma.$disconnect();
     process.exit(0);
+});
+
+// Global exception handlers to keep process alive and log errors for PM2
+process.on('uncaughtException', (err) => {
+    console.error('[Process] uncaughtException:', err);
+    // don't exit immediately; PM2 will restart if needed
+});
+
+process.on('unhandledRejection', (reason) => {
+    console.error('[Process] unhandledRejection:', reason);
 });
 
 // Start server

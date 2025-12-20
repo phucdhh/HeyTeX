@@ -1,0 +1,95 @@
+\documentclass[12pt]{article}
+\usepackage{fontspec}
+% \setmainfont{Latin Modern Roman} % Font không có, dùng default
+\usepackage{polyglossia}
+\setdefaultlanguage{vietnamese}
+\usepackage{tkz-tab}
+\usepackage{pgfplots}\pgfplotsset{compat=1.18}
+\begin{document}
+\section{Bảng biến thiên của hàm số $y = \frac{x-2}{x+1}$}
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+\coordinate (B) at (0,0);
+\coordinate (C) at (5,0);
+\coordinate (D) at (2.5,4.33);
+\coordinate (H) at (2.5,1.4433);
+\coordinate (A) at (2.5,5.525);
+
+% Vẽ tam giác BCD
+\draw[blue, thick] (B) -- (C) -- (D) -- cycle;
+
+% Vẽ các cạnh từ A
+\draw[blue, thick] (A) -- (B);
+\draw[blue, thick] (A) -- (C);
+\draw[blue, thick] (A) -- (D);
+
+% Vẽ đường cao AH
+\draw[red, thick, dashed] (A) -- (H) node[midway,right] {
+h
+h};
+
+% Đánh dấu các điểm
+\node[below left] at (B) {B};
+\node[below right] at (C) {C};
+\node[above] at (D) {D};
+\node[below] at (H) {H};
+\node[above] at (A) {A};
+
+% Đánh dấu góc vuông tại H (tùy chọn)
+\draw (H) ++(0,0.3) -- ++(0.3,0) -- ++(0,-0.3);
+\end{tikzpicture}
+\end{center}
+\begin{tikzpicture}[scale=1]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (4,0);
+  \coordinate (C) at (2,3);
+
+  \fill[blue] (A) circle (4pt);
+  \fill[blue] (B) circle (3pt);
+  \fill[blue] (C) circle (2pt);
+
+  \node[left]  at (A) {A};
+  \node[right] at (B) {B};
+  \node[above] at (C) {C};
+
+  \draw[blue, thick] (A) -- (B) -- (C) -- cycle;
+\end{tikzpicture}
+
+
+\begin{tikzpicture}[scale=0.8]
+    % Định nghĩa tọa độ các điểm
+    \coordinate (O) at (0,0);
+    \coordinate (A) at (2,0);
+    \coordinate (B) at (-1,1.732);
+    \coordinate (C) at (-1,-1.732);
+    \coordinate (M) at (5,0);
+    \coordinate (D) at (0.8,1.833);
+    \coordinate (E) at (0.8,-1.833);
+    
+    % Vẽ đường tròn ngoại tiếp (O)
+    \draw[blue, thick] (O) circle (2cm);
+    
+    % Vẽ tam giác ABC
+    \draw[blue, thick] (A) -- (B) -- (C) -- cycle;
+    
+    % Vẽ hai tiếp tuyến từ M
+    \draw[blue, thick] (M) -- (D);
+    \draw[blue, thick] (M) -- (E);
+    
+    % Vẽ đoạn thẳng DE
+    \draw[blue, thick] (D) -- (E);
+    
+    % Vẽ đoạn OM
+    \draw[blue, thick] (O) -- (M);
+    
+    % Đánh dấu và ghi nhãn các điểm
+    \fill[blue] (O) circle (3pt) node[left] {$O$};
+    \fill[blue] (A) circle (3pt) node[below] {$A$};
+    \fill[blue] (B) circle (3pt) node[above left] {$B$};
+    \fill[blue] (C) circle (3pt) node[below left] {$C$};
+    \fill[blue] (M) circle (3pt) node[below] {$M$};
+    \fill[blue] (D) circle (3pt) node[above right] {$D$};
+    \fill[blue] (E) circle (3pt) node[below right] {$E$};
+\end{tikzpicture}
+
+\end{document}
