@@ -9,6 +9,8 @@ import fs from 'fs/promises';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import os from 'os';
+import { fileStorage } from './FileStorage';
+import { prisma } from '../lib/prisma';
 
 const execAsync = promisify(exec);
 
@@ -40,24 +42,15 @@ class CompilationQueue {
     private queue: CompilationJob[] = [];
     private activeJobs: Map<string, CompilationJob> = new Map();
     private completedJobs: Map<string, CompilationJob> = new Map();
+    private projectLocks: Map<string, string> = new Map(); // projectId -> jobId đang compile
     private readonly maxConcurrent: number; // configurable via COMPILATION_MAX_CONCURRENT env var
-    private readonly tempDir: string = path.join(os.tmpdir(), 'heytex-compile');
 
     constructor() {
-        // Tạo temp directory nếu chưa tồn tại
-        this.initTempDir();
         // Configure max concurrent jobs from env or default to 10
         const envVal = process.env.COMPILATION_MAX_CONCURRENT || process.env.MAX_CONCURRENT;
         const parsed = envVal ? parseInt(envVal, 10) : NaN;
         this.maxConcurrent = !isNaN(parsed) && parsed > 0 ? parsed : 10;
-    }
-
-    private async initTempDir() {
-        try {
-            await fs.mkdir(this.tempDir, { recursive: true });
-        } catch (error) {
-            console.error('Failed to create temp directory:', error);
-        }
+        console.log(`[CompilationQueue] Initialized with max ${this.maxConcurrent} concurrent jobs`);
     }
 
     /**
@@ -138,11 +131,24 @@ class CompilationQueue {
             return;
         }
 
-        // Lấy job đầu tiên trong queue
-        const job = this.queue.shift();
-        if (!job) {
+        // Lấy job đầu tiên trong queue mà project không đang compile
+        let jobIndex = -1;
+        for (let i = 0; i < this.queue.length; i++) {
+            const job = this.queue[i];
+            if (!this.projectLocks.has(job.projectId)) {
+                jobIndex = i;
+                break;
+            }
+        }
+
+        if (jobIndex === -1) {
+            // Không có job nào sẵn sàng (tất cả projects đang compile)
             return;
         }
+
+        // Lấy job và lock project
+        const job = this.queue.splice(jobIndex, 1)[0];
+        this.projectLocks.set(job.projectId, job.id);
 
         // Chuyển sang trạng thái compiling
         job.status = 'compiling';
@@ -151,6 +157,9 @@ class CompilationQueue {
 
         // Compile trong background
         this.compileJob(job).finally(() => {
+            // Release lock
+            this.projectLocks.delete(job.projectId);
+            
             // Sau khi xong, tiếp tục xử lý queue
             this.processQueue();
         });
@@ -168,34 +177,44 @@ class CompilationQueue {
      * Biên dịch LaTeX job
      */
     private async compileJob(job: CompilationJob): Promise<void> {
-        const workDir = path.join(this.tempDir, job.id);
-
         try {
-            // Tạo thư mục làm việc
-            await fs.mkdir(workDir, { recursive: true });
+            // Get project owner ID for correct file path
+            const project = await prisma.project.findUnique({
+                where: { id: job.projectId },
+                select: { ownerId: true },
+            });
 
-            // Ghi file .tex
-            const texPath = path.join(workDir, job.fileName);
+            if (!project) {
+                throw new Error(`Project ${job.projectId} not found`);
+            }
+
+            // Use owner's directory, not collaborator's
+            const projectFilesDir = fileStorage.getProjectFilesDir(project.ownerId, job.projectId);
+            const texPath = path.join(projectFilesDir, job.fileName);
+
+            // Ghi nội dung mới nhất của file .tex
             await fs.writeFile(texPath, job.content, 'utf-8');
 
-            console.log(`[CompilationQueue] Compiling job ${job.id} for user ${job.userId}`);
+            console.log(`[CompilationQueue] Compiling job ${job.id} in ${projectFilesDir}`);
 
             // Biên dịch với xelatex (3 lần để resolve references)
+            // Chạy trực tiếp trong thư mục project
+            // Dùng -interaction=nonstopmode (không halt-on-error) để compile tiếp khi thiếu ảnh
             const commands = [
-                `cd "${workDir}" && xelatex -interaction=nonstopmode -halt-on-error "${job.fileName}"`,
-                `cd "${workDir}" && xelatex -interaction=nonstopmode -halt-on-error "${job.fileName}"`,
-                `cd "${workDir}" && xelatex -interaction=nonstopmode -halt-on-error "${job.fileName}"`,
+                `cd "${projectFilesDir}" && xelatex -interaction=nonstopmode "${job.fileName}"`,
+                `cd "${projectFilesDir}" && xelatex -interaction=nonstopmode "${job.fileName}"`,
+                `cd "${projectFilesDir}" && xelatex -interaction=nonstopmode "${job.fileName}"`,
             ];
 
             for (const cmd of commands) {
                 try {
                     const { stdout, stderr } = await execAsync(cmd, {
-                        cwd: workDir,
+                        cwd: projectFilesDir,
                         maxBuffer: 10 * 1024 * 1024, // 10MB buffer
                     });
 
-                    // Log output
-                    const logPath = path.join(workDir, 'compile.log');
+                    // Log output vào thư mục project
+                    const logPath = path.join(projectFilesDir, 'compile.log');
                     await fs.appendFile(logPath, `\n=== Run ${commands.indexOf(cmd) + 1} ===\n`);
                     await fs.appendFile(logPath, stdout);
                     if (stderr) {
@@ -204,7 +223,7 @@ class CompilationQueue {
                 } catch (error: any) {
                     // XeLaTeX có thể return error code nhưng vẫn tạo PDF
                     // Tiếp tục để check PDF có tồn tại không
-                    const logPath = path.join(workDir, 'compile.log');
+                    const logPath = path.join(projectFilesDir, 'compile.log');
                     await fs.appendFile(logPath, `\n=== Error in run ${commands.indexOf(cmd) + 1} ===\n`);
                     await fs.appendFile(logPath, error.stdout || '');
                     await fs.appendFile(logPath, error.stderr || '');
@@ -213,8 +232,8 @@ class CompilationQueue {
 
             // Kiểm tra PDF có được tạo không
             const pdfFileName = job.fileName.replace(/\.tex$/, '.pdf');
-            const pdfPath = path.join(workDir, pdfFileName);
-            const logPath = path.join(workDir, job.fileName.replace(/\.tex$/, '.log'));
+            const pdfPath = path.join(projectFilesDir, pdfFileName);
+            const logPath = path.join(projectFilesDir, job.fileName.replace(/\.tex$/, '.log'));
 
             const pdfExists = await fs.access(pdfPath).then(() => true).catch(() => false);
 
@@ -249,14 +268,13 @@ class CompilationQueue {
     }
 
     /**
-     * Cleanup job files
+     * Cleanup job metadata (không xóa files vì chúng ở trong project directory)
      */
     private async cleanupJob(jobId: string) {
         try {
-            const workDir = path.join(this.tempDir, jobId);
-            await fs.rm(workDir, { recursive: true, force: true });
+            // Chỉ xóa job khỏi memory, không xóa files
             this.completedJobs.delete(jobId);
-            console.log(`[CompilationQueue] Cleaned up job ${jobId}`);
+            console.log(`[CompilationQueue] Cleaned up job ${jobId} from memory`);
         } catch (error) {
             console.error(`[CompilationQueue] Failed to cleanup job ${jobId}:`, error);
         }
@@ -284,12 +302,42 @@ class CompilationQueue {
      */
     public async getLog(jobId: string): Promise<string | null> {
         const job = this.getJob(jobId);
-        if (!job || !job.logPath) {
+        if (!job) {
             return null;
         }
 
         try {
-            return await fs.readFile(job.logPath, 'utf-8');
+            // Get project owner ID for correct file path
+            const project = await prisma.project.findUnique({
+                where: { id: job.projectId },
+                select: { ownerId: true },
+            });
+
+            if (!project) {
+                console.error(`[CompilationQueue] Project ${job.projectId} not found for log`);
+                return null;
+            }
+
+            // Use owner's directory
+            const projectFilesDir = fileStorage.getProjectFilesDir(project.ownerId, job.projectId);
+            const compileLogPath = path.join(projectFilesDir, 'compile.log');
+            
+            try {
+                // Try to read compile.log first (available during compilation)
+                const compileLog = await fs.readFile(compileLogPath, 'utf-8');
+                if (compileLog) {
+                    return compileLog;
+                }
+            } catch (err) {
+                // compile.log not available yet, try job.logPath
+            }
+            
+            // Fallback to job.logPath (LaTeX .log file, only after completion)
+            if (job.logPath) {
+                return await fs.readFile(job.logPath, 'utf-8');
+            }
+            
+            return null;
         } catch (error) {
             console.error(`[CompilationQueue] Failed to read log for job ${jobId}:`, error);
             return null;

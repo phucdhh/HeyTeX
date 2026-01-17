@@ -9,6 +9,7 @@ import { api } from '../lib/api';
 import type { ProjectFile } from '../lib/types';
 import { Button } from '../components/ui/Button';
 import { Spinner } from '../components/ui/Spinner';
+import { CollaboratorAvatars } from '../components/CollaboratorAvatars';
 import { parseLatexLog, formatErrorsForDisplay } from '../utils/latexLogParser';
 import {
     FileCode2,
@@ -23,7 +24,6 @@ import {
     FolderOpen,
     Sun,
     Moon,
-    Users,
     Save,
     Download,
     Share2,
@@ -31,6 +31,7 @@ import {
 import { cn, getFileIcon } from '../lib/utils';
 import { ShareModal } from '../components/ShareModal';
 import { PDFViewer } from '../components/PDFViewer';
+import { UploadModal } from '../components/UploadModal';
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5433';
 
@@ -67,7 +68,14 @@ export function EditorPage() {
     const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set(['/']));
     const [collaborators, setCollaborators] = useState<Array<{ id: string; name: string; color: string }>>([]);
     const [showShareModal, setShowShareModal] = useState(false);
+    const [showUploadModal, setShowUploadModal] = useState(false);
+    const [selectedFolder, setSelectedFolder] = useState<ProjectFile | null>(null);
     const [queueStats, setQueueStats] = useState<{ compiling: number; queued: number; available: number } | null>(null);
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [viewMode, setViewMode] = useState<'pdf' | 'logs'>('pdf'); // PDF or Logs view
+    const [compilationLog, setCompilationLog] = useState<string>(''); // Compilation logs
+    const [compilationOutput, setCompilationOutput] = useState<string>(''); // Real-time compilation output
+    const outputEndRef = useRef<HTMLDivElement>(null); // For auto-scroll
     
     // Resizable columns state
     const [sidebarWidth, setSidebarWidth] = useState(256); // default w-64 = 256px
@@ -106,6 +114,53 @@ export function EditorPage() {
         loadProject();
     }, [projectId]);
 
+    // Auto-scroll compilation output to bottom when new content arrives
+    useEffect(() => {
+        if (compilationStatus === 'compiling' && outputEndRef.current) {
+            outputEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [compilationOutput, compilationStatus]);
+
+    // Load image with authentication
+    useEffect(() => {
+        if (!currentFile || !isImageFile()) {
+            setImageUrl(null);
+            return;
+        }
+
+        const loadImage = async () => {
+            try {
+                const token = localStorage.getItem('heytex_token');
+                const response = await fetch(
+                    `${import.meta.env.VITE_API_URL || 'http://localhost:5433'}/files/${currentFile.id}/content`,
+                    {
+                        headers: {
+                            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+                        },
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error('Failed to load image');
+                }
+
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                setImageUrl(url);
+
+                // Cleanup old URL
+                return () => {
+                    if (url) URL.revokeObjectURL(url);
+                };
+            } catch (error) {
+                console.error('Error loading image:', error);
+                setImageUrl(null);
+            }
+        };
+
+        loadImage();
+    }, [currentFile?.id]);
+
     // Setup WebSocket collaboration
     useEffect(() => {
         if (!currentFile || !currentProject || !user) return;
@@ -138,10 +193,19 @@ export function EditorPage() {
             Y.applyUpdate(ydoc, new Uint8Array(update));
         });
 
+        socket.on('current-users', (users: Array<{ id: string; name: string; color: string }>) => {
+            // Deduplicate by user ID
+            const uniqueUsers = Array.from(
+                new Map(users.map(u => [u.id, u])).values()
+            );
+            setCollaborators(uniqueUsers);
+        });
+
         socket.on('user-joined', (userData: { id: string; name: string; color: string }) => {
             setCollaborators(prev => {
-                if (prev.find(c => c.id === userData.id)) return prev;
-                return [...prev, userData];
+                // Remove any existing instance of this user first (in case of reconnect)
+                const filtered = prev.filter(c => c.id !== userData.id);
+                return [...filtered, userData];
             });
         });
 
@@ -357,14 +421,19 @@ export function EditorPage() {
         if (!currentFile?.content) return;
 
         setCompilationStatus('compiling');
+        setCompilationOutput(''); // Clear previous output
 
         try {
             const engineType = currentProject?.engine || 'LATEX';
 
             if (engineType === 'TYPST') {
                 // Typst vẫn sử dụng WASM (client-side compilation)
+                setCompilationOutput('🚀 Starting Typst compilation...\n');
+                
                 if (!typstEngineRef.current) throw new Error('Typst engine not ready');
 
+                setCompilationOutput(prev => prev + '📝 Compiling ' + currentFile.name + '...\n');
+                
                 const result = await typstEngineRef.current.compile(
                     'main.typ',
                     { 'main.typ': currentFile.content },
@@ -372,6 +441,7 @@ export function EditorPage() {
                 );
 
                 if (result.output) {
+                    setCompilationOutput(prev => prev + '✅ Compilation successful!\n');
                     const blob = new Blob([result.output], { type: 'application/pdf' });
                     const url = URL.createObjectURL(blob);
                     setPdfData(url);
@@ -382,9 +452,12 @@ export function EditorPage() {
 
             } else {
                 // LaTeX - Sử dụng Server-side TeXLive compilation
+                setCompilationOutput('🚀 Starting LaTeX compilation on server...\n');
+                
                 const { compilationAPI } = await import('../api/compilation');
                 
                 console.log('[Compile] Submitting job to server...');
+                setCompilationOutput(prev => prev + `📝 Submitting ${currentFile.name} to compilation queue...\n`);
                 
                 // Submit compilation job
                 const submitResult = await compilationAPI.submitJob(
@@ -395,37 +468,99 @@ export function EditorPage() {
 
                 console.log('[Compile] Job submitted:', submitResult.jobId, 
                     `Queue: ${submitResult.stats.queued}, Compiling: ${submitResult.stats.compiling}`);
+                
+                setCompilationOutput(prev => prev + 
+                    `✓ Job submitted: ${submitResult.jobId}\n` +
+                    `📊 Queue stats: ${submitResult.stats.compiling} compiling, ${submitResult.stats.queued} queued\n` +
+                    `⏳ Waiting for compilation to complete...\n`
+                );
 
-                // Poll for completion
+                // Poll for completion with real-time log updates
                 const finalStatus = await compilationAPI.pollJobStatus(
                     submitResult.jobId,
                     (status) => {
                         // Update UI với queue position
                         console.log('[Compile] Job status:', status.job.status, 
                             status.job.queuePosition ? `Position: ${status.job.queuePosition}` : '');
+                        
+                        if (status.job.queuePosition !== undefined && status.job.queuePosition > 0) {
+                            setCompilationOutput(prev => {
+                                const lines = prev.split('\n');
+                                // Remove last "Queue position" line if exists
+                                if (lines[lines.length - 2]?.includes('Queue position:')) {
+                                    lines.splice(-2, 1);
+                                }
+                                return lines.join('\n') + `🔄 Queue position: ${status.job.queuePosition}\n`;
+                            });
+                        } else if (status.job.status === 'compiling') {
+                            setCompilationOutput(prev => {
+                                if (!prev.includes('⚙️ Compiling...')) {
+                                    return prev + '⚙️ Compiling... (running xelatex 3 times)\n\n';
+                                }
+                                return prev;
+                            });
+                        }
+                    },
+                    (log) => {
+                        // Real-time log updates from server
+                        console.log('[Compile] Log update, length:', log.length);
+                        
+                        // Extract last 50 lines for display (to avoid overwhelming UI)
+                        const lines = log.split('\n');
+                        const lastLines = lines.slice(-50).join('\n');
+                        
+                        setCompilationOutput(prev => {
+                            // Keep the header messages, replace compilation output
+                            const headerLines = prev.split('\n').slice(0, 5); // First 5 lines are headers
+                            const header = headerLines.join('\n');
+                            return header + '\n\n📜 LaTeX Output:\n' + lastLines;
+                        });
                     }
                 );
 
                 if (finalStatus.job.status === 'completed') {
                     // Download PDF
                     console.log('[Compile] Downloading PDF...');
+                    setCompilationOutput(prev => prev + '📥 Downloading PDF output...\n');
+                    
                     const pdfBlob = await compilationAPI.getPDF(submitResult.jobId);
                     const url = URL.createObjectURL(pdfBlob);
                     setPdfData(url);
+                    
+                    setCompilationOutput(prev => prev + 
+                        `✅ Compilation completed successfully!\n` +
+                        `📄 PDF size: ${(pdfBlob.size / 1024).toFixed(2)} KB\n`
+                    );
+                    
                     setCompilationStatus('success');
                     console.log('[Compile] PDF ready');
+                    
+                    // Also get logs for viewing
+                    try {
+                        const log = await compilationAPI.getLog(submitResult.jobId);
+                        setCompilationLog(log || 'No log available');
+                    } catch (e) {
+                        console.warn('[Compile] Failed to get log:', e);
+                    }
                 } else if (finalStatus.job.status === 'failed') {
                     // Get error log
+                    setCompilationOutput(prev => prev + '❌ Compilation failed!\n');
+                    
                     const log = await compilationAPI.getLog(submitResult.jobId);
+                    setCompilationLog(log || 'No log available');
                     const parsedErrors = parseLatexLog(log);
                     const formattedErrors = formatErrorsForDisplay(parsedErrors);
                     setCompilationStatus('error', formattedErrors || finalStatus.job.error || 'Compilation failed');
+                    // Switch to logs view on error
+                    setViewMode('logs');
                 }
             }
         } catch (error) {
             console.error('[Compile] Error:', error);
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            setCompilationOutput(prev => prev + `\n❌ Error: ${errorMessage}\n`);
             setCompilationStatus('error', errorMessage);
+            setViewMode('logs');
         }
     };
 
@@ -481,7 +616,7 @@ export function EditorPage() {
     };
 
     const handleUpload = () => {
-        fileInputRef.current?.click();
+        setShowUploadModal(true);
     };
 
     const handleFileInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -638,9 +773,31 @@ export function EditorPage() {
         const ext = currentFile.name.split('.').pop()?.toLowerCase();
         if (ext === 'tex') return 'latex';
         if (ext === 'typ') return 'typst';
-        if (ext === 'bib') return 'bibtex';
+        if (ext === 'bib' || ext === 'bbl') return 'bibtex';
         if (ext === 'md') return 'markdown';
+        if (ext === 'json') return 'json';
+        if (ext === 'yaml' || ext === 'yml') return 'yaml';
+        if (ext === 'xml') return 'xml';
+        if (ext === 'html') return 'html';
+        if (ext === 'css') return 'css';
+        if (ext === 'js') return 'javascript';
+        if (ext === 'ts') return 'typescript';
+        if (ext === 'py') return 'python';
+        // aux, toc, log, out, etc. are plaintext
         return 'plaintext';
+    };
+
+    // Check if current file is an image
+    const isImageFile = () => {
+        if (!currentFile) return false;
+        const ext = currentFile.name.split('.').pop()?.toLowerCase();
+        return ['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'bmp', 'ico'].includes(ext || '');
+    };
+
+    // Check if current file is a PDF
+    const isPdfFile = () => {
+        if (!currentFile) return false;
+        return currentFile.name.toLowerCase().endsWith('.pdf');
     };
 
     if (isLoading) {
@@ -672,24 +829,28 @@ export function EditorPage() {
                 </div>
 
                 <div className="flex items-center gap-2">
-                    {/* Collaborators */}
-                    {collaborators.length > 0 && (
-                        <div className="flex items-center gap-1 mr-2">
-                            <Users className="h-4 w-4 text-muted-foreground" />
-                            <div className="flex -space-x-2">
-                                {collaborators.slice(0, 3).map(c => (
-                                    <div
-                                        key={c.id}
-                                        className="w-6 h-6 rounded-full border-2 border-background flex items-center justify-center text-xs font-medium text-white"
-                                        style={{ backgroundColor: c.color }}
-                                        title={c.name}
-                                    >
-                                        {c.name.charAt(0)}
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
+                    {/* Compile Button - Moved before Auto save */}
+                    <Button
+                        size="sm"
+                        onClick={handleCompile}
+                        disabled={
+                            compilationStatus === 'compiling' || 
+                            (currentProject?.engine === 'LATEX' && !!(queueStats && queueStats.available === 0))
+                        }
+                        className="gap-2"
+                        title={
+                            queueStats && queueStats.available === 0 
+                                ? 'Server đang đầy, vui lòng chờ...' 
+                                : undefined
+                        }
+                    >
+                        {compilationStatus === 'compiling' ? (
+                            <Spinner size="sm" />
+                        ) : (
+                            <Play className="h-4 w-4" />
+                        )}
+                        Biên dịch
+                    </Button>
 
                     {/* Save indicator */}
                     <div className="flex items-center gap-1 text-sm text-muted-foreground">
@@ -730,27 +891,8 @@ export function EditorPage() {
                         </div>
                     )}
 
-                    <Button
-                        size="sm"
-                        onClick={handleCompile}
-                        disabled={
-                            compilationStatus === 'compiling' || 
-                            (currentProject?.engine === 'LATEX' && !!(queueStats && queueStats.available === 0))
-                        }
-                        className="gap-2"
-                        title={
-                            queueStats && queueStats.available === 0 
-                                ? 'Server đang đầy, vui lòng chờ...' 
-                                : undefined
-                        }
-                    >
-                        {compilationStatus === 'compiling' ? (
-                            <Spinner size="sm" />
-                        ) : (
-                            <Play className="h-4 w-4" />
-                        )}
-                        Biên dịch
-                    </Button>
+                    {/* Collaborators Avatars - Moved to right side */}
+                    <CollaboratorAvatars collaborators={collaborators} maxShow={5} />
 
                     <Button variant="ghost" size="icon" onClick={toggleTheme}>
                         {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -842,11 +984,19 @@ export function EditorPage() {
                                         isExpanded={expandedFolders.has(file.path)}
                                         onToggle={toggleFolder}
                                         onSelect={(f) => {
-                                            if (!f.isFolder) {
+                                            if (f.isFolder) {
+                                                // Select folder and clear file selection
+                                                setSelectedFolder(f);
+                                                setCurrentFile(null);
+                                            } else {
+                                                // Select file and clear folder selection
+                                                setSelectedFolder(null);
                                                 addOpenFile(f);
                                             }
                                         }}
-                                        isSelected={currentFile?.id === file.id}
+                                        selectedFileId={currentFile?.id}
+                                        selectedFolderId={selectedFolder?.id}
+                                        expandedFolders={expandedFolders}
                                         level={0}
                                     />
                                 ))}
@@ -913,33 +1063,70 @@ export function EditorPage() {
                             ))}
                         </div>
 
-                        {/* Monaco Editor */}
+                        {/* Editor/Preview Area */}
                         <div className="flex-1 min-h-0">
                             {currentFile ? (
-                                <Editor
-                                    height="100%"
-                                    language={getLanguage()}
-                                    value={currentFile.content || ''}
-                                    onChange={handleEditorChange}
-                                    onMount={handleEditorMount}
-                                    theme={theme === 'dark' ? 'vs-dark' : 'light'}
-                                    options={{
-                                        fontSize: 14,
-                                        fontFamily: 'JetBrains Mono, Consolas, monospace',
-                                        minimap: { enabled: false },
-                                        wordWrap: 'on',
-                                        lineNumbers: 'on',
-                                        folding: true,
-                                        automaticLayout: true,
-                                        scrollBeyondLastLine: false,
-                                        padding: { top: 16 },
-                                        bracketPairColorization: { enabled: true },
-                                        matchBrackets: 'always',
-                                        colorDecorators: true,
-                                        renderWhitespace: 'selection',
-                                        occurrencesHighlight: 'multiFile',
-                                    }}
-                                />
+                                <>
+                                    {isImageFile() ? (
+                                        // Image Preview
+                                        <div className="h-full flex items-center justify-center bg-muted/10 p-4 overflow-auto">
+                                            <div className="text-center">
+                                                {imageUrl ? (
+                                                    <img
+                                                        src={imageUrl}
+                                                        alt={currentFile.name}
+                                                        className="max-w-full max-h-full object-contain rounded shadow-lg"
+                                                    />
+                                                ) : (
+                                                    <div className="text-muted-foreground">
+                                                        <Spinner size="lg" />
+                                                        <p className="mt-4">Loading image...</p>
+                                                    </div>
+                                                )}
+                                                <p className="mt-4 text-sm text-muted-foreground">{currentFile.name}</p>
+                                                <p className="text-xs text-muted-foreground">
+                                                    {currentFile.size ? `${(currentFile.size / 1024).toFixed(2)} KB` : ''}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ) : isPdfFile() ? (
+                                        // PDF Preview (placeholder)
+                                        <div className="h-full flex items-center justify-center bg-muted/10">
+                                            <div className="text-center text-muted-foreground">
+                                                <FileText className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                                                <p>PDF preview not yet implemented</p>
+                                                <p className="text-sm mt-2">{currentFile.name}</p>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        // Text Editor
+                                        <Editor
+                                            height="100%"
+                                            language={getLanguage()}
+                                            value={currentFile.content || ''}
+                                            onChange={handleEditorChange}
+                                            onMount={handleEditorMount}
+                                            theme={theme === 'dark' ? 'vs-dark' : 'light'}
+                                            options={{
+                                                fontSize: 14,
+                                                fontFamily: 'JetBrains Mono, Consolas, monospace',
+                                                minimap: { enabled: false },
+                                                wordWrap: 'on',
+                                                lineNumbers: 'on',
+                                                folding: true,
+                                                automaticLayout: true,
+                                                scrollBeyondLastLine: false,
+                                                padding: { top: 16 },
+                                                bracketPairColorization: { enabled: true },
+                                                matchBrackets: 'always',
+                                                colorDecorators: true,
+                                                renderWhitespace: 'selection',
+                                                occurrencesHighlight: 'multiFile',
+                                                readOnly: isImageFile() || isPdfFile(), // Read-only for binary files
+                                            }}
+                                        />
+                                    )}
+                                </>
                             ) : (
                                 <div className="h-full flex items-center justify-center text-muted-foreground">
                                     <div className="text-center">
@@ -980,44 +1167,103 @@ export function EditorPage() {
                             style={{ width: `${100 - editorWidth}%` }}
                             className="flex flex-col bg-muted/30 min-w-0"
                         >
+                            {/* Header with Tabs */}
                             <div className="h-9 flex items-center justify-between px-4 border-b bg-card/50 shrink-0">
-                                <span className="text-sm font-medium text-muted-foreground">PDF PREVIEW</span>
-                                <Button variant="ghost" size="sm" className="h-7 gap-2">
+                                <div className="flex items-center gap-1">
+                                    <button
+                                        onClick={() => setViewMode('pdf')}
+                                        className={cn(
+                                            'px-3 py-1 text-sm font-medium rounded transition-colors',
+                                            viewMode === 'pdf' 
+                                                ? 'bg-primary text-primary-foreground' 
+                                                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                                        )}
+                                    >
+                                        PDF
+                                    </button>
+                                    <button
+                                        onClick={() => setViewMode('logs')}
+                                        className={cn(
+                                            'px-3 py-1 text-sm font-medium rounded transition-colors',
+                                            viewMode === 'logs' 
+                                                ? 'bg-primary text-primary-foreground' 
+                                                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                                        )}
+                                    >
+                                        Logs & Output
+                                    </button>
+                                </div>
+                                <Button variant="ghost" size="sm" className="h-7 gap-2" disabled={!pdfData}>
                                     <Download className="h-3 w-3" />
                                     Export
                                 </Button>
                             </div>
 
-                            <div className="flex-1 flex items-center justify-center overflow-auto p-4">
+                            <div className="flex-1 flex items-center justify-center overflow-auto">
                                 {compilationStatus === 'compiling' ? (
-                                    <div className="text-center">
-                                        <Spinner size="lg" />
-                                        <p className="mt-4 text-muted-foreground">Đang biên dịch...</p>
-                                    </div>
-                                ) : compilationStatus === 'error' ? (
-                                    <div className="w-full h-full overflow-auto p-4">
-                                        <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4 mb-4">
-                                            <h3 className="text-lg font-semibold text-destructive mb-2">❌ Compilation Failed</h3>
-                                            <p className="text-sm text-muted-foreground mb-4">
-                                                Compilation encountered errors. Please fix them and try again.
-                                            </p>
-                                        </div>
-                                        <div className="bg-card border rounded-lg overflow-hidden mb-4">
-                                            <div className="bg-muted px-4 py-2 border-b font-semibold text-sm">
-                                                📋 Error Details
+                                    <div className="w-full h-full flex flex-col p-4">
+                                        {/* Real-time compilation output - simplified */}
+                                        <div className="flex-1 border rounded-lg overflow-auto bg-card">
+                                            <div className="p-4">
+                                                <pre className="font-mono text-sm whitespace-pre-wrap text-foreground">
+                                                    {compilationOutput || 'Initializing...\n'}
+                                                </pre>
+                                                <div ref={outputEndRef} />
                                             </div>
-                                            <pre className="p-4 text-sm font-mono whitespace-pre-wrap overflow-auto max-h-96">
-                                                {compilationError || 'Compilation failed. No detailed error message available.'}
+                                        </div>
+                                    </div>
+                                ) : viewMode === 'logs' ? (
+                                    <div className="w-full h-full overflow-auto p-4">
+                                        <div className={cn(
+                                            'border rounded-lg p-4 mb-4',
+                                            compilationStatus === 'error' 
+                                                ? 'bg-destructive/10 border-destructive/30'
+                                                : 'bg-muted/50 border-border'
+                                        )}>
+                                            <h3 className={cn(
+                                                'text-lg font-semibold mb-2',
+                                                compilationStatus === 'error' ? 'text-destructive' : 'text-foreground'
+                                            )}>
+                                                {compilationStatus === 'error' ? '❌ Compilation Failed' : '✓ Compilation Log'}
+                                            </h3>
+                                            {compilationStatus === 'error' && compilationError && (
+                                                <div className="mb-4">
+                                                    <div className="bg-card border rounded-lg overflow-hidden">
+                                                        <div className="bg-muted px-4 py-2 border-b font-semibold text-sm">
+                                                            📋 Error Details
+                                                        </div>
+                                                        <pre className="p-4 text-sm font-mono whitespace-pre-wrap overflow-auto max-h-96">
+                                                            {compilationError}
+                                                        </pre>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                        
+                                        <div className="bg-card border rounded-lg overflow-hidden">
+                                            <div className="bg-muted px-4 py-2 border-b font-semibold text-sm flex items-center justify-between">
+                                                <span>📄 Full Compilation Log</span>
+                                                <button 
+                                                    onClick={() => {
+                                                        navigator.clipboard.writeText(compilationLog);
+                                                    }}
+                                                    className="text-xs px-2 py-1 bg-primary/10 hover:bg-primary/20 rounded"
+                                                >
+                                                    Copy to clipboard
+                                                </button>
+                                            </div>
+                                            <pre className="p-4 text-xs font-mono whitespace-pre-wrap overflow-auto max-h-[600px] bg-gray-900 text-gray-100">
+                                                {compilationLog || 'No logs available. Compile your document to see logs.'}
                                             </pre>
                                         </div>
-                                        <div className="mt-4 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-                                            <h4 className="font-semibold text-blue-600 mb-2">💡 Need Help?</h4>
-                                            <ul className="text-sm space-y-2">
-                                                <li>• Check if all required packages are available in the TeXLive distribution</li>
-                                                <li>• Missing packages? Install them via <code className="bg-card px-1 rounded">tlmgr</code> or use alternatives</li>
-                                                <li>• Copy this log to get help from the community</li>
-                                            </ul>
-                                        </div>
+                                    </div>
+                                ) : compilationStatus === 'error' ? (
+                                    <div className="text-center text-muted-foreground p-8">
+                                        <div className="text-destructive text-lg mb-4">❌ Compilation Failed</div>
+                                        <p className="mb-4">Check the "Logs & Output" tab for details</p>
+                                        <Button onClick={() => setViewMode('logs')} variant="outline">
+                                            View Logs
+                                        </Button>
                                     </div>
                                 ) : pdfData ? (
                                     <PDFViewer pdfUrl={pdfData} />
@@ -1070,6 +1316,26 @@ export function EditorPage() {
                     }}
                 />
             )}
+
+            {/* Upload Modal */}
+            {showUploadModal && currentProject && (
+                <UploadModal
+                    projectId={currentProject.id}
+                    targetPath={selectedFolder?.path || '/'}
+                    onClose={() => setShowUploadModal(false)}
+                    onUploadComplete={(uploadedFiles) => {
+                        // Refresh files list
+                        setFiles([...files, ...uploadedFiles]);
+                        // Open first uploaded file if it's a text file
+                        const firstTextFile = uploadedFiles.find(
+                            f => f.name.endsWith('.tex') || f.name.endsWith('.typ') || f.name.endsWith('.txt')
+                        );
+                        if (firstTextFile) {
+                            addOpenFile(firstTextFile);
+                        }
+                    }}
+                />
+            )}
         </div>
     );
 }
@@ -1081,20 +1347,34 @@ interface FileTreeItemProps {
     isExpanded: boolean;
     onToggle: (path: string) => void;
     onSelect: (file: ProjectFile) => void;
-    isSelected: boolean;
+    selectedFileId?: string;
+    selectedFolderId?: string;
+    expandedFolders: Set<string>;
     level: number;
 }
 
-function FileTreeItem({ file, files, isExpanded, onToggle, onSelect, isSelected, level }: FileTreeItemProps) {
+function FileTreeItem({ file, files, isExpanded, onToggle, onSelect, selectedFileId, selectedFolderId, expandedFolders, level }: FileTreeItemProps) {
     const children = files.filter(f => {
         const parentPath = f.path.substring(0, f.path.lastIndexOf('/')) || '/';
         return parentPath === file.path && f.id !== file.id;
     });
 
+    // Determine if this item is selected
+    const isSelected = file.isFolder 
+        ? selectedFolderId === file.id 
+        : selectedFileId === file.id;
+
     return (
         <div>
             <div
-                onClick={() => file.isFolder ? onToggle(file.path) : onSelect(file)}
+                onClick={() => {
+                    if (file.isFolder) {
+                        onToggle(file.path);
+                        onSelect(file);
+                    } else {
+                        onSelect(file);
+                    }
+                }}
                 className={cn(
                     'flex items-center gap-2 px-2 py-1 rounded cursor-pointer text-sm',
                     isSelected ? 'bg-primary/20 text-primary' : 'hover:bg-muted'
@@ -1114,10 +1394,12 @@ function FileTreeItem({ file, files, isExpanded, onToggle, onSelect, isSelected,
                     key={child.id}
                     file={child}
                     files={files}
-                    isExpanded={isExpanded}
+                    isExpanded={expandedFolders.has(child.path)}
                     onToggle={onToggle}
                     onSelect={onSelect}
-                    isSelected={isSelected}
+                    selectedFileId={selectedFileId}
+                    selectedFolderId={selectedFolderId}
+                    expandedFolders={expandedFolders}
                     level={level + 1}
                 />
             ))}

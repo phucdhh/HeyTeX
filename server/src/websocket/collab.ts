@@ -11,6 +11,7 @@ import { config } from '../config/index';
 // Store for Yjs documents
 const docs = new Map<string, Y.Doc>();
 const awarenessMap = new Map<string, awarenessProtocol.Awareness>();
+const roomUsers = new Map<string, Map<string, UserInfo>>(); // docName -> socketId -> UserInfo
 
 // Message types
 const messageSync = 0;
@@ -22,13 +23,38 @@ interface UserInfo {
     color: string;
 }
 
-function getRandomColor(): string {
-    const colors = [
-        '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4',
-        '#FFEAA7', '#DDA0DD', '#98D8C8', '#F7DC6F',
-        '#BB8FCE', '#85C1E9', '#F8B500', '#00CED1',
-    ];
-    return colors[Math.floor(Math.random() * colors.length)];
+// Fixed colors for collaborators (max 5)
+const COLLABORATOR_COLORS = [
+    '#3B82F6', // blue - owner
+    '#FBBF24', // yellow - 2nd
+    '#EF4444', // red - 3rd
+    '#A855F7', // purple - 4th
+    '#EC4899', // pink - 5th
+];
+
+function getColorForUser(userId: string, projectOwnerId: string, existingUsers: Map<string, UserInfo>): string {
+    // Owner always gets blue (first color)
+    if (userId === projectOwnerId) {
+        return COLLABORATOR_COLORS[0];
+    }
+
+    // Get list of unique user IDs already in room (excluding current user)
+    const userIds = new Set<string>();
+    existingUsers.forEach((u) => {
+        if (u.id !== userId) {
+            userIds.add(u.id);
+        }
+    });
+
+    // Find position: owner is 0, first collaborator is 1, etc.
+    let position = 1; // Start from 1 (after owner)
+    if (userIds.has(projectOwnerId)) {
+        position++; // Owner is already in room
+    }
+    position += userIds.size;
+
+    // Return color based on position (cycle if more than 5)
+    return COLLABORATOR_COLORS[position % COLLABORATOR_COLORS.length];
 }
 
 function getDoc(docName: string): Y.Doc {
@@ -144,7 +170,32 @@ export function setupCollaborationServer(httpServer: HttpServer): SocketIOServer
             currentDocName = docName;
             currentDoc = getDoc(docName);
             currentAwareness = getAwareness(docName, currentDoc);
-            userInfo = { ...user, color: getRandomColor() };
+
+            // Get project info to determine owner and assign color
+            const parts = docName.split(':');
+            const projectId = parts[1];
+            
+            let projectOwnerId = user.id; // Default fallback
+            try {
+                const project = await prisma.project.findUnique({
+                    where: { id: projectId },
+                    select: { ownerId: true },
+                });
+                if (project) {
+                    projectOwnerId = project.ownerId;
+                }
+            } catch (e) {
+                console.error('Failed to get project owner:', e);
+            }
+
+            // Track user in room
+            if (!roomUsers.has(docName)) {
+                roomUsers.set(docName, new Map());
+            }
+
+            // Assign color based on position (owner = blue, others sequential)
+            const assignedColor = getColorForUser(user.id, projectOwnerId, roomUsers.get(docName)!);
+            userInfo = { ...user, color: assignedColor };
 
             // Load initial content from database if doc is empty
             if (currentDoc.getText('content').length === 0) {
@@ -153,6 +204,7 @@ export function setupCollaborationServer(httpServer: HttpServer): SocketIOServer
 
             // Join the room
             socket.join(docName);
+            roomUsers.get(docName)!.set(socket.id, userInfo);
 
             // Set up awareness for this client
             const clientId = currentDoc.clientID;
@@ -175,6 +227,19 @@ export function setupCollaborationServer(httpServer: HttpServer): SocketIOServer
                 )
             );
             socket.emit('sync', encoding.toUint8Array(awarenessEncoder));
+
+            // Notify others about new user
+            socket.to(docName).emit('user-joined', userInfo);
+
+            // Send current users to the new joiner (deduplicate by user.id)
+            const usersMap = new Map<string, UserInfo>();
+            roomUsers.get(docName)!.forEach((u) => {
+                if (u.id !== user.id) {
+                    usersMap.set(u.id, u); // Last entry wins (most recent connection)
+                }
+            });
+            const currentUsers = Array.from(usersMap.values());
+            socket.emit('current-users', currentUsers);
 
             console.log(`User ${user.name} joined room ${docName}`);
         });
@@ -250,6 +315,22 @@ export function setupCollaborationServer(httpServer: HttpServer): SocketIOServer
                     [currentDoc.clientID],
                     null
                 );
+            }
+
+            // Remove user from room tracking
+            if (currentDocName) {
+                const users = roomUsers.get(currentDocName);
+                if (users) {
+                    users.delete(socket.id);
+                    if (users.size === 0) {
+                        roomUsers.delete(currentDocName);
+                    }
+                }
+            }
+
+            // Notify others about user leaving
+            if (currentDocName && userInfo) {
+                socket.to(currentDocName).emit('user-left', userInfo.id);
             }
         });
     });

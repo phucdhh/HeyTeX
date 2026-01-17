@@ -46,6 +46,7 @@ app.get('/health', (req, res) => {
 import texlyreRoutes from './routes/texlyre';
 import compileRoutes from './routes/compile';
 import storageRoutes from './routes/storage';
+import uploadRoutes from './routes/upload';
 
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
@@ -53,6 +54,9 @@ app.use('/api/files', fileRoutes);
 app.use('/api/texlyre', texlyreRoutes);
 app.use('/api/compile', compileRoutes);
 app.use('/api/storage', storageRoutes);
+console.log('[Routes] Mounting upload routes at /api/upload');
+app.use('/api/upload', uploadRoutes);
+console.log('[Routes] Upload routes mounted successfully');
 
 // Error handling middleware
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {

@@ -1,0 +1,4 @@
+# Ignore all user data except structure documentation
+*
+!.gitignore
+!README.md

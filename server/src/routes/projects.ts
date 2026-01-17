@@ -40,6 +40,40 @@ router.post('/', authMiddleware, async (req: AuthRequest, res: Response): Promis
             return;
         }
 
+        // Check project count limit (50 projects per user)
+        const projectCount = await prisma.project.count({
+            where: { ownerId: req.userId! },
+        });
+
+        if (projectCount >= 50) {
+            res.status(400).json({ 
+                error: 'Đã đạt giới hạn 50 dự án. Vui lòng xóa một số dự án cũ trước khi tạo mới.' 
+            });
+            return;
+        }
+
+        // Check total storage limit (100MB)
+        const userProjectsDir = fileStorage.getUserDir(req.userId!);
+        try {
+            const { exec } = require('child_process');
+            const { promisify } = require('util');
+            const execAsync = promisify(exec);
+            
+            const { stdout } = await execAsync(`du -sk "${userProjectsDir}" 2>/dev/null || echo "0"`);
+            const currentSizeKB = parseInt(stdout.split('\t')[0]) || 0;
+            const currentSizeMB = currentSizeKB / 1024;
+
+            if (currentSizeMB >= 100) {
+                res.status(400).json({ 
+                    error: `Đã đạt giới hạn dung lượng 100MB (hiện tại: ${currentSizeMB.toFixed(2)}MB). Vui lòng xóa một số dự án để giải phóng dung lượng.` 
+                });
+                return;
+            }
+        } catch (storageCheckError) {
+            console.error('Failed to check storage size:', storageCheckError);
+            // Continue if storage check fails
+        }
+
         const mainFile = engine === 'LATEX' ? 'main.tex' : 'main.typ';
         const defaultContent = engine === 'LATEX'
             ? `\\documentclass{article}
@@ -281,5 +315,154 @@ router.delete('/:id/collaborators/:userId', authMiddleware, async (req: AuthRequ
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+// Get project statistics/info
+router.get('/:id/stats', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params;
+
+        const project = await prisma.project.findFirst({
+            where: {
+                id,
+                OR: [
+                    { ownerId: req.userId },
+                    { collaborators: { some: { userId: req.userId } } },
+                ],
+            },
+            include: {
+                files: true,
+                owner: { select: { id: true, name: true, email: true } },
+                _count: { select: { files: true, collaborators: true } },
+            },
+        });
+
+        if (!project) {
+            res.status(404).json({ error: 'Project not found' });
+            return;
+        }
+
+        // Calculate file and folder counts
+        const fileCount = project.files.filter(f => !f.isFolder).length;
+        const folderCount = project.files.filter(f => f.isFolder).length;
+
+        // Get project size from disk
+        let sizeInBytes = 0;
+        try {
+            const projectDir = fileStorage.getProjectFilesDir(project.ownerId, project.id);
+            const { exec } = require('child_process');
+            const { promisify } = require('util');
+            const execAsync = promisify(exec);
+            
+            const { stdout } = await execAsync(`du -sk "${projectDir}" 2>/dev/null || echo "0"`);
+            const sizeKB = parseInt(stdout.split('\t')[0]) || 0;
+            sizeInBytes = sizeKB * 1024;
+        } catch (e) {
+            console.error('Failed to get project size:', e);
+        }
+
+        res.json({
+            stats: {
+                id: project.id,
+                name: project.name,
+                engine: project.engine,
+                owner: project.owner,
+                fileCount,
+                folderCount,
+                collaboratorCount: project._count.collaborators,
+                sizeInBytes,
+                sizeFormatted: formatBytes(sizeInBytes),
+                createdAt: project.createdAt,
+                updatedAt: project.updatedAt,
+            },
+        });
+    } catch (error) {
+        console.error('Get project stats error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Download project as ZIP
+router.get('/:id/download/zip', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params;
+
+        const project = await prisma.project.findFirst({
+            where: {
+                id,
+                OR: [
+                    { ownerId: req.userId },
+                    { collaborators: { some: { userId: req.userId } } },
+                ],
+            },
+        });
+
+        if (!project) {
+            res.status(404).json({ error: 'Project not found' });
+            return;
+        }
+
+        const projectDir = fileStorage.getProjectFilesDir(project.ownerId, project.id);
+        const archiver = require('archiver');
+        const archive = archiver('zip', { zlib: { level: 9 } });
+
+        res.attachment(`${project.name}.zip`);
+        archive.pipe(res);
+
+        archive.directory(projectDir, false);
+        await archive.finalize();
+    } catch (error) {
+        console.error('Download ZIP error:', error);
+        res.status(500).json({ error: 'Failed to create ZIP file' });
+    }
+});
+
+// Download project PDF (latest compiled)
+router.get('/:id/download/pdf', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params;
+
+        const project = await prisma.project.findFirst({
+            where: {
+                id,
+                OR: [
+                    { ownerId: req.userId },
+                    { collaborators: { some: { userId: req.userId } } },
+                ],
+            },
+        });
+
+        if (!project) {
+            res.status(404).json({ error: 'Project not found' });
+            return;
+        }
+
+        const fs = require('fs');
+        const path = require('path');
+        const projectDir = fileStorage.getProjectFilesDir(project.ownerId, project.id);
+        
+        // Find main file PDF
+        const mainFileBase = project.mainFile.replace(/\.(tex|typ)$/, '');
+        const pdfPath = path.join(projectDir, `${mainFileBase}.pdf`);
+
+        if (!fs.existsSync(pdfPath)) {
+            res.status(404).json({ error: 'PDF not found. Please compile the project first.' });
+            return;
+        }
+
+        res.download(pdfPath, `${project.name}.pdf`);
+    } catch (error) {
+        console.error('Download PDF error:', error);
+        res.status(500).json({ error: 'Failed to download PDF' });
+    }
+});
+
+// Helper function to format bytes
+function formatBytes(bytes: number): string {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
+}
 
 export default router;

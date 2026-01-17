@@ -45,16 +45,11 @@ export interface StatsResponse {
 }
 
 export class CompilationAPI {
-    private token: string | null = null;
-
-    constructor() {
-        // Get token from localStorage
-        this.token = localStorage.getItem('token');
-    }
-
     private get headers() {
+        // Lấy token từ localStorage (key là 'heytex_token' không phải 'token')
+        const token = localStorage.getItem('heytex_token');
         return {
-            'Authorization': `Bearer ${this.token}`,
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
         };
     }
@@ -64,7 +59,7 @@ export class CompilationAPI {
      */
     async submitJob(fileName: string, content: string, projectId?: string): Promise<CompileJobResponse> {
         const response = await axios.post<CompileJobResponse>(
-            `${API_URL}/api/compile`,
+            `${API_URL}/compile`,
             { fileName, content, projectId },
             { headers: this.headers }
         );
@@ -76,7 +71,7 @@ export class CompilationAPI {
      */
     async getJobStatus(jobId: string): Promise<JobStatusResponse> {
         const response = await axios.get<JobStatusResponse>(
-            `${API_URL}/api/compile/${jobId}`,
+            `${API_URL}/compile/${jobId}`,
             { headers: this.headers }
         );
         return response.data;
@@ -87,7 +82,7 @@ export class CompilationAPI {
      */
     async getPDF(jobId: string): Promise<Blob> {
         const response = await axios.get(
-            `${API_URL}/api/compile/${jobId}/pdf`,
+            `${API_URL}/compile/${jobId}/pdf`,
             {
                 headers: this.headers,
                 responseType: 'blob',
@@ -101,7 +96,7 @@ export class CompilationAPI {
      */
     async getLog(jobId: string): Promise<string> {
         const response = await axios.get(
-            `${API_URL}/api/compile/${jobId}/log`,
+            `${API_URL}/compile/${jobId}/log`,
             {
                 headers: this.headers,
                 responseType: 'text',
@@ -115,26 +110,45 @@ export class CompilationAPI {
      */
     async getStats(): Promise<StatsResponse> {
         const response = await axios.get<StatsResponse>(
-            `${API_URL}/api/compile/stats`
+            `${API_URL}/compile/stats`
         );
         return response.data;
     }
 
     /**
      * Poll job status until completed or failed
+     * Also polls log continuously during compilation
      */
     async pollJobStatus(
         jobId: string,
         onUpdate?: (status: JobStatusResponse) => void,
+        onLogUpdate?: (log: string) => void,
         interval: number = 1000
     ): Promise<JobStatusResponse> {
         return new Promise((resolve, reject) => {
+            let lastLogLength = 0;
+            
             const poll = async () => {
                 try {
                     const status = await this.getJobStatus(jobId);
                     
                     if (onUpdate) {
                         onUpdate(status);
+                    }
+
+                    // Poll log continuously during compilation
+                    if (status.job.status === 'compiling' && onLogUpdate) {
+                        try {
+                            const log = await this.getLog(jobId);
+                            // Only update if log has new content
+                            if (log && log.length > lastLogLength) {
+                                lastLogLength = log.length;
+                                onLogUpdate(log);
+                            }
+                        } catch (logError) {
+                            // Log might not exist yet, ignore
+                            console.debug('[PollLog] Log not available yet');
+                        }
                     }
 
                     if (status.job.status === 'completed' || status.job.status === 'failed') {

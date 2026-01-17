@@ -6,17 +6,18 @@ import type { Project } from '../lib/types';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import { Spinner } from '../components/ui/Spinner';
+import { ProjectCard } from '../components/ProjectCard';
+import { ProjectInfoDialog } from '../components/ProjectInfoDialog';
 import {
     FileCode2,
     Plus,
     FolderOpen,
-    Clock,
     LogOut,
     Sun,
     Moon,
-    Trash2,
+    LayoutGrid,
+    List as ListIcon,
 } from 'lucide-react';
-import { formatDate } from '../lib/utils';
 
 export function DashboardPage() {
     const navigate = useNavigate();
@@ -28,6 +29,9 @@ export function DashboardPage() {
     const [newProjectName, setNewProjectName] = useState('');
     const [newProjectEngine, setNewProjectEngine] = useState<'TYPST' | 'LATEX'>('TYPST');
     const [isCreating, setIsCreating] = useState(false);
+    const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+    const [showInfoDialog, setShowInfoDialog] = useState(false);
+    const [selectedProjectStats, setSelectedProjectStats] = useState<any>(null);
 
     useEffect(() => {
         loadProjects();
@@ -73,6 +77,61 @@ export function DashboardPage() {
             setProjects(projects.filter(p => p.id !== id));
         } catch (error) {
             console.error('Failed to delete project:', error);
+        }
+    };
+
+    const handleDownloadZip = async (project: Project) => {
+        try {
+            const response = await fetch(`/api/projects/${project.id}/download/zip`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('heytex_token')}`,
+                },
+            });
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${project.name}.zip`;
+            a.click();
+        } catch (error) {
+            console.error('Failed to download ZIP:', error);
+        }
+    };
+
+    const handleDownloadPdf = async (project: Project) => {
+        try {
+            const response = await fetch(`/api/projects/${project.id}/download/pdf`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('heytex_token')}`,
+                },
+            });
+            if (!response.ok) {
+                alert('PDF chưa được biên dịch. Vui lòng mở dự án và biên dịch trước.');
+                return;
+            }
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${project.name}.pdf`;
+            a.click();
+        } catch (error) {
+            console.error('Failed to download PDF:', error);
+        }
+    };
+
+    const handleShowInfo = async (projectId: string) => {
+        try {
+            const response = await fetch(`/api/projects/${projectId}/stats`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('heytex_token')}`,
+                },
+            });
+            const data = await response.json();
+            setSelectedProjectStats(data.stats);
+            setShowInfoDialog(true);
+        } catch (error) {
+            console.error('Failed to load project stats:', error);
         }
     };
 
@@ -126,13 +185,41 @@ export function DashboardPage() {
                     <div>
                         <h1 className="text-3xl font-bold text-foreground">Dự án của tôi</h1>
                         <p className="text-muted-foreground mt-1">
-                            Quản lý và biên tập các tài liệu LaTeX/Typst của bạn
+                            {projects.length} / 50 dự án
                         </p>
                     </div>
-                    <Button onClick={() => setShowCreateModal(true)} className="gap-2">
-                        <Plus className="h-4 w-4" />
-                        Tạo dự án mới
-                    </Button>
+                    <div className="flex items-center gap-3">
+                        {/* View Toggle */}
+                        <div className="flex items-center gap-1 p-1 glass rounded-lg">
+                            <button
+                                onClick={() => setViewMode('grid')}
+                                className={`p-2 rounded transition-colors ${
+                                    viewMode === 'grid' 
+                                        ? 'bg-primary text-primary-foreground' 
+                                        : 'hover:bg-muted'
+                                }`}
+                                title="Xem dạng lưới"
+                            >
+                                <LayoutGrid className="h-4 w-4" />
+                            </button>
+                            <button
+                                onClick={() => setViewMode('list')}
+                                className={`p-2 rounded transition-colors ${
+                                    viewMode === 'list' 
+                                        ? 'bg-primary text-primary-foreground' 
+                                        : 'hover:bg-muted'
+                                }`}
+                                title="Xem dạng danh sách"
+                            >
+                                <ListIcon className="h-4 w-4" />
+                            </button>
+                        </div>
+
+                        <Button onClick={() => setShowCreateModal(true)} className="gap-2">
+                            <Plus className="h-4 w-4" />
+                            Tạo dự án mới
+                        </Button>
+                    </div>
                 </div>
 
                 {/* Projects Grid */}
@@ -153,52 +240,31 @@ export function DashboardPage() {
                         </Button>
                     </div>
                 ) : (
-                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div className={viewMode === 'grid' 
+                        ? "grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                        : "space-y-3"
+                    }>
                         {projects.map((project) => (
-                            <div
+                            <ProjectCard
                                 key={project.id}
-                                className="group relative glass rounded-xl p-5 hover:border-primary/50 transition-all cursor-pointer"
-                                onClick={() => navigate(`/editor/${project.id}`)}
-                            >
-                                <div className="flex items-start justify-between mb-4">
-                                    <div className={`p-2 rounded-lg ${project.engine === 'TYPST'
-                                        ? 'bg-cyan-500/20 text-cyan-500'
-                                        : 'bg-orange-500/20 text-orange-500'
-                                        }`}>
-                                        <FileCode2 className="h-5 w-5" />
-                                    </div>
-                                    <button
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            handleDeleteProject(project.id);
-                                        }}
-                                        className="opacity-0 group-hover:opacity-100 p-1 hover:bg-destructive/20 rounded transition-all"
-                                    >
-                                        <Trash2 className="h-4 w-4 text-destructive" />
-                                    </button>
-                                </div>
-
-                                <h3 className="font-semibold text-foreground mb-1 truncate">
-                                    {project.name}
-                                </h3>
-
-                                <div className="flex items-center gap-4 text-xs text-muted-foreground mt-3">
-                                    <span className="flex items-center gap-1">
-                                        <Clock className="h-3 w-3" />
-                                        {formatDate(project.updatedAt)}
-                                    </span>
-                                    <span className={`px-2 py-0.5 rounded-full ${project.engine === 'TYPST'
-                                        ? 'bg-cyan-500/10 text-cyan-500'
-                                        : 'bg-orange-500/10 text-orange-500'
-                                        }`}>
-                                        {project.engine}
-                                    </span>
-                                </div>
-                            </div>
+                                project={project}
+                                viewMode={viewMode}
+                                onDelete={handleDeleteProject}
+                                onDownloadZip={handleDownloadZip}
+                                onDownloadPdf={handleDownloadPdf}
+                                onShowInfo={handleShowInfo}
+                            />
                         ))}
                     </div>
                 )}
             </main>
+
+            {/* Project Info Dialog */}
+            <ProjectInfoDialog
+                open={showInfoDialog}
+                onOpenChange={setShowInfoDialog}
+                stats={selectedProjectStats}
+            />
 
             {/* Create Project Modal */}
             {showCreateModal && (

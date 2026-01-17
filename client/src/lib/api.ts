@@ -54,7 +54,7 @@ class ApiClient {
 
     // Auth
     async login(email: string, password: string) {
-        const data = await this.request<{ user: User; token: string }>('/api/auth/login', {
+        const data = await this.request<{ user: User; token: string }>('/auth/login', {
             method: 'POST',
             body: { email, password },
         });
@@ -63,7 +63,7 @@ class ApiClient {
     }
 
     async register(email: string, password: string, name: string) {
-        const data = await this.request<{ user: User; token: string }>('/api/auth/register', {
+        const data = await this.request<{ user: User; token: string }>('/auth/register', {
             method: 'POST',
             body: { email, password, name },
         });
@@ -72,7 +72,7 @@ class ApiClient {
     }
 
     async getMe() {
-        return this.request<{ user: User }>('/api/auth/me');
+        return this.request<{ user: User }>('/auth/me');
     }
 
     logout() {
@@ -81,74 +81,74 @@ class ApiClient {
 
     // Projects
     async getProjects() {
-        return this.request<{ projects: Project[] }>('/api/projects');
+        return this.request<{ projects: Project[] }>('/projects');
     }
 
     async getProject(id: string) {
-        return this.request<{ project: Project }>(`/api/projects/${id}`);
+        return this.request<{ project: Project }>(`/projects/${id}`);
     }
 
     async createProject(data: { name: string; description?: string; engine: 'LATEX' | 'TYPST' }) {
-        return this.request<{ project: Project }>('/api/projects', {
+        return this.request<{ project: Project }>('/projects', {
             method: 'POST',
             body: data,
         });
     }
 
     async updateProject(id: string, data: { name?: string; description?: string; mainFile?: string }) {
-        return this.request<{ project: Project }>(`/api/projects/${id}`, {
+        return this.request<{ project: Project }>(`/projects/${id}`, {
             method: 'PATCH',
             body: data,
         });
     }
 
     async deleteProject(id: string) {
-        return this.request(`/api/projects/${id}`, { method: 'DELETE' });
+        return this.request(`/projects/${id}`, { method: 'DELETE' });
     }
 
     async addCollaborator(projectId: string, email: string, role: 'VIEWER' | 'EDITOR') {
-        return this.request(`/api/projects/${projectId}/collaborators`, {
+        return this.request(`/projects/${projectId}/collaborators`, {
             method: 'POST',
             body: { email, role },
         });
     }
 
     async removeCollaborator(projectId: string, userId: string) {
-        return this.request(`/api/projects/${projectId}/collaborators/${userId}`, {
+        return this.request(`/projects/${projectId}/collaborators/${userId}`, {
             method: 'DELETE',
         });
     }
 
     // Files
     async getFiles(projectId: string) {
-        return this.request<{ files: ProjectFile[] }>(`/api/files/project/${projectId}`);
+        return this.request<{ files: ProjectFile[] }>(`/files/project/${projectId}`);
     }
 
     async getFile(id: string) {
-        return this.request<{ file: ProjectFile }>(`/api/files/${id}`);
+        return this.request<{ file: ProjectFile }>(`/files/${id}`);
     }
 
     async createFile(data: { projectId: string; name: string; path: string; isFolder?: boolean; content?: string }) {
-        return this.request<{ file: ProjectFile }>('/api/files', {
+        return this.request<{ file: ProjectFile }>('/files', {
             method: 'POST',
             body: data,
         });
     }
 
     async updateFile(id: string, data: { content?: string; name?: string }) {
-        return this.request<{ file: ProjectFile }>(`/api/files/${id}`, {
+        return this.request<{ file: ProjectFile }>(`/files/${id}`, {
             method: 'PATCH',
             body: data,
         });
     }
 
     async deleteFile(fileId: string): Promise<void> {
-        return this.request(`/api/files/${fileId}`, { method: 'DELETE' });
+        return this.request(`/files/${fileId}`, { method: 'DELETE' });
     }
 
     // Compilation
     async compile(content: string): Promise<Blob> {
-        return this.request<Blob>('/api/compile/latex', {
+        return this.request<Blob>('/compile/latex', {
             method: 'POST',
             body: { content },
             responseType: 'blob'
@@ -156,7 +156,7 @@ class ApiClient {
     }
 
     async uploadFile(data: { projectId: string; path: string; name: string; mimeType: string; data: string }) {
-        return this.request<{ file: ProjectFile }>('/api/files/upload', {
+        return this.request<{ file: ProjectFile }>('/files/upload', {
             method: 'POST',
             body: data,
         });

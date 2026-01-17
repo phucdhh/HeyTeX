@@ -6,18 +6,43 @@
 import { Router, Request, Response } from 'express';
 import { compilationQueue } from '../services/CompilationQueue';
 import { authMiddleware, AuthRequest } from '../middleware/auth';
+import { prisma } from '../lib/prisma';
 
 const router = Router();
+
+/**
+ * Helper: Check if user has access to project (owner or collaborator)
+ */
+async function checkProjectAccess(userId: string, projectId: string): Promise<boolean> {
+    if (!projectId || projectId === 'unknown') return true; // Skip check for unknown projects
+    
+    const project = await prisma.project.findFirst({
+        where: {
+            id: projectId,
+            OR: [
+                { ownerId: userId },
+                { collaborators: { some: { userId } } },
+            ],
+        },
+    });
+    
+    return !!project;
+}
 
 /**
  * POST /api/compile
  * Tạo compilation job mới
  * Body: { fileName: string, content: string, projectId?: string }
  */
-router.post('/', async (req: Request, res: Response): Promise<void> => {
+router.post('/', authMiddleware, async (req: Request, res: Response): Promise<void> => {
     try {
         const { fileName, content, projectId } = req.body;
-        const userId = 'test-user'; // Temporary for testing
+        const userId = (req as AuthRequest).userId || (req as AuthRequest).user?.id;
+
+        if (!userId) {
+            res.status(401).json({ error: 'Unauthorized' });
+            return;
+        }
 
         if (!fileName || !content) {
             res.status(400).json({ error: 'fileName and content are required' });
@@ -28,6 +53,15 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
         if (!fileName.endsWith('.tex')) {
             res.status(400).json({ error: 'Only .tex files are supported' });
             return;
+        }
+
+        // Check project access for collaborators
+        if (projectId && projectId !== 'unknown') {
+            const hasAccess = await checkProjectAccess(userId, projectId);
+            if (!hasAccess) {
+                res.status(403).json({ error: 'Access denied to project' });
+                return;
+            }
         }
 
         // Thêm job vào queue

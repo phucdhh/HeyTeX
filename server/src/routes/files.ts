@@ -4,6 +4,8 @@ import { authMiddleware, AuthRequest } from '../middleware/auth';
 import { uploadFile, getFileUrl, deleteFile } from '../lib/minio';
 import { config } from '../config/index';
 import { fileStorage } from '../services/FileStorage';
+import fs from 'fs/promises';
+import path from 'path';
 
 const router = Router();
 
@@ -39,7 +41,75 @@ router.get('/project/:projectId', authMiddleware, async (req: AuthRequest, res: 
     }
 });
 
-// Get single file content
+// Get file binary content (for images, PDFs, etc.)
+router.get('/:id/content', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params;
+
+        const file = await prisma.file.findUnique({
+            where: { id },
+            include: {
+                project: {
+                    select: {
+                        ownerId: true,
+                        collaborators: { select: { userId: true } },
+                    },
+                },
+            },
+        });
+
+        if (!file) {
+            res.status(404).json({ error: 'File not found' });
+            return;
+        }
+
+        const hasAccess =
+            file.project.ownerId === req.userId ||
+            file.project.collaborators.some(c => c.userId === req.userId);
+
+        if (!hasAccess) {
+            res.status(403).json({ error: 'Access denied' });
+            return;
+        }
+
+        // Try to read from local storage first
+        try {
+            const filePath = fileStorage.getFilePath(file.project.ownerId, file.projectId, file.path);
+            const buffer = await fs.readFile(filePath);
+            
+            // Set appropriate content type
+            res.contentType(file.mimeType || 'application/octet-stream');
+            res.send(buffer);
+            return;
+        } catch (localError) {
+            console.log('[Files] Local file not found, trying MinIO:', file.path);
+        }
+
+        // Fallback to MinIO for binary files
+        if (!file.content && file.mimeType && !file.mimeType.startsWith('text/')) {
+            const url = await getFileUrl(
+                config.minio.bucketProjects,
+                `${file.projectId}${file.path}`
+            );
+            res.redirect(url);
+            return;
+        }
+
+        // For text files with content in DB
+        if (file.content) {
+            res.contentType(file.mimeType || 'text/plain');
+            res.send(file.content);
+            return;
+        }
+
+        res.status(404).json({ error: 'File content not found' });
+    } catch (error) {
+        console.error('Get file content error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Get single file metadata
 router.get('/:id', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
