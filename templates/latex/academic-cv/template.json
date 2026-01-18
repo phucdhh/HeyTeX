@@ -1,0 +1,13 @@
+{
+  "id": "latex-academic-cv",
+  "name": "Academic CV",
+  "description": "CV for researchers with publications list",
+  "engine": "LATEX",
+  "mainFile": "academic-cv.tex",
+  "files": [
+    {
+      "path": "academic-cv.tex",
+      "content": "academic-cv.tex"
+    }
+  ]
+}

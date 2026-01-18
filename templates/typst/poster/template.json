@@ -1,0 +1,13 @@
+{
+  "id": "typst-poster",
+  "name": "Poster",
+  "description": "Academic conference poster",
+  "engine": "TYPST",
+  "mainFile": "poster.typ",
+  "files": [
+    {
+      "path": "poster.typ",
+      "content": "poster.typ"
+    }
+  ]
+}

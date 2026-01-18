@@ -1,0 +1,13 @@
+{
+  "id": "latex-letter",
+  "name": "Formal Letter",
+  "description": "Professional letter template",
+  "engine": "LATEX",
+  "mainFile": "letter.tex",
+  "files": [
+    {
+      "path": "letter.tex",
+      "content": "letter.tex"
+    }
+  ]
+}

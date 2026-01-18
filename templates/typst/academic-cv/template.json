@@ -1,0 +1,13 @@
+{
+  "id": "typst-academic-cv",
+  "name": "Academic CV",
+  "description": "CV for researchers with publications list",
+  "engine": "TYPST",
+  "mainFile": "academic-cv.typ",
+  "files": [
+    {
+      "path": "academic-cv.typ",
+      "content": "academic-cv.typ"
+    }
+  ]
+}

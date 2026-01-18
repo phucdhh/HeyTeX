@@ -1,0 +1,13 @@
+{
+  "id": "latex-blank",
+  "name": "Blank Document",
+  "description": "Empty LaTeX document to start from scratch",
+  "engine": "LATEX",
+  "mainFile": "main.tex",
+  "files": [
+    {
+      "path": "main.tex",
+      "content": "main.tex"
+    }
+  ]
+}

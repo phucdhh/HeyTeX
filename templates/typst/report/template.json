@@ -1,0 +1,13 @@
+{
+  "id": "typst-report",
+  "name": "Report",
+  "description": "Technical report or documentation",
+  "engine": "TYPST",
+  "mainFile": "report.typ",
+  "files": [
+    {
+      "path": "report.typ",
+      "content": "report.typ"
+    }
+  ]
+}

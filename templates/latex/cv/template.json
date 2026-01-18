@@ -1,0 +1,13 @@
+{
+  "id": "latex-cv",
+  "name": "CV/Resume",
+  "description": "Professional curriculum vitae template",
+  "engine": "LATEX",
+  "mainFile": "cv.tex",
+  "files": [
+    {
+      "path": "cv.tex",
+      "content": "cv.tex"
+    }
+  ]
+}

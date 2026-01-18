@@ -1,0 +1,17 @@
+{
+  "id": "latex-paper",
+  "name": "Research Paper",
+  "description": "Academic research paper with IEEE format",
+  "engine": "LATEX",
+  "mainFile": "paper.tex",
+  "files": [
+    {
+      "path": "paper.tex",
+      "content": "paper.tex"
+    },
+    {
+      "path": "references.bib",
+      "content": "references.bib"
+    }
+  ]
+}

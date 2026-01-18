@@ -1,0 +1,17 @@
+{
+  "id": "latex-article",
+  "name": "Article",
+  "description": "Academic article with sections and references",
+  "engine": "LATEX",
+  "mainFile": "article.tex",
+  "files": [
+    {
+      "path": "article.tex",
+      "content": "article.tex"
+    },
+    {
+      "path": "references.bib",
+      "content": "references.bib"
+    }
+  ]
+}

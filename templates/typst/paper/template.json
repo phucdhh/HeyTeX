@@ -1,0 +1,13 @@
+{
+  "id": "typst-paper",
+  "name": "Research Paper",
+  "description": "Academic research paper",
+  "engine": "TYPST",
+  "mainFile": "paper.typ",
+  "files": [
+    {
+      "path": "paper.typ",
+      "content": "paper.typ"
+    }
+  ]
+}

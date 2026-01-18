@@ -1,0 +1,42 @@
+\documentclass[11pt,a4paper]{moderncv}
+\moderncvstyle{classic}
+\moderncvcolor{blue}
+
+\usepackage[utf8]{inputenc}
+\usepackage[scale=0.85]{geometry}
+
+% Personal information
+\name{John}{Doe}
+\title{Software Engineer}
+\address{123 Main Street}{City, State 12345}{Country}
+\phone[mobile]{+1~(234)~567~890}
+\email{john.doe@example.com}
+\social[linkedin]{johndoe}
+\social[github]{johndoe}
+
+\begin{document}
+
+\makecvtitle
+
+\section{Education}
+\cventry{2015--2019}{Bachelor of Science}{University Name}{City}{}{Computer Science}
+
+\section{Experience}
+\cventry{2019--Present}{Software Engineer}{Company Name}{City}{}{
+  \begin{itemize}
+    \item Developed and maintained web applications
+    \item Collaborated with cross-functional teams
+    \item Implemented new features and fixed bugs
+  \end{itemize}
+}
+
+\section{Skills}
+\cvitem{Programming}{Python, JavaScript, Java, C++}
+\cvitem{Web}{React, Node.js, HTML/CSS}
+\cvitem{Tools}{Git, Docker, VS Code}
+
+\section{Languages}
+\cvitemwithcomment{English}{Native}{}
+\cvitemwithcomment{Spanish}{Intermediate}{}
+
+\end{document}

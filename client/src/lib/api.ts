@@ -88,7 +88,7 @@ class ApiClient {
         return this.request<{ project: Project }>(`/projects/${id}`);
     }
 
-    async createProject(data: { name: string; description?: string; engine: 'LATEX' | 'TYPST' }) {
+    async createProject(data: { name: string; description?: string; engine: 'LATEX' | 'TYPST'; templateId?: string }) {
         return this.request<{ project: Project }>('/projects', {
             method: 'POST',
             body: data,

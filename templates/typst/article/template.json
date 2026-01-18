@@ -1,0 +1,13 @@
+{
+  "id": "typst-article",
+  "name": "Article",
+  "description": "Academic article with sections",
+  "engine": "TYPST",
+  "mainFile": "article.typ",
+  "files": [
+    {
+      "path": "article.typ",
+      "content": "article.typ"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "typst-blank",
+  "name": "Blank Document",
+  "description": "Empty Typst document to start from scratch",
+  "engine": "TYPST",
+  "mainFile": "main.typ",
+  "files": [
+    {
+      "path": "main.typ",
+      "content": "main.typ"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "typst-letter",
+  "name": "Formal Letter",
+  "description": "Professional letter template",
+  "engine": "TYPST",
+  "mainFile": "letter.typ",
+  "files": [
+    {
+      "path": "letter.typ",
+      "content": "letter.typ"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "typst-cv",
+  "name": "CV/Resume",
+  "description": "Modern curriculum vitae template",
+  "engine": "TYPST",
+  "mainFile": "cv.typ",
+  "files": [
+    {
+      "path": "cv.typ",
+      "content": "cv.typ"
+    }
+  ]
+}

@@ -33,7 +33,7 @@ router.get('/', authMiddleware, async (req: AuthRequest, res: Response): Promise
 // Create new project
 router.post('/', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
     try {
-        const { name, description, engine = 'TYPST' } = req.body;
+        const { name, description, engine = 'TYPST', templateId } = req.body;
 
         if (!name) {
             res.status(400).json({ error: 'Project name is required' });
@@ -74,9 +74,43 @@ router.post('/', authMiddleware, async (req: AuthRequest, res: Response): Promis
             // Continue if storage check fails
         }
 
-        const mainFile = engine === 'LATEX' ? 'main.tex' : 'main.typ';
-        const defaultContent = engine === 'LATEX'
-            ? `\\documentclass{article}
+        // Load template if specified
+        let mainFile = engine === 'LATEX' ? 'main.tex' : 'main.typ';
+        let templateFiles: Array<{ path: string; content: string }> = [];
+
+        if (templateId) {
+            try {
+                const fs = await import('fs/promises');
+                const path = await import('path');
+                const templateDir = path.join(process.cwd(), '../templates', engine.toLowerCase(), templateId.replace(`${engine.toLowerCase()}-`, ''));
+                const templateMetaPath = path.join(templateDir, 'template.json');
+                
+                const metaContent = await fs.readFile(templateMetaPath, 'utf-8');
+                const templateMeta = JSON.parse(metaContent);
+                mainFile = templateMeta.mainFile;
+
+                // Read all template files
+                for (const fileInfo of templateMeta.files) {
+                    const filePath = path.join(templateDir, fileInfo.content);
+                    const content = await fs.readFile(filePath, 'utf-8');
+                    templateFiles.push({
+                        path: fileInfo.path,
+                        content,
+                    });
+                }
+
+                console.log(`[Project] Using template ${templateId} with ${templateFiles.length} files`);
+            } catch (templateError) {
+                console.error('Failed to load template:', templateError);
+                // Fall back to default content if template fails
+                templateFiles = [];
+            }
+        }
+
+        // Default content if no template
+        if (templateFiles.length === 0) {
+            const defaultContent = engine === 'LATEX'
+                ? `\\documentclass{article}
 \\usepackage[utf8]{inputenc}
 
 \\title{${name}}
@@ -91,7 +125,7 @@ router.post('/', authMiddleware, async (req: AuthRequest, res: Response): Promis
 Hello, World! This is your first LaTeX document.
 
 \\end{document}`
-            : `#set document(title: "${name}", author: "Your Name")
+                : `#set document(title: "${name}", author: "Your Name")
 #set page(paper: "a4")
 #set text(font: "New Computer Modern", size: 11pt)
 
@@ -103,6 +137,10 @@ Hello, World! This is your first Typst document.
 
 #lorem(50)`;
 
+            templateFiles = [{ path: `/${mainFile}`, content: defaultContent }];
+        }
+
+        // Create project with files
         const project = await prisma.project.create({
             data: {
                 name,
@@ -111,12 +149,12 @@ Hello, World! This is your first Typst document.
                 mainFile,
                 ownerId: req.userId!,
                 files: {
-                    create: {
-                        name: mainFile,
-                        path: `/${mainFile}`,
-                        content: defaultContent,
+                    create: templateFiles.map(file => ({
+                        name: file.path.split('/').pop() || 'file',
+                        path: file.path,
+                        content: file.content,
                         isFolder: false,
-                    },
+                    })),
                 },
             },
             include: {
@@ -125,12 +163,16 @@ Hello, World! This is your first Typst document.
             },
         });
 
-        // Create project directory structure
+        // Create project directory structure and save files to disk
         try {
             await fileStorage.createProjectDir(req.userId!, project.id);
-            // Save main file to disk
-            await fileStorage.saveFile(req.userId!, project.id, `/${mainFile}`, defaultContent);
-            console.log(`[FileStorage] Created project structure for ${req.userId}/${project.id}`);
+            
+            // Save all files to disk
+            for (const file of templateFiles) {
+                await fileStorage.saveFile(req.userId!, project.id, file.path, file.content);
+            }
+            
+            console.log(`[FileStorage] Created project structure for ${req.userId}/${project.id} with ${templateFiles.length} files`);
         } catch (storageError) {
             console.error('[FileStorage] Failed to create project directory:', storageError);
             // Continue even if storage fails

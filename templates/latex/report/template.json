@@ -1,0 +1,13 @@
+{
+  "id": "latex-report",
+  "name": "Report",
+  "description": "Technical report or documentation",
+  "engine": "LATEX",
+  "mainFile": "report.tex",
+  "files": [
+    {
+      "path": "report.tex",
+      "content": "report.tex"
+    }
+  ]
+}

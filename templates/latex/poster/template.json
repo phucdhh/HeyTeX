@@ -1,0 +1,13 @@
+{
+  "id": "latex-poster",
+  "name": "Poster",
+  "description": "Academic conference poster",
+  "engine": "LATEX",
+  "mainFile": "poster.tex",
+  "files": [
+    {
+      "path": "poster.tex",
+      "content": "poster.tex"
+    }
+  ]
+}

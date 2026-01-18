@@ -4,11 +4,11 @@ import { useAuthStore, useEditorStore } from '../stores';
 import { api } from '../lib/api';
 import type { Project } from '../lib/types';
 import { Button } from '../components/ui/Button';
-import { Input } from '../components/ui/Input';
 import { Spinner } from '../components/ui/Spinner';
 import { ProjectCard } from '../components/ProjectCard';
 import { ProjectInfoDialog } from '../components/ProjectInfoDialog';
 import { ProfileDialog } from '../components/ProfileDialog';
+import { CreateProjectDialog } from '../components/CreateProjectDialog';
 import {
     FileCode2,
     Plus,
@@ -28,9 +28,6 @@ export function DashboardPage() {
     const [projects, setProjects] = useState<Project[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [showCreateModal, setShowCreateModal] = useState(false);
-    const [newProjectName, setNewProjectName] = useState('');
-    const [newProjectEngine, setNewProjectEngine] = useState<'TYPST' | 'LATEX'>('TYPST');
-    const [isCreating, setIsCreating] = useState(false);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [showInfoDialog, setShowInfoDialog] = useState(false);
     const [selectedProjectStats, setSelectedProjectStats] = useState<any>(null);
@@ -51,24 +48,18 @@ export function DashboardPage() {
         }
     };
 
-    const handleCreateProject = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!newProjectName.trim()) return;
-
-        setIsCreating(true);
+    const handleCreateProject = async (data: { name: string; engine: 'LATEX' | 'TYPST'; templateId?: string }) => {
         try {
             const { project } = await api.createProject({
-                name: newProjectName,
-                engine: newProjectEngine,
+                name: data.name,
+                engine: data.engine,
+                templateId: data.templateId,
             });
             setProjects([project, ...projects]);
-            setShowCreateModal(false);
-            setNewProjectName('');
             navigate(`/editor/${project.id}`);
         } catch (error) {
             console.error('Failed to create project:', error);
-        } finally {
-            setIsCreating(false);
+            throw error;
         }
     };
 
@@ -284,71 +275,12 @@ export function DashboardPage() {
                 stats={selectedProjectStats}
             />
 
-            {/* Create Project Modal */}
-            {showCreateModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-                    <div className="glass rounded-2xl p-6 w-full max-w-md mx-4 animate-fade-in">
-                        <h2 className="text-xl font-bold mb-4">Tạo dự án mới</h2>
-
-                        <form onSubmit={handleCreateProject} className="space-y-4">
-                            <Input
-                                label="Tên dự án"
-                                placeholder="Luận văn tốt nghiệp"
-                                value={newProjectName}
-                                onChange={(e) => setNewProjectName(e.target.value)}
-                                required
-                                autoFocus
-                            />
-
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium">Chọn Engine</label>
-                                <div className="grid grid-cols-2 gap-3">
-                                    <button
-                                        type="button"
-                                        onClick={() => setNewProjectEngine('TYPST')}
-                                        className={`p-4 rounded-lg border-2 transition-all ${newProjectEngine === 'TYPST'
-                                            ? 'border-cyan-500 bg-cyan-500/10'
-                                            : 'border-border hover:border-muted-foreground'
-                                            }`}
-                                    >
-                                        <div className="font-medium text-cyan-500">Typst</div>
-                                        <div className="text-xs text-muted-foreground mt-1">
-                                            Nhanh, hiện đại
-                                        </div>
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => setNewProjectEngine('LATEX')}
-                                        className={`p-4 rounded-lg border-2 transition-all ${newProjectEngine === 'LATEX'
-                                            ? 'border-orange-500 bg-orange-500/10'
-                                            : 'border-border hover:border-muted-foreground'
-                                            }`}
-                                    >
-                                        <div className="font-medium text-orange-500">LaTeX</div>
-                                        <div className="text-xs text-muted-foreground mt-1">
-                                            Mạnh mẽ, truyền thống
-                                        </div>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className="flex gap-3 pt-4">
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    className="flex-1"
-                                    onClick={() => setShowCreateModal(false)}
-                                >
-                                    Hủy
-                                </Button>
-                                <Button type="submit" className="flex-1" disabled={isCreating}>
-                                    {isCreating ? <Spinner size="sm" /> : 'Tạo dự án'}
-                                </Button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
+            {/* Create Project Dialog */}
+            <CreateProjectDialog
+                open={showCreateModal}
+                onOpenChange={setShowCreateModal}
+                onCreate={handleCreateProject}
+            />
 
             {/* Profile Dialog */}
             {user && (

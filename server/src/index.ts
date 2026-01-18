@@ -48,6 +48,7 @@ import texlyreRoutes from './routes/texlyre';
 import compileRoutes from './routes/compile';
 import storageRoutes from './routes/storage';
 import uploadRoutes from './routes/upload';
+import templateRoutes from './routes/templates';
 
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
@@ -55,6 +56,7 @@ app.use('/api/files', fileRoutes);
 app.use('/api/texlyre', texlyreRoutes);
 app.use('/api/compile', compileRoutes);
 app.use('/api/storage', storageRoutes);
+app.use('/api/templates', templateRoutes);
 console.log('[Routes] Mounting upload routes at /api/upload');
 app.use('/api/upload', uploadRoutes);
 console.log('[Routes] Upload routes mounted successfully');

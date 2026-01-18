@@ -1,0 +1,89 @@
+\documentclass[25pt, a0paper, portrait]{tikzposter}
+\usepackage[utf8]{inputenc}
+
+\title{Your Research Title}
+\author{Author Name$^1$, Co-author Name$^2$}
+\institute{$^1$University Name, $^2$Institution Name}
+\titlegraphic{\includegraphics[width=0.1\textwidth]{logo.png}}
+
+\usetheme{Default}
+\usecolorstyle{Default}
+
+\begin{document}
+
+\maketitle
+
+\begin{columns}
+    \column{0.5}
+    
+    \block{Introduction}{
+        Research background and motivation goes here.
+        
+        \begin{itemize}
+            \item Key point 1
+            \item Key point 2
+            \item Key point 3
+        \end{itemize}
+    }
+    
+    \block{Methodology}{
+        Describe your methodology here.
+        
+        \textbf{Algorithm:}
+        \begin{enumerate}
+            \item Step 1
+            \item Step 2
+            \item Step 3
+        \end{enumerate}
+    }
+    
+    \block{Experimental Setup}{
+        Details about your experiments.
+        
+        \textbf{Dataset:} Description of dataset \\
+        \textbf{Baseline:} Baseline methods \\
+        \textbf{Metrics:} Evaluation metrics
+    }
+    
+    \column{0.5}
+    
+    \block{Results}{
+        Present your main results here.
+        
+        % Add figure or table
+        \begin{tikzfigure}[Results comparison]
+            % Include your figure here
+            % \includegraphics[width=0.8\linewidth]{results.png}
+        \end{tikzfigure}
+        
+        Key findings:
+        \begin{itemize}
+            \item Finding 1
+            \item Finding 2
+            \item Finding 3
+        \end{itemize}
+    }
+    
+    \block{Conclusion}{
+        Summarize your conclusions.
+        
+        \textbf{Contributions:}
+        \begin{itemize}
+            \item Contribution 1
+            \item Contribution 2
+        \end{itemize}
+        
+        \textbf{Future Work:}
+        Direction for future research.
+    }
+    
+    \block{References}{
+        \begin{footnotesize}
+        [1] Author et al. (2024). Paper title. Journal. \\
+        [2] Another Author (2023). Another paper. Conference.
+        \end{footnotesize}
+    }
+    
+\end{columns}
+
+\end{document}
