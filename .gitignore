@@ -21,6 +21,7 @@ data/
 *.tmp
 *.temp
 /tmp/
+users/
 
 # OS files
 .DS_Store
