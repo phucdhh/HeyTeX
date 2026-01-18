@@ -1,13 +1,15 @@
 # 🚀 HeyTeX: The LaTeX & Typst Editor
 
 ![License](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)
-![Status](https://img.shields.io/badge/status-Alpha-orange.svg)
+![Status](https://img.shields.io/badge/status-Beta-green.svg)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)
 ![Wasm](https://img.shields.io/badge/powered%20by-WebAssembly-purple)
 
+> 🌐 [English Documentation](README-en.md)
+
 **HeyTeX** là một nền tảng biên tập tài liệu khoa học trực tuyến mã nguồn mở, mang đến trải nghiệm giống **Visual Studio Code** ngay trên trình duyệt.
 
-Điểm đặc biệt của dự án là khả năng hỗ trợ song song hai "động cơ" (engines): **LaTeX** (server-side TeXLive) và **Typst** (client-side Wasm), kết hợp với khả năng làm việc nhóm thời gian thực (Real-time Collaboration).
+Điểm đặc biệt của dự án là khả năng hỗ trợ song song hai "động cơ" (engines): **LaTeX** (server-side TeXLive) và **Typst** (client-side Wasm), kết hợp với khả năng làm việc nhóm thời gian thực (Real-time Collaboration) và hệ thống template phong phú.
 
 ## ✨ Tính Năng Chính (Key Features)
 
@@ -21,18 +23,37 @@ Hệ thống biên dịch sử dụng mô hình hỗn hợp để cân bằng hi
 *   **LaTeX Project:** Biên dịch bằng TeXLive trên server (server-side TeXLive)
 *   **Typst Project:** Tích hợp **Typst Wasm Renderer** chạy trên trình duyệt để có phản hồi nhanh (client-side Wasm).
 
-### 3. 🤝 Biên tập Cộng tác Thời gian thực (Real-time Collaboration)
+### 3. 📋 Hệ thống Template phong phú
+*   **Template Gallery:** Thư viện mẫu chuyên nghiệp cho nhiều mục đích:
+    *   **CV/Resume:** CV hiện đại và CV khoa học (Academic CV) với danh sách công bố
+    *   **Letter:** Thư chính thức và thư công việc
+    *   **Article:** Bài báo khoa học với references
+    *   **Paper:** Paper nghiên cứu định dạng IEEE
+    *   **Poster:** Poster hội nghị với tikzposter
+    *   **Report:** Báo cáo kỹ thuật và tài liệu hướng dẫn
+*   **Finder-style UI:** Giao diện 2 cột trực quan để chọn engine và template
+*   Hỗ trợ đầy đủ cho cả LaTeX và Typst
+
+### 4. 👤 Quản lý Hồ sơ Người dùng
+*   **Profile Dashboard:** Thống kê chi tiết về dự án (LaTeX/Typst counts)
+*   **Account Info:** Ngày đăng ký, lần đăng nhập cuối
+*   **Avatar Upload:** Tùy chỉnh ảnh đại diện với MinIO storage
+*   **Password Management:** Đổi mật khẩu an toàn với xác thực password cũ
+
+### 5. 🤝 Biên tập Cộng tác Thời gian thực (Real-time Collaboration)
 *   Cho phép nhiều người dùng cùng chỉnh sửa một tài liệu cùng lúc.
 *   Hiển thị con trỏ chuột của người khác theo thời gian thực.
 *   Sử dụng thuật toán **CRDT** (Conflict-free Replicated Data Types) qua **Yjs** để đảm bảo tính toàn vẹn dữ liệu.
 
-### 4. 🔄 SyncTeX & Live Preview
+### 6. 🔄 SyncTeX & Live Preview
 *   **PDF Viewer tích hợp:** Xem trước kết quả ngay bên cạnh mã nguồn.
 *   **Reverse Sync (SyncTeX):** Click đúp vào PDF để nhảy đến dòng code tương ứng và ngược lại.
+*   **Auto-compile:** Tự động biên dịch khi có thay đổi (debounced)
 
-### 5. 📂 Quản lý Dự án Thông minh
+### 7. 📂 Quản lý Dự án Thông minh
 *   Hỗ trợ cấu trúc thư mục đa cấp.
 *   Import hình ảnh/tài liệu bằng cách Kéo & Thả (Drag & Drop).
+*   Tìm kiếm dự án nhanh chóng theo tên hoặc engine.
 
 ---
 
@@ -114,15 +135,15 @@ cd client && npm run dev
 ## Roadmap & Đề xuất Mở rộng
 Dưới đây là các tính năng dự kiến sẽ phát triển thêm:
 
+- [x] ✅ Template Gallery: Thư viện mẫu cho báo cáo, CV, luận văn (cả LaTeX và Typst).
+- [x] ✅ Profile Management: Thống kê dự án và quản lý tài khoản.
+- [x] ✅ Password Change: Đổi mật khẩu an toàn với xác thực.
 - [ ] Tích hợp Git: Commit, Push và Pull code trực tiếp từ GitHub/GitLab.
-
 - [ ] AI Assistant: Tích hợp LLM (như OpenAI/Gemini) để giải thích lỗi LaTeX hoặc gợi ý viết công thức.
-
 - [ ] Offline Mode (PWA): Cho phép biên tập và biên dịch cơ bản ngay cả khi mất mạng (Service Workers).
-
-- [ ] Template Gallery: Thư viện mẫu cho báo cáo, CV, luận văn (cả LaTeX và Typst).
-
-- [ ] Export Options: Xuất ra PDF, HTML, và ePub.
+- [ ] Export Options: Xuất ra HTML và ePub (PDF đã hỗ trợ).
+- [ ] Custom Templates: Cho phép người dùng tạo và chia sẻ template riêng.
+- [ ] Template Preview: Xem trước template trước khi tạo dự án.
 
 ## 💡 Các đề xuất cho kiến trúc của HeyTeX
 
