@@ -214,7 +214,11 @@ export function EditorPage() {
         });
 
         return () => {
-            socket.disconnect();
+            // Only disconnect if socket is actually connected or connecting
+            // This prevents errors when component unmounts during connection
+            if (socket.connected || socket.io.engine) {
+                socket.disconnect();
+            }
             socketRef.current = null;
             ydocRef.current = null;
         };

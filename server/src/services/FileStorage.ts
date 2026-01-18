@@ -41,9 +41,10 @@ export class FileStorageService {
 
     /**
      * Lấy đường dẫn thư mục files của project
+     * Files are stored directly in project directory, not in a 'files' subdirectory
      */
     public getProjectFilesDir(userId: string, projectId: string): string {
-        return path.join(this.getProjectDir(userId, projectId), 'files');
+        return this.getProjectDir(userId, projectId);
     }
 
     /**

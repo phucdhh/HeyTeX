@@ -14,7 +14,7 @@ import { authMiddleware, AuthRequest } from '../middleware/auth';
 import { prisma } from '../lib/prisma';
 import { uploadManager } from '../services/UploadManager';
 import { fileStorage } from '../services/FileStorage';
-import { uploadFile as uploadToMinio } from '../lib/minio';
+import { uploadFile as uploadToMinio, getFileUrl, minioClient } from '../lib/minio';
 import { config } from '../config';
 import path from 'path';
 import fs from 'fs/promises';
@@ -457,6 +457,64 @@ router.post('/validate', authMiddleware, async (req: AuthRequest, res: Response)
 
     } catch (error) {
         console.error('Validation error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+/**
+ * POST /api/upload/avatar
+ * Upload user avatar image - saved to user's directory
+ */
+router.post('/avatar', authMiddleware, upload.single('file'), async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+        const file = req.file as Express.Multer.File;
+        
+        if (!file) {
+            res.status(400).json({ error: 'No file uploaded' });
+            return;
+        }
+
+        // Validate file is an image
+        if (!file.mimetype.startsWith('image/')) {
+            await fs.unlink(file.path); // Clean up
+            res.status(400).json({ error: 'File must be an image' });
+            return;
+        }
+
+        // Validate file size (2MB)
+        if (file.size > 2 * 1024 * 1024) {
+            await fs.unlink(file.path);
+            res.status(400).json({ error: 'Image must be smaller than 2MB' });
+            return;
+        }
+
+        // Save to user's directory: users/<userId>/avatar.jpg
+        const userDir = path.join('/Users/mac/heytex/users', req.userId!);
+        const avatarPath = path.join(userDir, 'avatar.jpg');
+        
+        try {
+            // Ensure user directory exists
+            await fs.mkdir(userDir, { recursive: true });
+            
+            // Copy file to user directory
+            await fs.copyFile(file.path, avatarPath);
+            
+            // Clean up temp file
+            await fs.unlink(file.path);
+            
+            // Return relative URL
+            const url = `/api/users/${req.userId}/avatar.jpg`;
+            
+            res.json({ url });
+        } catch (saveError) {
+            console.error('Avatar save error:', saveError);
+            // Clean up temp file
+            await fs.unlink(file.path);
+            res.status(500).json({ error: 'Failed to save avatar' });
+        }
+
+    } catch (error) {
+        console.error('Avatar upload error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

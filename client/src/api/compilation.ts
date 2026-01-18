@@ -95,14 +95,22 @@ export class CompilationAPI {
      * Get compilation log
      */
     async getLog(jobId: string): Promise<string> {
-        const response = await axios.get(
-            `${API_URL}/compile/${jobId}/log`,
-            {
-                headers: this.headers,
-                responseType: 'text',
+        try {
+            const response = await axios.get(
+                `${API_URL}/compile/${jobId}/log`,
+                {
+                    headers: this.headers,
+                    responseType: 'text',
+                }
+            );
+            return response.data;
+        } catch (error: any) {
+            // Log might not be available yet during compilation, return empty string
+            if (error.response?.status === 404) {
+                return '';
             }
-        );
-        return response.data;
+            throw error;
+        }
     }
 
     /**

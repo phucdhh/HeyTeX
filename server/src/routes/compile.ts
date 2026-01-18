@@ -216,7 +216,11 @@ router.get('/:jobId/log', async (req: Request, res: Response): Promise<void> => 
         const job = compilationQueue.getJob(jobId);
 
         if (!job) {
-            res.status(404).json({ error: 'Job not found' });
+            // Job không còn trong memory, trả về thông báo hữu ích
+            res.status(404).json({ 
+                error: 'Job expired or not found',
+                message: 'Compilation log is no longer available. Jobs are kept for 2 hours after completion.'
+            });
             return;
         }
 
@@ -229,7 +233,10 @@ router.get('/:jobId/log', async (req: Request, res: Response): Promise<void> => 
         const log = await compilationQueue.getLog(jobId);
 
         if (!log) {
-            res.status(404).json({ error: 'Log not found' });
+            res.status(404).json({ 
+                error: 'Log not found',
+                message: 'Compilation log file could not be read. The job may still be running or failed before generating logs.'
+            });
             return;
         }
 

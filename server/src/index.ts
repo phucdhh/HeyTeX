@@ -5,6 +5,7 @@ import { createServer } from 'http';
 import { config } from './config/index';
 import { prisma } from './lib/prisma';
 import { setupCollaborationServer } from './websocket/collab';
+import { minioClient } from './lib/minio';
 
 // Import routes
 import authRoutes from './routes/auth';
@@ -58,6 +59,25 @@ console.log('[Routes] Mounting upload routes at /api/upload');
 app.use('/api/upload', uploadRoutes);
 console.log('[Routes] Upload routes mounted successfully');
 
+// Serve user avatars
+app.get('/api/users/:userId/avatar.jpg', async (req: express.Request, res: express.Response) => {
+    try {
+        const { userId } = req.params;
+        const avatarPath = `/Users/mac/heytex/users/${userId}/avatar.jpg`;
+        
+        // Check if file exists
+        const fs = await import('fs/promises');
+        await fs.access(avatarPath);
+        
+        // Send file
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
+        res.setHeader('Content-Type', 'image/jpeg');
+        res.sendFile(avatarPath);
+    } catch (error) {
+        res.status(404).json({ error: 'Avatar not found' });
+    }
+});
+
 // Error handling middleware
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.error('Error:', err);
@@ -92,8 +112,30 @@ process.on('unhandledRejection', (reason) => {
     console.error('[Process] unhandledRejection:', reason);
 });
 
+// Initialize MinIO buckets
+async function initializeMinIO() {
+    const buckets = ['avatars', config.minio.bucketAssets, config.minio.bucketProjects];
+    
+    for (const bucket of buckets) {
+        try {
+            const exists = await minioClient.bucketExists(bucket);
+            if (!exists) {
+                await minioClient.makeBucket(bucket, '');
+                console.log(`[MinIO] Created bucket: ${bucket}`);
+            } else {
+                console.log(`[MinIO] Bucket exists: ${bucket}`);
+            }
+        } catch (error) {
+            console.error(`[MinIO] Error checking/creating bucket ${bucket}:`, error);
+        }
+    }
+}
+
 // Start server
-httpServer.listen(config.port, () => {
+httpServer.listen(config.port, async () => {
+    // Initialize MinIO buckets
+    await initializeMinIO();
+    
     console.log(`
 🚀 HeyTeX Server is running!
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

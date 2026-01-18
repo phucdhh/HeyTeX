@@ -237,16 +237,46 @@ class CompilationQueue {
 
             const pdfExists = await fs.access(pdfPath).then(() => true).catch(() => false);
 
+            // Validate PDF is not corrupted
+            let pdfValid = false;
             if (pdfExists) {
+                try {
+                    const stats = await fs.stat(pdfPath);
+                    // A valid PDF should be at least 2KB. Smaller files are likely corrupted/incomplete
+                    pdfValid = stats.size > 2000;
+                    
+                    if (!pdfValid) {
+                        console.warn(`[CompilationQueue] PDF file too small (${stats.size} bytes), likely corrupted`);
+                    }
+                } catch (error) {
+                    console.error(`[CompilationQueue] Failed to stat PDF:`, error);
+                }
+            }
+
+            // Also check compile log for fatal errors
+            try {
+                const compileLogPath = path.join(projectFilesDir, 'compile.log');
+                const logContent = await fs.readFile(compileLogPath, 'utf-8');
+                if (logContent.includes('No output PDF file written') || 
+                    logContent.includes('fatal:') ||
+                    logContent.includes('Emergency stop')) {
+                    pdfValid = false;
+                    console.warn(`[CompilationQueue] Compile log indicates fatal error`);
+                }
+            } catch (error) {
+                // Compile log might not exist, continue
+            }
+
+            if (pdfExists && pdfValid) {
                 job.status = 'completed';
                 job.pdfPath = pdfPath;
                 job.logPath = logPath;
                 console.log(`[CompilationQueue] Job ${job.id} completed successfully`);
             } else {
                 job.status = 'failed';
-                job.error = 'PDF was not generated';
+                job.error = pdfExists ? 'PDF generation failed with errors' : 'PDF was not generated';
                 job.logPath = logPath;
-                console.error(`[CompilationQueue] Job ${job.id} failed: PDF not generated`);
+                console.error(`[CompilationQueue] Job ${job.id} failed: ${job.error}`);
             }
 
         } catch (error: any) {
@@ -260,10 +290,10 @@ class CompilationQueue {
             this.activeJobs.delete(job.id);
             this.completedJobs.set(job.id, job);
 
-            // Cleanup sau 30 phút
+            // Cleanup sau 2 giờ (tăng từ 30 phút)
             setTimeout(() => {
                 this.cleanupJob(job.id);
-            }, 30 * 60 * 1000);
+            }, 2 * 60 * 60 * 1000);
         }
     }
 

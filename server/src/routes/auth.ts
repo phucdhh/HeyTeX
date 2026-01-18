@@ -75,6 +75,12 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
             return;
         }
 
+        // Update last login time
+        await prisma.user.update({
+            where: { id: user.id },
+            data: { lastLoginAt: new Date() },
+        });
+
         // @ts-ignore - JWT types are complex
         const token = jwt.sign(
             { userId: user.id },
@@ -96,7 +102,7 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
     }
 });
 
-// Get current user
+// Get current user with statistics
 router.get('/me', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
     try {
         const user = await prisma.user.findUnique({
@@ -107,6 +113,7 @@ router.get('/me', authMiddleware, async (req: AuthRequest, res: Response): Promi
                 name: true,
                 avatar: true,
                 createdAt: true,
+                lastLoginAt: true,
             },
         });
 
@@ -115,7 +122,25 @@ router.get('/me', authMiddleware, async (req: AuthRequest, res: Response): Promi
             return;
         }
 
-        res.json({ user });
+        // Count projects by engine type
+        const [latexCount, typstCount] = await Promise.all([
+            prisma.project.count({
+                where: { ownerId: req.userId, engine: 'LATEX' },
+            }),
+            prisma.project.count({
+                where: { ownerId: req.userId, engine: 'TYPST' },
+            }),
+        ]);
+
+        res.json({ 
+            user: {
+                ...user,
+                stats: {
+                    latexProjects: latexCount,
+                    typstProjects: typstCount,
+                },
+            },
+        });
     } catch (error) {
         console.error('Get user error:', error);
         res.status(500).json({ error: 'Internal server error' });
@@ -144,6 +169,54 @@ router.patch('/me', authMiddleware, async (req: AuthRequest, res: Response): Pro
         res.json({ user });
     } catch (error) {
         console.error('Update user error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Change password
+router.post('/change-password', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+        const { currentPassword, newPassword } = req.body;
+
+        if (!currentPassword || !newPassword) {
+            res.status(400).json({ error: 'Current password and new password are required' });
+            return;
+        }
+
+        if (newPassword.length < 6) {
+            res.status(400).json({ error: 'New password must be at least 6 characters' });
+            return;
+        }
+
+        // Get user with password
+        const user = await prisma.user.findUnique({
+            where: { id: req.userId },
+        });
+
+        if (!user) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+
+        // Verify current password
+        const isValidPassword = await bcrypt.compare(currentPassword, user.password);
+        if (!isValidPassword) {
+            res.status(401).json({ error: 'Current password is incorrect' });
+            return;
+        }
+
+        // Hash new password
+        const hashedPassword = await bcrypt.hash(newPassword, 12);
+
+        // Update password
+        await prisma.user.update({
+            where: { id: req.userId },
+            data: { password: hashedPassword },
+        });
+
+        res.json({ message: 'Password changed successfully' });
+    } catch (error) {
+        console.error('Change password error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

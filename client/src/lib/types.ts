@@ -6,6 +6,11 @@ export interface User {
     name: string;
     avatar?: string;
     createdAt?: string;
+    lastLoginAt?: string;
+    stats?: {
+        latexProjects: number;
+        typstProjects: number;
+    };
 }
 
 export interface Project {

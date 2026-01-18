@@ -8,6 +8,7 @@ import { Input } from '../components/ui/Input';
 import { Spinner } from '../components/ui/Spinner';
 import { ProjectCard } from '../components/ProjectCard';
 import { ProjectInfoDialog } from '../components/ProjectInfoDialog';
+import { ProfileDialog } from '../components/ProfileDialog';
 import {
     FileCode2,
     Plus,
@@ -17,6 +18,7 @@ import {
     Moon,
     LayoutGrid,
     List as ListIcon,
+    User,
 } from 'lucide-react';
 
 export function DashboardPage() {
@@ -32,6 +34,7 @@ export function DashboardPage() {
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [showInfoDialog, setShowInfoDialog] = useState(false);
     const [selectedProjectStats, setSelectedProjectStats] = useState<any>(null);
+    const [showProfileDialog, setShowProfileDialog] = useState(false);
 
     useEffect(() => {
         loadProjects();
@@ -140,6 +143,11 @@ export function DashboardPage() {
         navigate('/login');
     };
 
+    const handleProfileUpdate = () => {
+        // Reload user data after profile update
+        window.location.reload();
+    };
+
     if (isLoading) {
         return (
             <div className="h-screen flex items-center justify-center">
@@ -164,11 +172,21 @@ export function DashboardPage() {
                         </Button>
 
                         <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                                <span className="text-sm font-medium text-primary">
-                                    {user?.name?.charAt(0).toUpperCase()}
-                                </span>
-                            </div>
+                            <button
+                                onClick={() => setShowProfileDialog(true)}
+                                className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center hover:bg-primary/30 transition-colors cursor-pointer"
+                                title="Thông tin cá nhân"
+                            >
+                                {user?.avatar ? (
+                                    <img
+                                        src={user.avatar}
+                                        alt={user.name}
+                                        className="w-full h-full rounded-full object-cover"
+                                    />
+                                ) : (
+                                    <User className="h-4 w-4 text-primary" />
+                                )}
+                            </button>
                             <span className="text-sm font-medium hidden sm:inline">{user?.name}</span>
                         </div>
 
@@ -330,6 +348,24 @@ export function DashboardPage() {
                         </form>
                     </div>
                 </div>
+            )}
+
+            {/* Profile Dialog */}
+            {user && (
+                <ProfileDialog
+                    open={showProfileDialog}
+                    onOpenChange={setShowProfileDialog}
+                    user={{
+                        id: user.id,
+                        name: user.name,
+                        email: user.email,
+                        avatar: user.avatar,
+                        createdAt: user.createdAt || new Date().toISOString(),
+                        lastLoginAt: user.lastLoginAt,
+                        stats: user.stats,
+                    }}
+                    onUpdate={handleProfileUpdate}
+                />
             )}
         </div>
     );

@@ -10,17 +10,4 @@
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   
 [FileStorage] Base directory initialized: /Users/mac/heytex/users
-Client connected: _wYRecyxSWUlnMnxAAAB
-User Nguyễn Đăng Minh Phúc joined room project:e224b352-0569-4c7a-8a3c-6c73bda023ce:/book.tex
-Client disconnected: _wYRecyxSWUlnMnxAAAB
-Client connected: qNue3b7TGhgWOouIAAAD
-User Nguyễn Đăng Minh Phúc joined room project:e224b352-0569-4c7a-8a3c-6c73bda023ce:/book.tex
-[CompilationQueue] Compiling job 24386d9e-9698-4df5-b00c-e102523b8278 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/e224b352-0569-4c7a-8a3c-6c73bda023ce/files
-[CompilationQueue] Job 24386d9e-9698-4df5-b00c-e102523b8278 completed successfully
-Client disconnected: qNue3b7TGhgWOouIAAAD
-Client connected: TgPVCTMX6xUuA_yYAAAF
-User Nguyễn Đăng Minh Phúc joined room project:e224b352-0569-4c7a-8a3c-6c73bda023ce:/book.tex
-Client disconnected: TgPVCTMX6xUuA_yYAAAF
-Client connected: kR8QTqScr03kWKaCAAAH
-User Nguyễn Đăng Minh Phúc joined room project:e224b352-0569-4c7a-8a3c-6c73bda023ce:/book.tex
-Client disconnected: kR8QTqScr03kWKaCAAAH
+SIGTERM received. Shutting down gracefully...
