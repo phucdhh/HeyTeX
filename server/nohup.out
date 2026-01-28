@@ -1,6 +1,31 @@
 [CompilationQueue] Initialized with max 10 concurrent jobs
 [Routes] Mounting upload routes at /api/upload
 [Routes] Upload routes mounted successfully
+[MinIO] Error checking/creating bucket avatars: Error: connect ECONNREFUSED 127.0.0.1:5434
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16) {
+  errno: -61,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 5434
+}
+[FileStorage] Base directory initialized: /Users/mac/heytex/users
+[MinIO] Error checking/creating bucket heytex-assets: Error: connect ECONNREFUSED 127.0.0.1:5434
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16) {
+  errno: -61,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 5434
+}
+[MinIO] Error checking/creating bucket heytex-projects: Error: connect ECONNREFUSED 127.0.0.1:5434
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16) {
+  errno: -61,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 5434
+}
 
 🚀 HeyTeX Server is running!
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -9,5 +34,373 @@
 🌍 CORS:      http://localhost:5436,https://heytex.truyenthong.edu.vn
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   
-[FileStorage] Base directory initialized: /Users/mac/heytex/users
-SIGTERM received. Shutting down gracefully...
+Client connected: ZRnJgVdoDdPZ6gZ0AAAB
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+No template.json in book
+No template.json in document
+No template.json in book
+No template.json in document
+[Project] Using template latex-blank with 1 files
+[FileStorage] Created user directory: e52a88d4-0a6c-4922-9c60-80e27e964640
+[FileStorage] Created project directory: e52a88d4-0a6c-4922-9c60-80e27e964640/c433d441-309b-44be-8c77-96a5b0cf47b6
+[FileStorage] Created project structure for e52a88d4-0a6c-4922-9c60-80e27e964640/c433d441-309b-44be-8c77-96a5b0cf47b6 with 1 files
+Client connected: DO17D9x7jDfUwJmfAAAD
+User Le Phuoc Man joined room project:c433d441-309b-44be-8c77-96a5b0cf47b6:main.tex
+[CompilationQueue] Compiling job 67789007-0551-43cc-8fff-7004dd8ad841 in /Users/mac/heytex/users/e52a88d4-0a6c-4922-9c60-80e27e964640/c433d441-309b-44be-8c77-96a5b0cf47b6
+[CompilationQueue] Job 67789007-0551-43cc-8fff-7004dd8ad841 completed successfully
+Client connected: i_XOFUo0PZt-bM2vAAAF
+User Le Phuoc Man joined room project:c433d441-309b-44be-8c77-96a5b0cf47b6:main.tex
+Client disconnected: i_XOFUo0PZt-bM2vAAAF
+Client disconnected: DO17D9x7jDfUwJmfAAAD
+No template.json in book
+No template.json in document
+No template.json in book
+No template.json in document
+[Project] Using template typst-blank with 1 files
+[FileStorage] Created project directory: e52a88d4-0a6c-4922-9c60-80e27e964640/0754e11e-3fb8-4871-a845-e961ed890cb8
+[FileStorage] Created project structure for e52a88d4-0a6c-4922-9c60-80e27e964640/0754e11e-3fb8-4871-a845-e961ed890cb8 with 1 files
+Client connected: joJ4Z2bLAUrJzY90AAAH
+User Le Phuoc Man joined room project:0754e11e-3fb8-4871-a845-e961ed890cb8:main.typ
+Client disconnected: joJ4Z2bLAUrJzY90AAAH
+Client connected: vDGd7Z4ICheLdGWaAAAJ
+User Le Phuoc Man joined room project:c433d441-309b-44be-8c77-96a5b0cf47b6:main.typ
+Client disconnected: vDGd7Z4ICheLdGWaAAAJ
+Client connected: JZ_I9K8XVxUfMbQMAAAL
+User Le Phuoc Man joined room project:c433d441-309b-44be-8c77-96a5b0cf47b6:main.tex
+Client disconnected: JZ_I9K8XVxUfMbQMAAAL
+Client connected: vjSjthKHTKm4F-OBAAAN
+Client disconnected: vjSjthKHTKm4F-OBAAAN
+Client connected: Kz633VsXXDFtugD0AAAP
+User Le Phuoc Man joined room project:c433d441-309b-44be-8c77-96a5b0cf47b6:main.tex
+[CompilationQueue] Compiling job fc3aeec4-9945-4a5a-94dc-44cf91978186 in /Users/mac/heytex/users/e52a88d4-0a6c-4922-9c60-80e27e964640/c433d441-309b-44be-8c77-96a5b0cf47b6
+[CompilationQueue] Job fc3aeec4-9945-4a5a-94dc-44cf91978186 completed successfully
+[CompilationQueue] Compiling job 8c7e1559-bee5-4c47-ba83-2ee404bb1351 in /Users/mac/heytex/users/e52a88d4-0a6c-4922-9c60-80e27e964640/c433d441-309b-44be-8c77-96a5b0cf47b6
+[CompilationQueue] Job 8c7e1559-bee5-4c47-ba83-2ee404bb1351 completed successfully
+Client disconnected: Kz633VsXXDFtugD0AAAP
+Client connected: C-aKN3MYPKdBIPxkAAAR
+User Le Phuoc Man joined room project:c433d441-309b-44be-8c77-96a5b0cf47b6:main.typ
+Client disconnected: C-aKN3MYPKdBIPxkAAAR
+Client connected: Klt3sIPT36CHuG3JAAAT
+User Le Phuoc Man joined room project:c433d441-309b-44be-8c77-96a5b0cf47b6:main.tex
+[CompilationQueue] Compiling job 3c6254ee-7f90-4489-a856-2259d9bb9e96 in /Users/mac/heytex/users/e52a88d4-0a6c-4922-9c60-80e27e964640/c433d441-309b-44be-8c77-96a5b0cf47b6
+[CompilationQueue] Job 3c6254ee-7f90-4489-a856-2259d9bb9e96 completed successfully
+Client disconnected: Klt3sIPT36CHuG3JAAAT
+Client connected: 46vxK9Kt2NZggDt-AAAV
+User Le Phuoc Man joined room project:c433d441-309b-44be-8c77-96a5b0cf47b6:main.tex
+[CompilationQueue] Compiling job 5275f8e9-f878-40d7-8b3b-703e23fbeabc in /Users/mac/heytex/users/e52a88d4-0a6c-4922-9c60-80e27e964640/c433d441-309b-44be-8c77-96a5b0cf47b6
+[CompilationQueue] Job 5275f8e9-f878-40d7-8b3b-703e23fbeabc completed successfully
+Client disconnected: 46vxK9Kt2NZggDt-AAAV
+[CompilationQueue] Cleaned up job 67789007-0551-43cc-8fff-7004dd8ad841 from memory
+[CompilationQueue] Cleaned up job fc3aeec4-9945-4a5a-94dc-44cf91978186 from memory
+[CompilationQueue] Cleaned up job 8c7e1559-bee5-4c47-ba83-2ee404bb1351 from memory
+[CompilationQueue] Cleaned up job 3c6254ee-7f90-4489-a856-2259d9bb9e96 from memory
+[CompilationQueue] Cleaned up job 5275f8e9-f878-40d7-8b3b-703e23fbeabc from memory
+Client disconnected: ZRnJgVdoDdPZ6gZ0AAAB
+Client connected: Zr4oVULZewPPt32RAAAX
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: Zr4oVULZewPPt32RAAAX
+Client connected: J6WzyH_QDB04-YBWAAAZ
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+No template.json in book
+No template.json in document
+No template.json in book
+No template.json in document
+[FileStorage] Created user directory: fc600c2c-f5d4-4d54-8602-a228a322185a
+[FileStorage] Created project directory: fc600c2c-f5d4-4d54-8602-a228a322185a/4450ee51-735f-4966-b5c9-6367a67906d4
+[FileStorage] Created project structure for fc600c2c-f5d4-4d54-8602-a228a322185a/4450ee51-735f-4966-b5c9-6367a67906d4 with 1 files
+Client connected: n87MSC05ZkvDO-fsAAAb
+User Nguyễn Văn Tuấn joined room project:4450ee51-735f-4966-b5c9-6367a67906d4:/main.typ
+Client disconnected: n87MSC05ZkvDO-fsAAAb
+Client disconnected: J6WzyH_QDB04-YBWAAAZ
+Client connected: 57aQY4skzT_qEiq4AAAd
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: 57aQY4skzT_qEiq4AAAd
+Client connected: TjA_uRmueVxJqJlEAAAf
+User Nguyễn Đăng Minh Phúc joined room project:3bfbc6a6-f281-4cac-ae33-72778f66fadb:academic-cv.typ
+Client disconnected: TjA_uRmueVxJqJlEAAAf
+Client connected: OC3xYApfxbkppEsrAAAh
+User Nguyễn Đăng Minh Phúc joined room project:3bfbc6a6-f281-4cac-ae33-72778f66fadb:paper.tex
+[CompilationQueue] Compiling job 28c15452-65d7-4449-b55c-13b66dba5b3e in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3bfbc6a6-f281-4cac-ae33-72778f66fadb
+[CompilationQueue] Job 28c15452-65d7-4449-b55c-13b66dba5b3e completed successfully
+[CompilationQueue] Cleaned up job 28c15452-65d7-4449-b55c-13b66dba5b3e from memory
+Client connected: kY2z7mc0D6r2y1bkAAAj
+User Le Phuoc Man joined room project:c433d441-309b-44be-8c77-96a5b0cf47b6:main.tex
+[CompilationQueue] Compiling job 65d484a3-7ecd-44ed-8ea8-94de59f9987c in /Users/mac/heytex/users/e52a88d4-0a6c-4922-9c60-80e27e964640/c433d441-309b-44be-8c77-96a5b0cf47b6
+[CompilationQueue] Job 65d484a3-7ecd-44ed-8ea8-94de59f9987c completed successfully
+Client disconnected: kY2z7mc0D6r2y1bkAAAj
+Client disconnected: OC3xYApfxbkppEsrAAAh
+Client connected: io3etdVj1srXkb_nAAAl
+User Nguyễn Đăng Minh Phúc joined room project:3bfbc6a6-f281-4cac-ae33-72778f66fadb:paper.tex
+Client disconnected: io3etdVj1srXkb_nAAAl
+Client connected: XTFKQ0_lMAp2PsOsAAAn
+User Nguyễn Đăng Minh Phúc joined room project:3bfbc6a6-f281-4cac-ae33-72778f66fadb:paper.tex
+[CompilationQueue] Compiling job 3f5e8264-2941-42b1-9896-954ad2871158 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3bfbc6a6-f281-4cac-ae33-72778f66fadb
+[CompilationQueue] Job 3f5e8264-2941-42b1-9896-954ad2871158 completed successfully
+Client disconnected: XTFKQ0_lMAp2PsOsAAAn
+No template.json in book
+No template.json in document
+No template.json in book
+No template.json in document
+[Project] Using template latex-blank with 1 files
+[FileStorage] Created project directory: aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[FileStorage] Created project structure for aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710 with 1 files
+Client connected: p_7iyMEBzNwXv__NAAAp
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:paper.tex
+Client disconnected: p_7iyMEBzNwXv__NAAAp
+Client connected: WIfyHZi_0geYQisAAAAr
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:main.tex
+Client disconnected: WIfyHZi_0geYQisAAAAr
+Client connected: XgNfmDkIFXEWznjAAAAt
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+Client disconnected: XgNfmDkIFXEWznjAAAAt
+[CompilationQueue] Cleaned up job 65d484a3-7ecd-44ed-8ea8-94de59f9987c from memory
+Client connected: THDqvGX1fiQUs9pLAAAv
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:main.tex
+Client disconnected: THDqvGX1fiQUs9pLAAAv
+Client connected: RyChd5ds4XcUlz7PAAAx
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+[CompilationQueue] Compiling job 08c4cb97-ce1d-4434-930d-51bff85ab4bd in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job 08c4cb97-ce1d-4434-930d-51bff85ab4bd completed successfully
+Client disconnected: RyChd5ds4XcUlz7PAAAx
+Client connected: OTHKzaKcKi8hhqggAAAz
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Gemini.tex
+[CompilationQueue] Compiling job 3169c4c7-3847-47df-987b-36212f84bdb2 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job 3169c4c7-3847-47df-987b-36212f84bdb2 completed successfully
+Client disconnected: OTHKzaKcKi8hhqggAAAz
+Client connected: Yh2DBWCT3FVWbvclAAA1
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+Client disconnected: Yh2DBWCT3FVWbvclAAA1
+Client connected: Xpbf_vBW-3A9VN7IAAA3
+User Nguyễn Đăng Minh Phúc joined room project:188078fe-58df-49ff-add5-ff27430464d3:/main.tex
+[CompilationQueue] Compiling job fda113f4-6821-4db3-84b5-9d5aaf114007 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/188078fe-58df-49ff-add5-ff27430464d3
+[CompilationQueue] Job fda113f4-6821-4db3-84b5-9d5aaf114007 completed successfully
+Client disconnected: Xpbf_vBW-3A9VN7IAAA3
+Client connected: yOvW6-r1QHNx3WUGAAA5
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/main.tex
+Client disconnected: yOvW6-r1QHNx3WUGAAA5
+Client connected: Q4Gw5i0-MUyyLNDuAAA7
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Gemini.tex
+[CompilationQueue] Compiling job 0c79917e-d392-4e2f-8756-96745e07cf55 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job 0c79917e-d392-4e2f-8756-96745e07cf55 completed successfully
+Client disconnected: Q4Gw5i0-MUyyLNDuAAA7
+Client connected: qKIwFzVk15OPr0jRAAA9
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+[CompilationQueue] Compiling job 421bc670-a00a-484a-b5dc-b91eece32016 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job 421bc670-a00a-484a-b5dc-b91eece32016 completed successfully
+Client disconnected: qKIwFzVk15OPr0jRAAA9
+Client connected: xEinhYbcvxskfVnyAAA_
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Gemini.tex
+[CompilationQueue] Compiling job f55c8207-4ea9-44e2-9461-dce850a7381c in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job f55c8207-4ea9-44e2-9461-dce850a7381c completed successfully
+[CompilationQueue] Cleaned up job 3f5e8264-2941-42b1-9896-954ad2871158 from memory
+[CompilationQueue] Cleaned up job 08c4cb97-ce1d-4434-930d-51bff85ab4bd from memory
+[CompilationQueue] Cleaned up job 3169c4c7-3847-47df-987b-36212f84bdb2 from memory
+[CompilationQueue] Cleaned up job fda113f4-6821-4db3-84b5-9d5aaf114007 from memory
+[CompilationQueue] Cleaned up job 0c79917e-d392-4e2f-8756-96745e07cf55 from memory
+[CompilationQueue] Cleaned up job 421bc670-a00a-484a-b5dc-b91eece32016 from memory
+[CompilationQueue] Cleaned up job f55c8207-4ea9-44e2-9461-dce850a7381c from memory
+prisma:error Error in PostgreSQL connection: Error { kind: Closed, cause: None }
+prisma:error Error in PostgreSQL connection: Error { kind: Closed, cause: None }
+prisma:error Error in PostgreSQL connection: Error { kind: Closed, cause: None }
+prisma:error Error in PostgreSQL connection: Error { kind: Closed, cause: None }
+prisma:error Error in PostgreSQL connection: Error { kind: Closed, cause: None }
+prisma:error Error in PostgreSQL connection: Error { kind: Closed, cause: None }
+Client disconnected: xEinhYbcvxskfVnyAAA_
+Client connected: Em9HG_a23WPMbMgzAABB
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+[CompilationQueue] Compiling job 20c6b94b-d104-4acb-8ddf-620a179023d6 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job 20c6b94b-d104-4acb-8ddf-620a179023d6 completed successfully
+Client connected: yE9-D2x8Tq87tD16AABD
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+[CompilationQueue] Compiling job 138f0c01-373a-4cda-93a1-70ea9bf3b7e3 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job 138f0c01-373a-4cda-93a1-70ea9bf3b7e3 completed successfully
+Client disconnected: yE9-D2x8Tq87tD16AABD
+Client connected: 0KdMfYTdfan4nGtpAABF
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+Client connected: gk9yRb3PWkDipMakAABH
+Client disconnected: gk9yRb3PWkDipMakAABH
+Client connected: QJqSVcJe9SAobMVUAABJ
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+[CompilationQueue] Compiling job f507175d-b89d-4112-99f6-6a6348a04e91 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job f507175d-b89d-4112-99f6-6a6348a04e91 completed successfully
+Client disconnected: 0KdMfYTdfan4nGtpAABF
+Client disconnected: QJqSVcJe9SAobMVUAABJ
+Client disconnected: Em9HG_a23WPMbMgzAABB
+Client connected: n1v-QUGeOIl1JuS2AABL
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Gemini.tex
+[CompilationQueue] Compiling job 31929305-b065-4598-8252-3cb8fe005965 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job 31929305-b065-4598-8252-3cb8fe005965 completed successfully
+Client disconnected: n1v-QUGeOIl1JuS2AABL
+[CompilationQueue] Cleaned up job 20c6b94b-d104-4acb-8ddf-620a179023d6 from memory
+[CompilationQueue] Cleaned up job 138f0c01-373a-4cda-93a1-70ea9bf3b7e3 from memory
+[CompilationQueue] Cleaned up job f507175d-b89d-4112-99f6-6a6348a04e91 from memory
+[CompilationQueue] Cleaned up job 31929305-b065-4598-8252-3cb8fe005965 from memory
+Client connected: UfE3b6-djjClO-5TAABN
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+Client disconnected: UfE3b6-djjClO-5TAABN
+Client connected: u0aMKIdslNrFTa_ZAABP
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+[CompilationQueue] Compiling job 2f166e92-5abd-4cf8-ad91-c45d63fdf942 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job 2f166e92-5abd-4cf8-ad91-c45d63fdf942 completed successfully
+Client disconnected: u0aMKIdslNrFTa_ZAABP
+Client connected: 3dwFezyXXtGqkrxzAABR
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+Client disconnected: 3dwFezyXXtGqkrxzAABR
+Client connected: 8Tp0hBl-Ts-YxeTuAABT
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+[CompilationQueue] Cleaned up job 2f166e92-5abd-4cf8-ad91-c45d63fdf942 from memory
+Client disconnected: 8Tp0hBl-Ts-YxeTuAABT
+Client connected: -3_OUFU0eMdQW1W1AABV
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+Client disconnected: -3_OUFU0eMdQW1W1AABV
+Client connected: kUAYqjETnalp-ZlkAABX
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Gemini.tex
+[CompilationQueue] Compiling job 5ac00f1e-be4c-4ea6-ab40-53eaae593081 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job 5ac00f1e-be4c-4ea6-ab40-53eaae593081 completed successfully
+Client disconnected: kUAYqjETnalp-ZlkAABX
+Client connected: 7XM7JBAPaiCQnG2cAABZ
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Gemini.tex
+[CompilationQueue] Cleaned up job 5ac00f1e-be4c-4ea6-ab40-53eaae593081 from memory
+Client disconnected: 7XM7JBAPaiCQnG2cAABZ
+Client connected: 1c9ZpHNo8z1QBatvAABb
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+[CompilationQueue] Compiling job 448bf972-f4e2-4fab-9d10-4bf34ff9f2e4 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job 448bf972-f4e2-4fab-9d10-4bf34ff9f2e4 completed successfully
+Client disconnected: 1c9ZpHNo8z1QBatvAABb
+Client connected: mImCDXAGlFih7nweAABd
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+Client disconnected: mImCDXAGlFih7nweAABd
+Client connected: axmRmYD2DRxwUu7PAABf
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+Client disconnected: axmRmYD2DRxwUu7PAABf
+Client connected: kv_lwAI1KaRm3B5mAABh
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+Client disconnected: kv_lwAI1KaRm3B5mAABh
+Client connected: DmIh4RABp7MjPxLGAABj
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+[CompilationQueue] Cleaned up job 448bf972-f4e2-4fab-9d10-4bf34ff9f2e4 from memory
+Client disconnected: DmIh4RABp7MjPxLGAABj
+Client connected: cT1-bkXkIXgdK302AABl
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+[CompilationQueue] Compiling job a8ade1d4-103c-49d6-ba08-6d2bef1e170a in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job a8ade1d4-103c-49d6-ba08-6d2bef1e170a completed successfully
+Client disconnected: cT1-bkXkIXgdK302AABl
+Client connected: yKx31gRXbtjVpFrxAABn
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+[CompilationQueue] Compiling job b389c51a-a148-4f69-9e09-77289f491883 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job b389c51a-a148-4f69-9e09-77289f491883 completed successfully
+Client disconnected: yKx31gRXbtjVpFrxAABn
+Client connected: 4zghMKB0GzdoFTYLAABp
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+[CompilationQueue] Compiling job 04c85ec3-c83c-42c7-86c1-5a95eb4ac60a in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job 04c85ec3-c83c-42c7-86c1-5a95eb4ac60a completed successfully
+Client disconnected: 4zghMKB0GzdoFTYLAABp
+Client connected: sS8KKcxRWGJlD9jWAABr
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+[CompilationQueue] Cleaned up job a8ade1d4-103c-49d6-ba08-6d2bef1e170a from memory
+[CompilationQueue] Cleaned up job b389c51a-a148-4f69-9e09-77289f491883 from memory
+[CompilationQueue] Cleaned up job 04c85ec3-c83c-42c7-86c1-5a95eb4ac60a from memory
+Client disconnected: sS8KKcxRWGJlD9jWAABr
+Client connected: Bj1x87-vbOTFYx9aAABt
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: Bj1x87-vbOTFYx9aAABt
+Client connected: ZfjL9CWFgWYjb7TpAABv
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:academic-cv.typ
+Client disconnected: ZfjL9CWFgWYjb7TpAABv
+Client connected: 9RJxehZc7W6xtM8rAABx
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+[CompilationQueue] Compiling job 066c143d-bf32-4f30-a801-1663bb971b9f in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job 066c143d-bf32-4f30-a801-1663bb971b9f completed successfully
+Client disconnected: 9RJxehZc7W6xtM8rAABx
+[CompilationQueue] Cleaned up job 066c143d-bf32-4f30-a801-1663bb971b9f from memory
+Client connected: Y7b7il4aZxLQ9HINAABz
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: Y7b7il4aZxLQ9HINAABz
+Client connected: 6KqUDiSOVrDlb-f9AAB1
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: 6KqUDiSOVrDlb-f9AAB1
+Client connected: dRdhgVmLVUjPsbTuAAB3
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: dRdhgVmLVUjPsbTuAAB3
+Client connected: yY4YyjGpWO0fPBtdAAB5
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: yY4YyjGpWO0fPBtdAAB5
+Client connected: sbdhLSr1cr5aNtuAAAB7
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: sbdhLSr1cr5aNtuAAAB7
+Client connected: HhR6mwtZNRV8e8q8AAB9
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: HhR6mwtZNRV8e8q8AAB9
+Client connected: JlkCm3HgP_7MU3EYAAB_
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: JlkCm3HgP_7MU3EYAAB_
+Client connected: aa82HvYfUAi3yJ2zAACB
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: aa82HvYfUAi3yJ2zAACB
+Client connected: VQyG_KHJQnL6Y3uFAACD
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: VQyG_KHJQnL6Y3uFAACD
+Client connected: F3GWBrbVj5UkjhNrAACF
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: F3GWBrbVj5UkjhNrAACF
+Client connected: AuogKw1fWMwS2F-pAACH
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: AuogKw1fWMwS2F-pAACH
+Client connected: EiiS7mf8gtszSIAEAACJ
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: EiiS7mf8gtszSIAEAACJ
+Client connected: WN7BmuzyNsP_VQBdAACL
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: WN7BmuzyNsP_VQBdAACL
+Client connected: 07gOKihOQ518w5EvAACN
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: 07gOKihOQ518w5EvAACN
+Client connected: eyH9x3brB5R_R8HAAACP
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client connected: O0GrqOi7FbKFFKW4AACR
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+[CompilationQueue] Compiling job 38afc4b1-6cad-41b6-95a8-b8fa918b1294 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job 38afc4b1-6cad-41b6-95a8-b8fa918b1294 completed successfully
+Client disconnected: O0GrqOi7FbKFFKW4AACR
+Client disconnected: eyH9x3brB5R_R8HAAACP
+Client connected: awJSazd1gvqaX1D5AACT
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: awJSazd1gvqaX1D5AACT
+Client connected: gZaTA4OsVzMRY_gEAACV
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: gZaTA4OsVzMRY_gEAACV
+Client connected: jR8MVghdB6-UXJ0oAACX
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: jR8MVghdB6-UXJ0oAACX
+[CompilationQueue] Cleaned up job 38afc4b1-6cad-41b6-95a8-b8fa918b1294 from memory
+Client connected: 0mJVR7afL_JXAO_lAACZ
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: 0mJVR7afL_JXAO_lAACZ
+Client connected: KJkVdf4bJOox-DE9AACb
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: KJkVdf4bJOox-DE9AACb
+Client connected: cGMrTv1Y41jcQErzAACd
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: cGMrTv1Y41jcQErzAACd
+Client connected: DzE2Osm8XAj93GigAACf
+User Nguyễn Đăng Minh Phúc joined room project:50fb5bb7-58cb-4060-984e-2259027fc179:academic-cv.typ
+Client disconnected: DzE2Osm8XAj93GigAACf
+Client connected: azM-3qWkTGT6m4HyAACh
+User Nguyễn Đăng Minh Phúc joined room project:51fc13db-67c0-4a94-ae64-70057c63702f:/book.tex
+[CompilationQueue] Compiling job ead3545c-b8b9-4ba3-b5db-caf3dc0831ef in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/51fc13db-67c0-4a94-ae64-70057c63702f
+[CompilationQueue] Job ead3545c-b8b9-4ba3-b5db-caf3dc0831ef completed successfully
+Client disconnected: azM-3qWkTGT6m4HyAACh
+Client connected: icxzXaCqbP8IHTXlAACj
+User Nguyễn Đăng Minh Phúc joined room project:51fc13db-67c0-4a94-ae64-70057c63702f:/book.tex
+Client disconnected: icxzXaCqbP8IHTXlAACj
+Client connected: 2AzJi2mRFvRvrw86AACl
+User Nguyễn Đăng Minh Phúc joined room project:51fc13db-67c0-4a94-ae64-70057c63702f:/book.tex
+Client disconnected: 2AzJi2mRFvRvrw86AACl
+Client connected: 5aoYxaBrDIsVeFv4AACn
+User Nguyễn Đăng Minh Phúc joined room project:51fc13db-67c0-4a94-ae64-70057c63702f:/book.tex
+Client disconnected: 5aoYxaBrDIsVeFv4AACn
+[CompilationQueue] Cleaned up job ead3545c-b8b9-4ba3-b5db-caf3dc0831ef from memory
+Client connected: V-_69IsLZcIonPA5AACp
+User Nguyễn Đăng Minh Phúc joined room project:3576c143-e495-4c21-aa62-a1a193dd8710:/Claude.tex
+[CompilationQueue] Compiling job 81f2e074-9093-4b46-8b39-952a345b89f8 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/3576c143-e495-4c21-aa62-a1a193dd8710
+[CompilationQueue] Job 81f2e074-9093-4b46-8b39-952a345b89f8 completed successfully

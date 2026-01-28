@@ -39,18 +39,18 @@ fi
 
 echo ""
 echo "🔹 Frontend Build:"
-if [ -d "$CLIENT_DIR/dist-deployed" ] && [ -f "$CLIENT_DIR/dist-deployed/index.html" ]; then
-    DEPLOY_TIME=$(stat -f "%Sm" -t "%Y-%m-%d %H:%M:%S" "$CLIENT_DIR/dist-deployed/index.html" 2>/dev/null || echo "Unknown")
+if [ -d "$SCRIPT_DIR/dist-deployed" ] && [ -f "$SCRIPT_DIR/dist-deployed/index.html" ]; then
+    DEPLOY_TIME=$(stat -f "%Sm" -t "%Y-%m-%d %H:%M:%S" "$SCRIPT_DIR/dist-deployed/index.html" 2>/dev/null || echo "Unknown")
     echo "   ✅ Deployed"
     echo "   Last:   $DEPLOY_TIME"
-    echo "   Path:   $CLIENT_DIR/dist-deployed/"
+    echo "   Path:   $SCRIPT_DIR/dist-deployed/"
 else
     echo "   ⚠️  Not deployed"
 fi
 
 echo ""
 echo "🔹 Nginx:"
-if pgrep -x nginx > /dev/null; then
+if pgrep nginx > /dev/null; then
     echo "   ✅ Running"
     if lsof -i :5436 > /dev/null 2>&1; then
         echo "   Port:   5436 (listening)"
@@ -77,6 +77,19 @@ if pgrep -f minio > /dev/null; then
     MINIO_PID=$(pgrep -f minio)
     echo "   ✅ Running"
     echo "   PID:    $MINIO_PID"
+else
+    echo "   ❌ Not running"
+fi
+
+echo ""
+echo "🔹 Cloudflare Tunnel:"
+if pgrep -f "config-heytex.yml" > /dev/null; then
+    TUNNEL_PID=$(pgrep -f "config-heytex.yml")
+    TUNNEL_UPTIME=$(ps -p $TUNNEL_PID -o etime= | tr -d ' ')
+    echo "   ✅ Running"
+    echo "   PID:    $TUNNEL_PID"
+    echo "   Uptime: $TUNNEL_UPTIME"
+    echo "   Config: ~/.cloudflared/config-heytex.yml"
 else
     echo "   ❌ Not running"
 fi

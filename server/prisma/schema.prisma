@@ -25,6 +25,7 @@ model User {
   password    String
   name        String
   avatar      String?
+  isAdmin     Boolean   @default(false)
   lastLoginAt DateTime?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt

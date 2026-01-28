@@ -5,12 +5,15 @@ export interface User {
     email: string;
     name: string;
     avatar?: string;
+    isAdmin?: boolean;
     createdAt?: string;
     lastLoginAt?: string;
     stats?: {
         latexProjects: number;
         typstProjects: number;
     };
+    projectCount?: number;
+    collaborationCount?: number;
 }
 
 export interface Project {

@@ -85,6 +85,20 @@ else
     echo -e "${GREEN}   ✓ Started${NC}"
 fi
 
+# 6. Cloudflare Tunnel
+echo -e "${BLUE}6. Cloudflare Tunnel (heytex)${NC}"
+if pgrep -f "config-heytex.yml" > /dev/null; then
+    echo -e "${GREEN}   ✓ Already running${NC}"
+else
+    nohup cloudflared tunnel --config ~/.cloudflared/config-heytex.yml run heytex > /tmp/cloudflared-heytex.log 2>&1 &
+    sleep 2
+    if pgrep -f "config-heytex.yml" > /dev/null; then
+        echo -e "${GREEN}   ✓ Started${NC}"
+    else
+        echo -e "${YELLOW}   ⚠ Failed to start (check logs: /tmp/cloudflared-heytex.log)${NC}"
+    fi
+fi
+
 echo ""
 echo -e "${GREEN}✅ All services started!${NC}"
 echo ""

@@ -112,6 +112,7 @@ router.get('/me', authMiddleware, async (req: AuthRequest, res: Response): Promi
                 email: true,
                 name: true,
                 avatar: true,
+                isAdmin: true,
                 createdAt: true,
                 lastLoginAt: true,
             },

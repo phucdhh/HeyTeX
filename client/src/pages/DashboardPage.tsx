@@ -19,6 +19,7 @@ import {
     LayoutGrid,
     List as ListIcon,
     User,
+    Shield,
 } from 'lucide-react';
 
 export function DashboardPage() {
@@ -158,6 +159,16 @@ export function DashboardPage() {
                     </div>
 
                     <div className="flex items-center gap-4">
+                        {user?.isAdmin && (
+                            <Button
+                                variant="outline"
+                                onClick={() => navigate('/admin')}
+                            >
+                                <Shield className="h-4 w-4 mr-2" />
+                                Admin Panel
+                            </Button>
+                        )}
+
                         <Button variant="ghost" size="icon" onClick={toggleTheme}>
                             {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
                         </Button>

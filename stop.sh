@@ -61,9 +61,28 @@ fi
 
 # 5. Nginx
 echo -e "${BLUE}5. Stopping nginx...${NC}"
-if pgrep -x nginx > /dev/null; then
-    sudo nginx -s stop 2>/dev/null
-    echo -e "${GREEN}   ✓ Stopped${NC}"
+if pgrep nginx > /dev/null; then
+    sudo nginx -s quit 2>/dev/null || sudo nginx -s stop 2>/dev/null
+    sleep 1
+    if ! pgrep nginx > /dev/null; then
+        echo -e "${GREEN}   ✓ Stopped${NC}"
+    else
+        echo -e "${RED}   ✗ Failed to stop${NC}"
+    fi
+else
+    echo -e "${YELLOW}   - Not running${NC}"
+fi
+
+# 6. Cloudflare Tunnel
+echo -e "${BLUE}6. Stopping Cloudflare Tunnel (heytex)...${NC}"
+if pgrep -f "config-heytex.yml" > /dev/null; then
+    pkill -f "config-heytex.yml"
+    sleep 1
+    if ! pgrep -f "config-heytex.yml" > /dev/null; then
+        echo -e "${GREEN}   ✓ Stopped${NC}"
+    else
+        echo -e "${RED}   ✗ Failed to stop${NC}"
+    fi
 else
     echo -e "${YELLOW}   - Not running${NC}"
 fi

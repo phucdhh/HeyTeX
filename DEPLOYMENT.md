@@ -311,6 +311,50 @@ server {
 }
 ```
 
+### Cloudflare Tunnel
+
+HeyTeX sử dụng Cloudflare Tunnel với config riêng để tránh xung đột với các ứng dụng khác.
+
+**1. Tạo tunnel:**
+```bash
+cloudflared tunnel create heytex
+```
+
+**2. Copy config:**
+```bash
+cp cloudflare-tunnel-config.yml ~/.cloudflared/config-heytex.yml
+```
+
+**3. Route DNS:**
+```bash
+cloudflared tunnel route dns heytex heytex.truyenthong.edu.vn
+```
+
+**4. Khởi động tunnel:**
+```bash
+# Manual
+cloudflared tunnel --config ~/.cloudflared/config-heytex.yml run heytex
+
+# Hoặc sử dụng script
+./start.sh  # Tự động khởi động tunnel
+```
+
+**5. Kiểm tra:**
+```bash
+ps aux | grep config-heytex.yml  # Check process
+curl https://heytex.truyenthong.edu.vn/health  # Test endpoint
+```
+
+**Config file structure:**
+```yaml
+tunnel: <tunnel-id>
+credentials-file: ~/.cloudflared/<tunnel-id>.json
+ingress:
+  - hostname: heytex.truyenthong.edu.vn
+    service: http://localhost:5436  # nginx port
+metrics: localhost:9200  # unique port per app
+```
+
 ## 🐛 Troubleshooting
 
 ### Backend không start
