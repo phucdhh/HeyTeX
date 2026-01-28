@@ -568,6 +568,42 @@ export function EditorPage() {
         }
     };
 
+    // Export/Download PDF
+    const handleExportPDF = async () => {
+        if (!pdfData || !currentProject) return;
+
+        try {
+            // Fetch the PDF blob
+            const response = await fetch(pdfData);
+            if (!response.ok) throw new Error('Failed to fetch PDF');
+            
+            const blob = await response.blob();
+            
+            // Create download link
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            
+            // Generate filename: projectName_YYYYMMDD_HHMMSS.pdf
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+            const filename = `${currentProject.name.replace(/[^a-zA-Z0-9]/g, '_')}_${timestamp}.pdf`;
+            link.download = filename;
+            
+            // Trigger download
+            document.body.appendChild(link);
+            link.click();
+            
+            // Cleanup
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+            
+            console.log(`✅ PDF exported: ${filename}`);
+        } catch (error) {
+            console.error('Export PDF error:', error);
+            alert('Failed to export PDF. Please try again.');
+        }
+    };
+
     // Toggle folder expansion
     const toggleFolder = (path: string) => {
         setExpandedFolders(prev => {
@@ -1197,7 +1233,14 @@ export function EditorPage() {
                                         Logs & Output
                                     </button>
                                 </div>
-                                <Button variant="ghost" size="sm" className="h-7 gap-2" disabled={!pdfData}>
+                                <Button 
+                                    variant="ghost" 
+                                    size="sm" 
+                                    className="h-7 gap-2" 
+                                    disabled={!pdfData}
+                                    onClick={handleExportPDF}
+                                    title="Export PDF"
+                                >
                                     <Download className="h-3 w-3" />
                                     Export
                                 </Button>

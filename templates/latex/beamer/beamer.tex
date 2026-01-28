@@ -1,0 +1,255 @@
+% ============================================
+% HƯỚNG DẪN SỬ DỤNG BEAMER TEMPLATE
+% ============================================
+% 
+% QUAN TRỌNG: Template này dùng XeLaTeX để hỗ trợ tiếng Việt tốt
+%
+% 1. THAY ĐỔI THÔNG TIN CƠ BẢN:
+%    - Dòng 40: Tiêu đề bài trình bày
+%    - Dòng 41: Tiêu đề phụ (nếu có)
+%    - Dòng 42: Tên tác giả
+%    - Dòng 43: Tổ chức/Trường học
+%    - Dòng 44: Ngày trình bày
+%
+% 2. THAY ĐỔI THEME & MÀU SẮC:
+%    - Dòng 30: Chọn theme (Madrid, Berkeley, Singapore, Copenhagen, etc.)
+%    - Dòng 31: Chọn color theme (default, beaver, beetle, crane, dove, etc.)
+%
+% 3. FONT TIẾNG VIỆT (optional):
+%    Nếu muốn dùng font cụ thể, thêm sau dòng 36:
+%    \setmainfont{Times New Roman}
+%    \setsansfont{Arial}
+%
+% 4. THÊM/XÓA SLIDE:
+%    - Mỗi \begin{frame}...\end{frame} là một slide
+%    - Copy/paste block frame để tạo slide mới
+%
+% 5. THÊM HÌNH ẢNH:
+%    - Upload ảnh vào project (drag & drop)
+%    - Sử dụng: \includegraphics[width=0.5\textwidth]{ten-anh.jpg}
+%
+% 6. THÊM CODE:
+%    - Sử dụng môi trường verbatim hoặc lstlisting
+%    - Cần thêm \usepackage{listings} nếu dùng lstlisting
+%
+% ============================================
+
+\documentclass{beamer}
+
+% Theme và color
+\usetheme{Madrid}          % Các theme khác: Berkeley, Singapore, Copenhagen, Boadilla
+\usecolortheme{default}    % Các color khác: beaver, beetle, crane, dove, wolverine
+
+% Packages
+\usepackage{fontspec}       % For XeLaTeX - Unicode font support
+\usepackage{polyglossia}    % Modern replacement for babel
+\setdefaultlanguage{vietnamese}
+% Để XeLaTeX tự động chọn font mặc định hỗ trợ Unicode
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+% Thông tin bài trình bày
+\title{Tiêu Đề Bài Trình Bày}
+\subtitle{Tiêu đề phụ (nếu có)}
+\author{Tên Tác Giả}
+\institute{Tên Trường/Tổ Chức}
+\date{\today}
+
+% Logo (optional - uncomment và thay đổi nếu cần)
+% \logo{\includegraphics[height=1cm]{logo.png}}
+
+\begin{document}
+
+% ====================
+% SLIDE 1: TITLE
+% ====================
+\frame{\titlepage}
+
+% ====================
+% SLIDE 2: MỤC LỤC
+% ====================
+\begin{frame}{Nội dung}
+    \tableofcontents
+\end{frame}
+
+% ====================
+% PHẦN 1: GIỚI THIỆU
+% ====================
+\section{Giới Thiệu}
+
+\begin{frame}{Giới Thiệu}
+    \begin{itemize}
+        \item Điểm chính thứ nhất
+        \item Điểm chính thứ hai
+        \item Điểm chính thứ ba
+    \end{itemize}
+    
+    \vspace{1em}
+    
+    \textbf{Lưu ý:} Bạn có thể thay đổi nội dung này theo ý muốn.
+\end{frame}
+
+\begin{frame}{Bối Cảnh Vấn Đề}
+    \begin{block}{Vấn đề}
+        Mô tả vấn đề cần giải quyết tại đây.
+    \end{block}
+    
+    \begin{alertblock}{Thách thức}
+        Các thách thức chính:
+        \begin{enumerate}
+            \item Thách thức 1
+            \item Thách thức 2
+            \item Thách thức 3
+        \end{enumerate}
+    \end{alertblock}
+\end{frame}
+
+% ====================
+% PHẦN 2: PHƯƠNG PHÁP
+% ====================
+\section{Phương Pháp}
+
+\begin{frame}{Phương Pháp Tiếp Cận}
+    \begin{columns}
+        % Cột bên trái
+        \column{0.5\textwidth}
+        \textbf{Bước 1:}
+        \begin{itemize}
+            \item Chi tiết bước 1
+            \item Thông tin bổ sung
+        \end{itemize}
+        
+        \textbf{Bước 2:}
+        \begin{itemize}
+            \item Chi tiết bước 2
+            \item Thông tin bổ sung
+        \end{itemize}
+        
+        % Cột bên phải
+        \column{0.5\textwidth}
+        % Thêm hình ảnh ở đây (uncomment khi đã upload ảnh)
+        % \includegraphics[width=\textwidth]{diagram.png}
+        
+        \begin{exampleblock}{Ví dụ}
+            Đây là một ví dụ minh họa.
+        \end{exampleblock}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Công Thức Toán Học}
+    % Ví dụ công thức inline
+    Công thức Einstein nổi tiếng: $E = mc^2$
+    
+    \vspace{1em}
+    
+    % Ví dụ công thức display
+    Phương trình bậc hai:
+    \begin{equation}
+        x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+    \end{equation}
+    
+    \vspace{1em}
+    
+    % Ví dụ align
+    \begin{align}
+        f(x) &= x^2 + 2x + 1 \\
+        &= (x + 1)^2
+    \end{align}
+\end{frame}
+
+% ====================
+% PHẦN 3: KẾT QUẢ
+% ====================
+\section{Kết Quả}
+
+\begin{frame}{Kết Quả Thực Nghiệm}
+    \begin{table}
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \textbf{Phương pháp} & \textbf{Độ chính xác} & \textbf{Thời gian} \\
+            \hline
+            Phương pháp A & 95\% & 10s \\
+            Phương pháp B & 92\% & 5s \\
+            Phương pháp C & 98\% & 15s \\
+            \hline
+        \end{tabular}
+        \caption{So sánh các phương pháp}
+    \end{table}
+\end{frame}
+
+\begin{frame}{Biểu Đồ Kết Quả}
+    % Uncomment khi đã có ảnh biểu đồ
+    % \begin{figure}
+    %     \centering
+    %     \includegraphics[width=0.8\textwidth]{chart.png}
+    %     \caption{Biểu đồ so sánh kết quả}
+    % \end{figure}
+    
+    \begin{center}
+        \textit{[Thêm biểu đồ/hình ảnh ở đây]}
+    \end{center}
+    
+    \textbf{Nhận xét:}
+    \begin{itemize}
+        \item Phương pháp C cho kết quả tốt nhất
+        \item Phương pháp B nhanh nhất nhưng độ chính xác thấp hơn
+    \end{itemize}
+\end{frame}
+
+% ====================
+% PHẦN 4: KẾT LUẬN
+% ====================
+\section{Kết Luận}
+
+\begin{frame}{Tóm Tắt}
+    \begin{itemize}
+        \item<1-> Đóng góp chính thứ nhất
+        \item<2-> Đóng góp chính thứ hai  
+        \item<3-> Đóng góp chính thứ ba
+    \end{itemize}
+    
+    \vspace{1em}
+    
+    \uncover<4->{
+        \begin{block}{Kết luận}
+            Tóm tắt kết luận chính của bài trình bày.
+        \end{block}
+    }
+\end{frame}
+
+\begin{frame}{Hướng Phát Triển}
+    \textbf{Công việc tương lai:}
+    \begin{enumerate}
+        \item Cải tiến thuật toán
+        \item Mở rộng tập dữ liệu
+        \item Áp dụng vào thực tế
+    \end{enumerate}
+    
+    \vspace{2em}
+    
+    \begin{center}
+        \Huge{\textbf{Cảm ơn!}}
+        
+        \vspace{1em}
+        
+        \normalsize
+        \textit{Câu hỏi và thảo luận}
+    \end{center}
+\end{frame}
+
+% ====================
+% SLIDE BỔ SUNG: TÀI LIỆU THAM KHẢO
+% ====================
+\begin{frame}[allowframebreaks]{Tài Liệu Tham Khảo}
+    \begin{thebibliography}{99}
+        \bibitem{ref1} Tác giả A. (2024). \textit{Tiêu đề bài báo}. Tên hội nghị/tạp chí.
+        
+        \bibitem{ref2} Tác giả B. (2023). \textit{Tiêu đề sách}. Nhà xuất bản.
+        
+        \bibitem{ref3} Tác giả C, et al. (2025). \textit{Bài nghiên cứu}. Journal Name, vol. 10, pp. 123-145.
+    \end{thebibliography}
+\end{frame}
+
+\end{document}

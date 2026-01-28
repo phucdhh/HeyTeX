@@ -1,0 +1,13 @@
+{
+  "id": "latex-beamer",
+  "name": "Beamer Presentation",
+  "description": "Professional presentation slides with Beamer (Vietnamese/English support)",
+  "engine": "LATEX",
+  "mainFile": "beamer.tex",
+  "files": [
+    {
+      "path": "beamer.tex",
+      "content": "beamer.tex"
+    }
+  ]
+}

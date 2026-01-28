@@ -1,0 +1,13 @@
+{
+  "id": "typst-presentation",
+  "name": "Typst Presentation",
+  "description": "Modern presentation slides with Typst Polylux (fast compilation, beautiful themes)",
+  "engine": "TYPST",
+  "mainFile": "presentation.typ",
+  "files": [
+    {
+      "path": "presentation.typ",
+      "content": "presentation.typ"
+    }
+  ]
+}
