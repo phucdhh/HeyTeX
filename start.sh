@@ -76,13 +76,12 @@ else
 fi
 
 # 5. nginx (Port 5436)
+# Note: nginx is a shared service for multiple apps, managed separately
 echo -e "${BLUE}5. nginx (Port 5436)${NC}"
 if lsof -i :5436 | grep LISTEN > /dev/null 2>&1; then
-    echo -e "${GREEN}   ✓ Already running${NC}"
+    echo -e "${GREEN}   ✓ Running${NC}"
 else
-    sudo nginx
-    sleep 1
-    echo -e "${GREEN}   ✓ Started${NC}"
+    echo -e "${YELLOW}   ⚠ Not running (start manually: sudo nginx)${NC}"
 fi
 
 # 6. Cloudflare Tunnel

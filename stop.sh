@@ -60,15 +60,10 @@ else
 fi
 
 # 5. Nginx
-echo -e "${BLUE}5. Stopping nginx...${NC}"
+# Note: nginx is a shared service for multiple apps, not stopped by HeyTeX
+echo -e "${BLUE}5. nginx (checking status only)${NC}"
 if pgrep nginx > /dev/null; then
-    sudo nginx -s quit 2>/dev/null || sudo nginx -s stop 2>/dev/null
-    sleep 1
-    if ! pgrep nginx > /dev/null; then
-        echo -e "${GREEN}   ✓ Stopped${NC}"
-    else
-        echo -e "${RED}   ✗ Failed to stop${NC}"
-    fi
+    echo -e "${GREEN}   ✓ Running (not stopped - shared service)${NC}"
 else
     echo -e "${YELLOW}   - Not running${NC}"
 fi

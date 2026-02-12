@@ -65,6 +65,7 @@ interface EditorState {
     setFiles: (files: ProjectFile[]) => void;
     addOpenFile: (file: ProjectFile) => void;
     removeOpenFile: (fileId: string) => void;
+    clearOpenFiles: () => void;
     toggleSidebar: () => void;
     togglePreview: () => void;
     toggleTheme: () => void;
@@ -85,7 +86,19 @@ export const useEditorStore = create<EditorState>((set, get) => ({
     compilationError: null,
     pdfData: null,
 
-    setCurrentProject: (project) => set({ currentProject: project }),
+    setCurrentProject: (project) => {
+        const { currentProject } = get();
+        // Reset openFiles when switching to a different project
+        if (project && currentProject?.id !== project.id) {
+            set({ 
+                currentProject: project,
+                openFiles: [],
+                currentFile: null
+            });
+        } else {
+            set({ currentProject: project });
+        }
+    },
     setCurrentFile: (file) => set({ currentFile: file }),
     setFiles: (files) => set({ files }),
 
@@ -106,6 +119,8 @@ export const useEditorStore = create<EditorState>((set, get) => ({
             set({ currentFile: newOpenFiles[newOpenFiles.length - 1] || null });
         }
     },
+
+    clearOpenFiles: () => set({ openFiles: [], currentFile: null }),
 
     toggleSidebar: () => set((s) => ({ isSidebarOpen: !s.isSidebarOpen })),
     togglePreview: () => set((s) => ({ isPreviewOpen: !s.isPreviewOpen })),

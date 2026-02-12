@@ -20,6 +20,7 @@ import {
     List as ListIcon,
     User,
     Shield,
+    Users,
 } from 'lucide-react';
 
 export function DashboardPage() {
@@ -33,6 +34,10 @@ export function DashboardPage() {
     const [showInfoDialog, setShowInfoDialog] = useState(false);
     const [selectedProjectStats, setSelectedProjectStats] = useState<any>(null);
     const [showProfileDialog, setShowProfileDialog] = useState(false);
+
+    // Phân loại dự án
+    const myProjects = projects.filter(p => p.ownerId === user?.id);
+    const sharedProjects = projects.filter(p => p.ownerId !== user?.id);
 
     useEffect(() => {
         loadProjects();
@@ -201,11 +206,12 @@ export function DashboardPage() {
 
             {/* Main Content */}
             <main className="container mx-auto px-6 py-8">
+                {/* Header with View Toggle */}
                 <div className="flex items-center justify-between mb-8">
                     <div>
-                        <h1 className="text-3xl font-bold text-foreground">Dự án của tôi</h1>
+                        <h1 className="text-3xl font-bold text-foreground">Dự án</h1>
                         <p className="text-muted-foreground mt-1">
-                            {projects.length} / 50 dự án
+                            {myProjects.length} của tôi • {sharedProjects.length} được chia sẻ • Tổng {projects.length} / 50
                         </p>
                     </div>
                     <div className="flex items-center gap-3">
@@ -242,7 +248,7 @@ export function DashboardPage() {
                     </div>
                 </div>
 
-                {/* Projects Grid */}
+                {/* Empty State */}
                 {projects.length === 0 ? (
                     <div className="text-center py-16">
                         <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-muted flex items-center justify-center">
@@ -260,21 +266,66 @@ export function DashboardPage() {
                         </Button>
                     </div>
                 ) : (
-                    <div className={viewMode === 'grid' 
-                        ? "grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-                        : "space-y-3"
-                    }>
-                        {projects.map((project) => (
-                            <ProjectCard
-                                key={project.id}
-                                project={project}
-                                viewMode={viewMode}
-                                onDelete={handleDeleteProject}
-                                onDownloadZip={handleDownloadZip}
-                                onDownloadPdf={handleDownloadPdf}
-                                onShowInfo={handleShowInfo}
-                            />
-                        ))}
+                    <div className="space-y-10">
+                        {/* My Projects Section */}
+                        {myProjects.length > 0 && (
+                            <section>
+                                <div className="flex items-center gap-2 mb-4">
+                                    <FileCode2 className="h-5 w-5 text-primary" />
+                                    <h2 className="text-xl font-semibold text-foreground">Dự án của tôi</h2>
+                                    <span className="px-2 py-0.5 text-xs font-medium bg-primary/10 text-primary rounded-full">
+                                        {myProjects.length}
+                                    </span>
+                                </div>
+                                <div className={viewMode === 'grid' 
+                                    ? "grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                                    : "space-y-3"
+                                }>
+                                    {myProjects.map((project) => (
+                                        <ProjectCard
+                                            key={project.id}
+                                            project={project}
+                                            viewMode={viewMode}
+                                            isOwner={true}
+                                            onDelete={handleDeleteProject}
+                                            onDownloadZip={handleDownloadZip}
+                                            onDownloadPdf={handleDownloadPdf}
+                                            onShowInfo={handleShowInfo}
+                                        />
+                                    ))}
+                                </div>
+                            </section>
+                        )}
+
+                        {/* Shared Projects Section */}
+                        {sharedProjects.length > 0 && (
+                            <section>
+                                <div className="flex items-center gap-2 mb-4">
+                                    <Users className="h-5 w-5 text-blue-600" />
+                                    <h2 className="text-xl font-semibold text-foreground">Được chia sẻ với tôi</h2>
+                                    <span className="px-2 py-0.5 text-xs font-medium bg-blue-50 text-blue-600 rounded-full">
+                                        {sharedProjects.length}
+                                    </span>
+                                </div>
+                                <div className={viewMode === 'grid' 
+                                    ? "grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                                    : "space-y-3"
+                                }>
+                                    {sharedProjects.map((project) => (
+                                        <ProjectCard
+                                            key={project.id}
+                                            project={project}
+                                            viewMode={viewMode}
+                                            isOwner={false}
+                                            onDelete={handleDeleteProject}
+                                            onDownloadZip={handleDownloadZip}
+                                            onDownloadPdf={handleDownloadPdf}
+                                            onShowInfo={handleShowInfo}
+                                        />
+                                    ))}
+                                </div>
+                            </section>
+                        )}
                     </div>
                 )}
             </main>

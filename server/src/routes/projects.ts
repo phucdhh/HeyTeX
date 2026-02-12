@@ -17,7 +17,12 @@ router.get('/', authMiddleware, async (req: AuthRequest, res: Response): Promise
                 ],
             },
             include: {
-                owner: { select: { id: true, name: true, email: true } },
+                owner: { select: { id: true, name: true, email: true, avatar: true } },
+                collaborators: {
+                    include: {
+                        user: { select: { id: true, name: true, email: true, avatar: true } }
+                    }
+                },
                 _count: { select: { files: true, collaborators: true } },
             },
             orderBy: { updatedAt: 'desc' },
@@ -199,11 +204,11 @@ router.get('/:id', authMiddleware, async (req: AuthRequest, res: Response): Prom
                 ],
             },
             include: {
-                owner: { select: { id: true, name: true, email: true } },
+                owner: { select: { id: true, name: true, email: true, avatar: true } },
                 files: { orderBy: [{ isFolder: 'desc' }, { name: 'asc' }] },
                 collaborators: {
                     include: {
-                        user: { select: { id: true, name: true, email: true } },
+                        user: { select: { id: true, name: true, email: true, avatar: true } },
                     },
                 },
             },
