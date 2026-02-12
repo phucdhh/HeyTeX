@@ -32,6 +32,7 @@ import { cn, getFileIcon } from '../lib/utils';
 import { ShareModal } from '../components/ShareModal';
 import { PDFViewer } from '../components/PDFViewer';
 import { UploadModal } from '../components/UploadModal';
+import { ChatAIAssistant } from '../ai-assistant';
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5433';
 
@@ -80,7 +81,11 @@ export function EditorPage() {
     // Resizable columns state
     const [sidebarWidth, setSidebarWidth] = useState(256); // default w-64 = 256px
     const [editorWidth, setEditorWidth] = useState(50); // 50% of available space
-    const [isResizing, setIsResizing] = useState<'sidebar' | 'editor' | null>(null);
+    const [isResizing, setIsResizing] = useState<'sidebar' | 'editor' | 'chat' | null>(null);
+    
+    // AI Chat panel state
+    const [chatHeight, setChatHeight] = useState(300); // default height in pixels
+    const [isChatCollapsed, _setIsChatCollapsed] = useState(false);
 
     const socketRef = useRef<Socket | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -756,7 +761,7 @@ export function EditorPage() {
     };
 
     // Resize handlers
-    const handleMouseDown = (type: 'sidebar' | 'editor') => (e: React.MouseEvent) => {
+    const handleMouseDown = (type: 'sidebar' | 'editor' | 'chat') => (e: React.MouseEvent) => {
         e.preventDefault();
         setIsResizing(type);
     };
@@ -776,6 +781,14 @@ export function EditorPage() {
                     const percentage = Math.max(30, Math.min(70, (relativeX / containerRect.width) * 100));
                     setEditorWidth(percentage);
                 }
+            } else if (isResizing === 'chat') {
+                const sidebar = document.querySelector('.sidebar-split-container');
+                if (sidebar) {
+                    const sidebarRect = sidebar.getBoundingClientRect();
+                    const relativeY = e.clientY - sidebarRect.top;
+                    const newHeight = Math.max(200, Math.min(sidebarRect.height - 300, sidebarRect.height - relativeY));
+                    setChatHeight(newHeight);
+                }
             }
         };
 
@@ -791,6 +804,31 @@ export function EditorPage() {
             document.removeEventListener('mouseup', handleMouseUp);
         };
     }, [isResizing]);
+
+    // Insert code from AI at cursor position
+    const handleInsertCode = (code: string) => {
+        if (!editorRef.current || !currentFile) return;
+
+        const editor = editorRef.current;
+        const selection = editor.getSelection();
+        
+        if (selection) {
+            // Insert at cursor position or replace selection
+            editor.executeEdits('ai-insert', [
+                {
+                    range: selection,
+                    text: code,
+                }
+            ]);
+            
+            // Update file content
+            const newContent = editor.getValue();
+            updateFileContent(currentFile.id, newContent);
+            
+            // Focus editor
+            editor.focus();
+        }
+    };
 
     // Build file tree structure - kept for future use
     /* const buildFileTree = useCallback(() => {
@@ -955,92 +993,124 @@ export function EditorPage() {
                 <aside
                     style={{ width: isSidebarOpen ? `${sidebarWidth}px` : '0' }}
                     className={cn(
-                        'border-r bg-card flex flex-col transition-all duration-200 shrink-0',
+                        'border-r bg-card flex flex-col transition-all duration-200 shrink-0 sidebar-split-container',
                         !isSidebarOpen && 'border-r-0'
                     )}
                 >
                     {isSidebarOpen && (
                         <>
-                            <div className="px-2 py-1.5 border-b flex items-center justify-between gap-1">
-                                <div className="flex items-center gap-1">
-                                    <Button 
-                                        variant="ghost" 
-                                        size="icon" 
-                                        className="h-7 w-7"
-                                        title="New file"
-                                        onClick={handleNewFile}
-                                    >
-                                        <FileText className="h-4 w-4" />
-                                    </Button>
-                                    <Button 
-                                        variant="ghost" 
-                                        size="icon" 
-                                        className="h-7 w-7"
-                                        title="New folder"
-                                        onClick={handleNewFolder}
-                                    >
-                                        <FolderOpen className="h-4 w-4" />
-                                    </Button>
-                                    <Button 
-                                        variant="ghost" 
-                                        size="icon" 
-                                        className="h-7 w-7"
-                                        title="Upload"
-                                        onClick={handleUpload}
-                                    >
-                                        <Download className="h-4 w-4 rotate-180" />
-                                    </Button>
+                            {/* File List Section */}
+                            <div 
+                                style={{ 
+                                    height: isChatCollapsed ? '100%' : `calc(100% - ${chatHeight}px - 1px)`
+                                }}
+                                className="flex flex-col min-h-0"
+                            >
+                                <div className="px-2 py-1.5 border-b flex items-center justify-between gap-1 shrink-0">
+                                    <div className="flex items-center gap-1">
+                                        <Button 
+                                            variant="ghost" 
+                                            size="icon" 
+                                            className="h-7 w-7"
+                                            title="New file"
+                                            onClick={handleNewFile}
+                                        >
+                                            <FileText className="h-4 w-4" />
+                                        </Button>
+                                        <Button 
+                                            variant="ghost" 
+                                            size="icon" 
+                                            className="h-7 w-7"
+                                            title="New folder"
+                                            onClick={handleNewFolder}
+                                        >
+                                            <FolderOpen className="h-4 w-4" />
+                                        </Button>
+                                        <Button 
+                                            variant="ghost" 
+                                            size="icon" 
+                                            className="h-7 w-7"
+                                            title="Upload"
+                                            onClick={handleUpload}
+                                        >
+                                            <Download className="h-4 w-4 rotate-180" />
+                                        </Button>
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                        <Button 
+                                            variant="ghost" 
+                                            size="icon" 
+                                            className="h-7 w-7"
+                                            title="Rename"
+                                            onClick={handleRename}
+                                        >
+                                            <FileCode2 className="h-4 w-4" />
+                                        </Button>
+                                        <Button 
+                                            variant="ghost" 
+                                            size="icon" 
+                                            className="h-7 w-7 hover:text-destructive"
+                                            title="Delete"
+                                            onClick={handleDelete}
+                                        >
+                                            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </Button>
+                                    </div>
                                 </div>
-                                <div className="flex items-center gap-1">
-                                    <Button 
-                                        variant="ghost" 
-                                        size="icon" 
-                                        className="h-7 w-7"
-                                        title="Rename"
-                                        onClick={handleRename}
-                                    >
-                                        <FileCode2 className="h-4 w-4" />
-                                    </Button>
-                                    <Button 
-                                        variant="ghost" 
-                                        size="icon" 
-                                        className="h-7 w-7 hover:text-destructive"
-                                        title="Delete"
-                                        onClick={handleDelete}
-                                    >
-                                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </Button>
+
+                                <div className="flex-1 overflow-y-auto p-2 min-h-0">
+                                    {files.filter(f => !f.path.includes('/', 1) || f.path.split('/').length === 2).map(file => (
+                                        <FileTreeItem
+                                            key={file.id}
+                                            file={file}
+                                            files={files}
+                                            isExpanded={expandedFolders.has(file.path)}
+                                            onToggle={toggleFolder}
+                                            onSelect={(f) => {
+                                                if (f.isFolder) {
+                                                    // Select folder and clear file selection
+                                                    setSelectedFolder(f);
+                                                    setCurrentFile(null);
+                                                } else {
+                                                    // Select file and clear folder selection
+                                                    setSelectedFolder(null);
+                                                    addOpenFile(f);
+                                                }
+                                            }}
+                                            selectedFileId={currentFile?.id}
+                                            selectedFolderId={selectedFolder?.id}
+                                            expandedFolders={expandedFolders}
+                                            level={0}
+                                        />
+                                    ))}
                                 </div>
                             </div>
 
-                            <div className="flex-1 overflow-y-auto p-2">
-                                {files.filter(f => !f.path.includes('/', 1) || f.path.split('/').length === 2).map(file => (
-                                    <FileTreeItem
-                                        key={file.id}
-                                        file={file}
-                                        files={files}
-                                        isExpanded={expandedFolders.has(file.path)}
-                                        onToggle={toggleFolder}
-                                        onSelect={(f) => {
-                                            if (f.isFolder) {
-                                                // Select folder and clear file selection
-                                                setSelectedFolder(f);
-                                                setCurrentFile(null);
-                                            } else {
-                                                // Select file and clear folder selection
-                                                setSelectedFolder(null);
-                                                addOpenFile(f);
-                                            }
-                                        }}
-                                        selectedFileId={currentFile?.id}
-                                        selectedFolderId={selectedFolder?.id}
-                                        expandedFolders={expandedFolders}
-                                        level={0}
+                            {/* Chat Resize Handle */}
+                            {!isChatCollapsed && (
+                                <div
+                                    onMouseDown={handleMouseDown('chat')}
+                                    className={cn(
+                                        'h-1 hover:h-1.5 bg-border hover:bg-primary/50 cursor-row-resize transition-all shrink-0',
+                                        isResizing === 'chat' && 'bg-primary h-1.5'
+                                    )}
+                                />
+                            )}
+
+                            {/* AI Chat Section */}
+                            {!isChatCollapsed && (
+                                <div 
+                                    style={{ height: `${chatHeight}px` }}
+                                    className="flex flex-col min-h-0"
+                                >
+                                    <ChatAIAssistant 
+                                        onInsertCode={handleInsertCode}
+                                        compilationLog={compilationLog}
                                     />
-                                ))}
-                            </div>
+                                </div>
+                            )}
                         </>
                     )}
                 </aside>

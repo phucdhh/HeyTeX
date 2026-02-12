@@ -488,7 +488,7 @@ Hãy trải nghiệm HeyTeX 2.0 ngay hôm nay tại: **https://heytex.truyenthon
 - **GitHub**: https://github.com/phucdhh/HeyTeX
 - **Documentation**: https://texlyre.github.io
 - **Nhóm HeyTeX**: [Tham gia nhóm](https://www.ganjingworld.com/s/eKX33OVjAZ)
-- **Liên hệ developer**: Nguyễn Đăng Minh Phúc - [https://gjw.cx/TrEduWict](https://gjw.cx/TrEduWict)
+- **Liên hệ developer**: Nguyễn Đăng Minh Phúc - [https://www.ganjingworld.com/@ndmphuc](https://www.ganjingworld.com/@ndmphuc)
 
 ---
 
