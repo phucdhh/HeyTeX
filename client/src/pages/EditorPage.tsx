@@ -83,8 +83,11 @@ export function EditorPage() {
     const [editorWidth, setEditorWidth] = useState(50); // 50% of available space
     const [isResizing, setIsResizing] = useState<'sidebar' | 'editor' | 'chat' | null>(null);
     
-    // AI Chat panel state
-    const [chatHeight, setChatHeight] = useState(300); // default height in pixels
+    // AI Chat panel state - calculate 70% of window height for initial chat height
+    const [chatHeight, setChatHeight] = useState(() => {
+        const availableHeight = window.innerHeight - 200; // minus header/toolbar
+        return Math.floor(availableHeight * 0.7); // 70% for chat, 30% for file list
+    });
     const [isChatCollapsed, _setIsChatCollapsed] = useState(false);
 
     const socketRef = useRef<Socket | null>(null);
@@ -318,58 +321,15 @@ export function EditorPage() {
         }
     };
 
-    // Engine setup
-    const xeTeXEngineRef = useRef<any>(null);
+    // Engine setup - Only Typst uses client-side WASM, LaTeX compiles server-side
     const typstEngineRef = useRef<any>(null);
-    const dvipdfmxEngineRef = useRef<any>(null);
 
     useEffect(() => {
         const initEngines = async () => {
-            // Allow opting out of WASM LaTeX engines via env var.
-            // If VITE_USE_WASM_LATEX === 'true' then load client-side WASM engines,
-            // otherwise prefer server-side TeXLive compilation and skip loading large WASM bundles.
-            const useWasmLatex = import.meta.env.VITE_USE_WASM_LATEX === 'true';
-
-            if (useWasmLatex) {
-                // Initialize XeTeX Engine
-                try {
-                    const { XeTeXEngine } = await import('../engines/XeTeXEngine');
-                    const engine = new XeTeXEngine();
-                    await engine.initialize();
-
-                    // Use TeXLive on-demand server running on port 5435
-                    // Worker will construct: http://localhost:5435/ + "xetex/" + format/filename
-                    engine.setTexliveEndpoint('http://localhost:5435/');
-
-                    xeTeXEngineRef.current = engine;
-                    // Expose for tests
-                    (window as any).currentEngine = engine;
-                    console.log('XeTeXEngine initialized (WASM)');
-                } catch (e) {
-                    console.error('Failed to init XeTeXEngine (WASM):', e);
-                }
-
-                // Initialize Dvipdfmx Engine for XDV → PDF conversion
-                try {
-                    const { DvipdfmxEngineWrapper } = await import('../engines/DvipdfmxEngine');
-                    const engine = new DvipdfmxEngineWrapper();
-                    await engine.initialize();
-                    engine.setTexliveEndpoint('http://localhost:5435/');
-                    
-                    dvipdfmxEngineRef.current = engine;
-                    console.log('DvipdfmxEngine initialized (WASM)');
-                } catch (e) {
-                    console.error('Failed to init DvipdfmxEngine (WASM):', e);
-                }
-            } else {
-                console.log('🚀 [HeyTeX v2] Skipping WASM XeTeX/Dvipdfmx engines; using server-side TeXLive compilation');
-            }
-
-            // Initialize Typst Engine (always client-side)
+            // Initialize Typst Engine (client-side WASM)
             try {
                 const { TypstCompilerEngine } = await import('../engines/TypstCompilerEngine');
                 const engine = new TypstCompilerEngine();
-                // Typst engine initializes lazily/async via worker
                 typstEngineRef.current = engine;
                 console.log('TypstCompilerEngine initialized');
             } catch (e) {
@@ -380,10 +340,6 @@ export function EditorPage() {
         initEngines();
 
         return () => {
-            if (xeTeXEngineRef.current) {
-                // cleanup if needed
-                // xeTeXEngineRef.current.cleanup(); 
-            }
             if (typstEngineRef.current) {
                 typstEngineRef.current.terminate();
             }

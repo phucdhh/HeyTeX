@@ -96,9 +96,4 @@ export const AVAILABLE_MODELS: Array<{
         displayName: 'GPT OSS (120B)',
         description: 'Cloud GPT-style model',
     },
-    {
-        name: 'gemini-3-pro-preview:latest',
-        displayName: 'Gemini 3 Pro Preview',
-        description: 'Cloud Gemini model',
-    },
 ];

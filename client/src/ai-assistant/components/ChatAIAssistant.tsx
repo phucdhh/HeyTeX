@@ -3,6 +3,7 @@ import type React from 'react';
 import { Bot, Send, Trash2, Copy, Check } from 'lucide-react';
 import { ollamaService } from '../services/ollamaService';
 import { SYSTEM_PROMPTS, DEFAULT_MODEL, AVAILABLE_MODELS } from '../config/prompts';
+import { getRandomSuggestion } from '../config/suggestions';
 import type { Message, CodeBlock } from '../types';
 import '../styles/chat.css';
 
@@ -18,6 +19,8 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
     const [selectedModel, setSelectedModel] = useState(DEFAULT_MODEL);
     const [availableModels, setAvailableModels] = useState(AVAILABLE_MODELS);
     const [copiedId, setCopiedId] = useState<string | null>(null);
+    const [randomSuggestion, setRandomSuggestion] = useState<string>('');
+    const [thinkingContent, setThinkingContent] = useState<string>(''); // For chain-of-thought display
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -29,6 +32,11 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
+
+    // Pick a random suggestion on mount
+    useEffect(() => {
+        setRandomSuggestion(getRandomSuggestion());
+    }, []);
 
     // Load available models from Ollama
     useEffect(() => {
@@ -113,8 +121,16 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
             setMessages(prev => [...prev, assistantMessage]);
 
             // Stream response
+            setThinkingContent(''); // Reset thinking content
             for await (const token of ollamaService.chat(selectedModel, apiMessages)) {
                 assistantContent += token;
+                
+                // Extract thinking tags for chain-of-thought display
+                const thinkMatch = assistantContent.match(/<think>([\s\S]*?)(?:<\/think>|$)/i);
+                if (thinkMatch) {
+                    setThinkingContent(thinkMatch[1]);
+                }
+                
                 setMessages(prev => {
                     const updated = [...prev];
                     const lastMsg = updated[updated.length - 1];
@@ -125,6 +141,9 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
                     return updated;
                 });
             }
+            
+            // Clear thinking content when done
+            setThinkingContent('');
         } catch (error) {
             console.error('Error sending message:', error);
             const errorMessage: Message = {
@@ -136,6 +155,7 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
             setMessages(prev => [...prev, errorMessage]);
         } finally {
             setIsLoading(false);
+            setThinkingContent('');
         }
     };
 
@@ -280,7 +300,7 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
             <div className="ai-chat-header">
                 <div className="ai-chat-header-left">
                     <Bot className="h-4 w-4 text-primary" />
-                    <span className="ai-chat-title">AI Assistant</span>
+                    <span className="ai-chat-title">AI</span>
                     <select
                         className="ai-model-select"
                         value={selectedModel}
@@ -321,7 +341,7 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
                         <Bot className="ai-chat-empty-icon" />
                         <div className="ai-chat-empty-title">Hỗ trợ LaTeX & Typst</div>
                         <div className="ai-chat-empty-desc">
-                            Hỏi AI về cú pháp, debug lỗi, hoặc tối ưu code của bạn
+                            {randomSuggestion || 'Hỏi AI về cú pháp, debug lỗi, hoặc tối ưu code của bạn'}
                         </div>
                     </div>
                 ) : (
@@ -352,6 +372,16 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
                             <div className="ai-chat-loading-dot" />
                             <div className="ai-chat-loading-dot" />
                         </div>
+                        {thinkingContent && (
+                            <div className="ai-thinking-indicator">
+                                <div className="ai-thinking-header">
+                                    💭 Đang suy nghĩ...
+                                </div>
+                                <div className="ai-thinking-content">
+                                    {thinkingContent}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 )}
                 <div ref={messagesEndRef} />
@@ -363,7 +393,7 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
                     <textarea
                         ref={textareaRef}
                         className="ai-chat-textarea"
-                        placeholder="Hỏi về LaTeX, Typst, hoặc paste compilation log..."
+                        placeholder="Nhập câu hỏi..."
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={handleKeyDown}

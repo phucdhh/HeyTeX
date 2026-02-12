@@ -197,11 +197,20 @@ class CompilationQueue {
 
             console.log(`[CompilationQueue] Compiling job ${job.id} in ${projectFilesDir}`);
 
-            // Biên dịch với xelatex (3 lần để resolve references)
-            // Chạy trực tiếp trong thư mục project
-            // Dùng -interaction=nonstopmode (không halt-on-error) để compile tiếp khi thiếu ảnh
+            // Detect biblatex vs bibtex: check if file uses biblatex package
+            const usesBiblatex = job.content.includes('\\usepackage') && 
+                                 (job.content.includes('biblatex') || job.content.includes('addbibresource'));
+            const bibCommand = usesBiblatex ? 'biber' : 'bibtex';
+            
+            // Biên dịch với xelatex + biber/bibtex
+            // 1. xelatex lần 1: tạo .aux file (và .bcf file cho biblatex)
+            // 2. biber/bibtex: xử lý .bib tạo .bbl file
+            // 3. xelatex lần 2: đọc .bbl file
+            // 4. xelatex lần 3: resolve cross-references
+            const baseFileName = job.fileName.replace(/\.tex$/, '');
             const commands = [
                 `cd "${projectFilesDir}" && xelatex -interaction=nonstopmode "${job.fileName}"`,
+                `cd "${projectFilesDir}" && ${bibCommand} "${baseFileName}" || true`,  // || true để không fail nếu không có .bib
                 `cd "${projectFilesDir}" && xelatex -interaction=nonstopmode "${job.fileName}"`,
                 `cd "${projectFilesDir}" && xelatex -interaction=nonstopmode "${job.fileName}"`,
             ];
@@ -221,13 +230,27 @@ class CompilationQueue {
                         await fs.appendFile(logPath, '\n=== STDERR ===\n' + stderr);
                     }
                 } catch (error: any) {
-                    // XeLaTeX có thể return error code nhưng vẫn tạo PDF
+                    // XeLaTeX/BibTeX có thể return error code nhưng vẫn tạo output
                     // Tiếp tục để check PDF có tồn tại không
                     const logPath = path.join(projectFilesDir, 'compile.log');
                     await fs.appendFile(logPath, `\n=== Error in run ${commands.indexOf(cmd) + 1} ===\n`);
                     await fs.appendFile(logPath, error.stdout || '');
                     await fs.appendFile(logPath, error.stderr || '');
                 }
+            }
+
+            // Parse compile log để tìm missing images và tạo placeholders
+            try {
+                const compileLogPath = path.join(projectFilesDir, 'compile.log');
+                const logContent = await fs.readFile(compileLogPath, 'utf-8');
+                const missingImages = this.extractMissingImages(logContent);
+                
+                if (missingImages.length > 0) {
+                    console.log(`[CompilationQueue] Found ${missingImages.length} missing images, generating placeholders...`);
+                    await this.generatePlaceholders(projectFilesDir, missingImages);
+                }
+            } catch (error) {
+                console.error(`[CompilationQueue] Failed to generate placeholders:`, error);
             }
 
             // Kiểm tra PDF có được tạo không
@@ -371,6 +394,64 @@ class CompilationQueue {
         } catch (error) {
             console.error(`[CompilationQueue] Failed to read log for job ${jobId}:`, error);
             return null;
+        }
+    }
+
+    /**
+     * Extract missing image filenames from LaTeX compile log
+     */
+    private extractMissingImages(logContent: string): string[] {
+        const missingImages: string[] = [];
+        // Pattern: "Unable to load picture or PDF file 'filename.pdf'"
+        const regex = /Unable to load picture or PDF file '([^']+)'/g;
+        let match;
+        
+        while ((match = regex.exec(logContent)) !== null) {
+            const filename = match[1];
+            if (!missingImages.includes(filename)) {
+                missingImages.push(filename);
+            }
+        }
+        
+        return missingImages;
+    }
+
+    /**
+     * Generate placeholder images for missing files
+     */
+    private async generatePlaceholders(projectDir: string, filenames: string[]): Promise<void> {
+        for (const filename of filenames) {
+            try {
+                const imagePath = path.join(projectDir, filename);
+                
+                // Check if file already exists (might have been uploaded during compilation)
+                const exists = await fs.access(imagePath).then(() => true).catch(() => false);
+                if (exists) {
+                    continue;
+                }
+
+                // Determine output format based on extension
+                const ext = path.extname(filename).toLowerCase();
+                const isPDF = ext === '.pdf';
+                
+                // Create placeholder with ImageMagick
+                const baseFilename = path.basename(filename);
+                const text = `Missing Image\\n${baseFilename}`;
+                
+                // Use convert (ImageMagick) to create placeholder
+                const cmd = isPDF
+                    ? `convert -size 600x400 -gravity center -background "#f0f0f0" -fill "#666666" -font "Helvetica" -pointsize 20 label:"${text}" "${imagePath}"`
+                    : `convert -size 600x400 -gravity center -background "#f0f0f0" -fill "#666666" -font "Helvetica" -pointsize 20 label:"${text}" "${imagePath}"`;
+                
+                await execAsync(cmd, {
+                    cwd: projectDir,
+                    timeout: 5000,
+                });
+                
+                console.log(`[CompilationQueue] Generated placeholder for ${filename}`);
+            } catch (error) {
+                console.error(`[CompilationQueue] Failed to generate placeholder for ${filename}:`, error);
+            }
         }
     }
 }

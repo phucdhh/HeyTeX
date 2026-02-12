@@ -130,6 +130,16 @@ cd server && npm run dev
 cd client && npm run dev
 ```
 
+**Build for Production:**
+```bash
+# Terminal 1: Backend
+cd server && npm run build
+
+# Terminal 2: Frontend  
+cd client && npm run build
+rsync -av --delete /Users/mac/heytex/client/dist/ /Users/mac/heytex/dist-deployed/
+```
+
 📖 Xem thêm: [SCRIPTS.md](SCRIPTS.md) - Danh sách scripts & configs
 
 ## Roadmap & Đề xuất Mở rộng
