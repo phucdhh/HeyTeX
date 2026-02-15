@@ -128,3 +128,35 @@ body,
   backdrop-filter: blur(12px);
   border: 1px solid oklch(from var(--color-border) l c h / 0.5);
 }
+
+/* Math Preview Widget - Simplified & Compact */
+.math-preview-widget {
+  background: linear-gradient(135deg, #f8f9ff 0%, #fff5f8 100%);
+  border: 1px solid #d0d7ff;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(100, 100, 200, 0.12);
+  max-width: 500px;
+  max-height: 300px;
+  width: fit-content;
+  overflow: auto;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.math-preview-content {
+  padding: 6px 10px;
+  overflow: auto;
+  font-size: 0.95rem;
+  color: #2c3e50;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.math-preview-content .katex {
+  font-size: 1em;
+}
+
+.math-preview-content .katex-display {
+  margin: 0;
+  text-align: center;
+  white-space: normal;
+}

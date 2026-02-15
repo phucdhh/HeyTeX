@@ -8,9 +8,15 @@ import { useEditorStore, useAuthStore } from '../stores';
 import { api } from '../lib/api';
 import type { ProjectFile } from '../lib/types';
 import { Button } from '../components/ui/Button';
+import { registerLatexCompletion } from '../editor/latex-completion';
+import { registerLatexHover } from '../editor/latex-hover';
+import { registerTypstCompletion } from '../editor/typst-completion';
+import { registerTypstHover } from '../editor/typst-hover';
 import { Spinner } from '../components/ui/Spinner';
 import { CollaboratorAvatars } from '../components/CollaboratorAvatars';
 import { parseLatexLog, formatErrorsForDisplay } from '../utils/latexLogParser';
+import { MathPreviewWidget } from '../components/MathPreviewWidget';
+import { detectMathAtPosition, convertTypstToLatex, type MathPreviewState } from '../editor/math-preview-manager';
 import {
     FileCode2,
     ChevronLeft,
@@ -95,6 +101,10 @@ export function EditorPage() {
     const ydocRef = useRef<Y.Doc | null>(null);
     const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
     const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    // Math Preview Widget state
+    const [mathPreview, setMathPreview] = useState<MathPreviewState | null>(null);
+    const mathPreviewTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     // Load project
     useEffect(() => {
@@ -239,6 +249,75 @@ export function EditorPage() {
         // Configure Monaco for LaTeX/Typst
         monacoInstance.languages.register({ id: 'latex' });
         monacoInstance.languages.register({ id: 'typst' });
+
+        // Register IntelliSense providers (includes documentation + math preview)
+        registerLatexCompletion(monacoInstance);
+        registerLatexHover(monacoInstance);
+        registerTypstCompletion(monacoInstance);
+        registerTypstHover(monacoInstance);
+
+        // Math preview on mouse move
+        editor.onMouseMove((e) => {
+            const position = e.target.position;
+            if (!position) {
+                // Clear preview if mouse not over text
+                if (mathPreviewTimeoutRef.current) {
+                    clearTimeout(mathPreviewTimeoutRef.current);
+                }
+                mathPreviewTimeoutRef.current = setTimeout(() => {
+                    setMathPreview(null);
+                }, 200);
+                return;
+            }
+
+            // Debounce math detection
+            if (mathPreviewTimeoutRef.current) {
+                clearTimeout(mathPreviewTimeoutRef.current);
+            }
+
+            mathPreviewTimeoutRef.current = setTimeout(() => {
+                const model = editor.getModel();
+                if (!model) return;
+
+                const mathData = detectMathAtPosition(model, position);
+                
+                if (mathData) {
+                    // Get mouse coordinates
+                    const domNode = editor.getDomNode();
+                    if (!domNode) return;
+
+                    const editorRect = domNode.getBoundingClientRect();
+                    const coords = editor.getScrolledVisiblePosition(position);
+                    if (!coords) return;
+
+                    let math = mathData.math;
+                    
+                    // Convert Typst to LaTeX if needed
+                    if (currentFile?.name.endsWith('.typ')) {
+                        math = convertTypstToLatex(math);
+                    }
+
+                    setMathPreview({
+                        math,
+                        displayMode: mathData.isDisplay,
+                        position: {
+                            x: editorRect.left + coords.left + 20,
+                            y: editorRect.top + coords.top + coords.height + 10,
+                        },
+                    });
+                } else {
+                    setMathPreview(null);
+                }
+            }, 300); // 300ms debounce
+        });
+
+        // Clear preview when mouse leaves editor
+        editor.onMouseLeave(() => {
+            if (mathPreviewTimeoutRef.current) {
+                clearTimeout(mathPreviewTimeoutRef.current);
+            }
+            setMathPreview(null);
+        });
 
         // LaTeX syntax highlighting
         monacoInstance.languages.setMonarchTokensProvider('latex', {
@@ -1407,6 +1486,16 @@ export function EditorPage() {
                             addOpenFile(firstTextFile);
                         }
                     }}
+                />
+            )}
+
+            {/* Math Preview Widget */}
+            {mathPreview && (
+                <MathPreviewWidget
+                    math={mathPreview.math}
+                    displayMode={mathPreview.displayMode}
+                    position={mathPreview.position}
+                    onClose={() => setMathPreview(null)}
                 />
             )}
         </div>

@@ -197,33 +197,13 @@ class CompilationQueue {
 
             console.log(`[CompilationQueue] Compiling job ${job.id} in ${projectFilesDir}`);
 
-            // Detect biblatex vs bibtex: 
-            // 1. Check current file content
-            // 2. Check if any .tex file in project uses biblatex
-            // 3. Check for .bcf file (biblatex control file)
-            let usesBiblatex = job.content.includes('\\usepackage') && 
-                               (job.content.includes('biblatex') || job.content.includes('addbibresource'));
-            
-            // If not found in current file, check other .tex files in project
-            if (!usesBiblatex) {
-                try {
-                    const files = await fs.readdir(projectFilesDir);
-                    const texFiles = files.filter(f => f.endsWith('.tex'));
-                    
-                    for (const texFile of texFiles) {
-                        const content = await fs.readFile(path.join(projectFilesDir, texFile), 'utf-8');
-                        if (content.includes('\\usepackage') && 
-                            (content.includes('biblatex') || content.includes('addbibresource'))) {
-                            usesBiblatex = true;
-                            break;
-                        }
-                    }
-                } catch (error) {
-                    console.error('[CompilationQueue] Failed to scan .tex files for biblatex:', error);
-                }
-            }
+            // Detect biblatex vs bibtex by checking ONLY the current file being compiled
+            // Different files in same project can use different bibliography systems
+            const usesBiblatex = job.content.includes('\\usepackage') && 
+                                 (job.content.includes('biblatex') || job.content.includes('addbibresource'));
             
             const bibCommand = usesBiblatex ? 'biber' : 'bibtex';
+            console.log(`[CompilationQueue] Using ${bibCommand} for ${job.fileName} (biblatex: ${usesBiblatex})`);
             
             // Biên dịch với xelatex + biber/bibtex
             // 1. xelatex lần 1: tạo .aux file (và .bcf file cho biblatex)

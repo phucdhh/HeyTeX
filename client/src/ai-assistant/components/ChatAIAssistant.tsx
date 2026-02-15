@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import type React from 'react';
 import { Bot, Send, Trash2, Copy, Check } from 'lucide-react';
 import { ollamaService } from '../services/ollamaService';
+import { cerebrasService } from '../services/cerebrasService';
 import { SYSTEM_PROMPTS, DEFAULT_MODEL, AVAILABLE_MODELS } from '../config/prompts';
 import { getRandomSuggestion } from '../config/suggestions';
 import type { Message, CodeBlock } from '../types';
@@ -38,25 +39,62 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
         setRandomSuggestion(getRandomSuggestion());
     }, []);
 
-    // Load available models from Ollama
+    // Load available models from Ollama and merge with predefined models (Cerebras, etc.)
     useEffect(() => {
         const loadModels = async () => {
             try {
                 const models = await ollamaService.listModels();
                 if (models.length > 0) {
-                    const modelList = models.map(m => ({
-                        name: m.name,
-                        displayName: m.name.split(':')[0],
-                        description: `Size: ${(m.size / 1024 / 1024 / 1024).toFixed(2)} GB`,
-                    }));
-                    setAvailableModels(modelList);
+                    // Filter out problematic models
+                    const filteredModels = models.filter(m => {
+                        const modelName = m.name.toLowerCase();
+                        return !modelName.includes('nomic-embed') && 
+                               !modelName.includes('gemini') &&
+                               !modelName.includes('embed');
+                    });
+                    
+                    // Get base names from predefined models to avoid duplicates
+                    const predefinedBaseNames = new Set(
+                        AVAILABLE_MODELS.map(m => m.name.split(':')[0].toLowerCase())
+                    );
+                    
+                    // Only add Ollama models that don't exist in predefined list
+                    const ollamaModelList = filteredModels
+                        .filter(m => {
+                            const baseName = m.name.split(':')[0].toLowerCase();
+                            return !predefinedBaseNames.has(baseName);
+                        })
+                        .map(m => ({
+                            name: m.name,
+                            displayName: m.name.split(':')[0],
+                            description: `Local - ${(m.size / 1024 / 1024 / 1024).toFixed(2)} GB`,
+                        }));
+                    
+                    // Merge: Predefined models (Cerebras, etc.) come first, then unique Ollama models
+                    setAvailableModels([...AVAILABLE_MODELS, ...ollamaModelList]);
+                } else {
+                    // If no Ollama models, just use predefined ones
+                    setAvailableModels(AVAILABLE_MODELS);
                 }
             } catch (error) {
                 console.error('Failed to load Ollama models:', error);
+                // Fallback to predefined models only
+                setAvailableModels(AVAILABLE_MODELS);
             }
         };
         loadModels();
     }, []);
+
+    // Detect AI provider based on model name
+    const getAIProvider = (modelName: string): 'ollama' | 'cerebras' => {
+        // Cerebras models: llama3.1-8b, llama-3.3-70b, gpt-oss-120b, etc.
+        // Cerebras models don't have ':' in their names (Ollama uses model:tag format)
+        if (!modelName.includes(':')) {
+            return 'cerebras';
+        }
+        // Ollama models use model:tag format
+        return 'ollama';
+    };
 
     // Extract code blocks from markdown-style text
     const extractCodeBlocks = (text: string): CodeBlock[] => {
@@ -85,6 +123,22 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
             .replace(/\$.*?\$/g, '<span class="latex-math">$&</span>');
     };
 
+    // Detect Vietnamese language
+    const isVietnamese = (text: string): boolean => {
+        // Vietnamese specific characters
+        const vietnamesePattern = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ]/;
+        return vietnamesePattern.test(text);
+    };
+
+    // Get appropriate system prompt based on language
+    const getSystemPrompt = (): string => {
+        // Check recent messages for language
+        const recentMessages = [...messages.slice(-3), { content: input }];
+        const hasVietnamese = recentMessages.some(m => isVietnamese(m.content));
+        
+        return hasVietnamese ? SYSTEM_PROMPTS.defaultVi : SYSTEM_PROMPTS.default;
+    };
+
     // Send message to AI
     const handleSend = async () => {
         if (!input.trim() || isLoading) return;
@@ -101,11 +155,12 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
         setIsLoading(true);
 
         try {
-            // Prepare messages for API
+            // Prepare messages for API with language-appropriate system prompt
+            const systemPrompt = getSystemPrompt();
             const apiMessages = [
-                { role: 'system', content: SYSTEM_PROMPTS.default },
-                ...messages.map(m => ({ role: m.role, content: m.content })),
-                { role: 'user', content: userMessage.content },
+                { role: 'system' as const, content: systemPrompt },
+                ...messages.map(m => ({ role: m.role as 'user' | 'assistant' | 'system', content: m.content })),
+                { role: 'user' as const, content: userMessage.content },
             ];
 
             let assistantContent = '';
@@ -120,36 +175,58 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
             // Add temp message
             setMessages(prev => [...prev, assistantMessage]);
 
-            // Stream response
+            // Stream response - use appropriate service based on model
             setThinkingContent(''); // Reset thinking content
-            for await (const token of ollamaService.chat(selectedModel, apiMessages)) {
-                assistantContent += token;
-                
-                // Extract thinking tags for chain-of-thought display
-                const thinkMatch = assistantContent.match(/<think>([\s\S]*?)(?:<\/think>|$)/i);
-                if (thinkMatch) {
-                    setThinkingContent(thinkMatch[1]);
+            const provider = getAIProvider(selectedModel);
+            
+            if (provider === 'cerebras') {
+                // Use Cerebras service
+                for await (const token of cerebrasService.chat(selectedModel, apiMessages)) {
+                    assistantContent += token;
+                    
+                    setMessages(prev => {
+                        const updated = [...prev];
+                        const lastMsg = updated[updated.length - 1];
+                        if (lastMsg.role === 'assistant') {
+                            lastMsg.content = assistantContent;
+                            lastMsg.codeBlocks = extractCodeBlocks(assistantContent);
+                        }
+                        return updated;
+                    });
                 }
-                
-                setMessages(prev => {
-                    const updated = [...prev];
-                    const lastMsg = updated[updated.length - 1];
-                    if (lastMsg.role === 'assistant') {
-                        lastMsg.content = assistantContent;
-                        lastMsg.codeBlocks = extractCodeBlocks(assistantContent);
+            } else {
+                // Use Ollama service
+                for await (const token of ollamaService.chat(selectedModel, apiMessages)) {
+                    assistantContent += token;
+                    
+                    // Extract thinking tags for chain-of-thought display (Ollama only)
+                    const thinkMatch = assistantContent.match(/<think>([\s\S]*?)(?:<\/think>|$)/i);
+                    if (thinkMatch) {
+                        setThinkingContent(thinkMatch[1]);
                     }
-                    return updated;
-                });
+                    
+                    setMessages(prev => {
+                        const updated = [...prev];
+                        const lastMsg = updated[updated.length - 1];
+                        if (lastMsg.role === 'assistant') {
+                            lastMsg.content = assistantContent;
+                            lastMsg.codeBlocks = extractCodeBlocks(assistantContent);
+                        }
+                        return updated;
+                    });
+                }
             }
             
             // Clear thinking content when done
             setThinkingContent('');
         } catch (error) {
             console.error('Error sending message:', error);
+            const provider = getAIProvider(selectedModel);
+            const providerName = provider === 'cerebras' ? 'Cerebras AI' : 'Ollama';
             const errorMessage: Message = {
                 id: `msg-${Date.now()}-error`,
                 role: 'assistant',
-                content: `Lỗi: Không thể kết nối với Ollama. Vui lòng kiểm tra xem Ollama đã chạy chưa.`,
+                content: `Lỗi: Không thể kết nối với ${providerName}. ${provider === 'cerebras' ? 'Vui lòng kiểm tra API key.' : 'Vui lòng kiểm tra xem Ollama đã chạy chưa.'}`,
                 timestamp: new Date(),
             };
             setMessages(prev => [...prev, errorMessage]);

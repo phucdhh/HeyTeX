@@ -34,117 +34,146 @@
 🌍 CORS:      http://localhost:5436,https://heytex.truyenthong.edu.vn
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   
-Client connected: XJoR2BnSTUavCwhDAAAB
+Client connected: 4iLXan7yWEMhyHgMAAAB
 User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/tieuluanMaple-Sympy.tex
-Client connected: 3Jt_LEwhXwHl-fimAAAD
-User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:main.tex
-[CompilationQueue] Compiling job 698b9be9-a8fd-4336-8542-9fa912b6877f in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/a06818b8-cc4a-4e0d-a70a-834b18761367
-[CompilationQueue] Job 698b9be9-a8fd-4336-8542-9fa912b6877f completed successfully
-Client disconnected: 3Jt_LEwhXwHl-fimAAAD
-Client disconnected: XJoR2BnSTUavCwhDAAAB
-Client connected: yu7T649fS6B4L-UsAAAF
-User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:main.tex
-Client connected: BLU_xIleDhG1wHvMAAAH
+Client disconnected: 4iLXan7yWEMhyHgMAAAB
+Client connected: acRihCflE8VTjxlkAAAD
 User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/tieuluanMaple-Sympy.tex
-Client disconnected: yu7T649fS6B4L-UsAAAF
-Client connected: S3Vmx1bSQQ3O2dpbAAAJ
-User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:main.tex
-Client disconnected: S3Vmx1bSQQ3O2dpbAAAJ
-Client connected: YEY4pCrL79taWsizAAAL
-User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:/refs.bib
-Client disconnected: YEY4pCrL79taWsizAAAL
-Client connected: oASbUPgKezY-2xYLAAAN
-User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/refs.bib
-Client disconnected: oASbUPgKezY-2xYLAAAN
-Client connected: VfHcPnHnwcrsXNqXAAAP
-User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/tieuluanMaple-Sympy.tex
-Client disconnected: VfHcPnHnwcrsXNqXAAAP
-Client connected: 0N2xh62lXbSb5Q-rAAAR
-User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/references.bib
-Client disconnected: 0N2xh62lXbSb5Q-rAAAR
-Client connected: 6ptjvwAe7-EYiERWAAAT
-User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/tieuluanMaple-Sympy.tex
-[CompilationQueue] Compiling job 2e604264-1cf1-48dc-aac1-f5d362e5c490 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/302789cd-1bdc-45c5-916e-4bc47adc734d
-[CompilationQueue] Job 2e604264-1cf1-48dc-aac1-f5d362e5c490 completed successfully
-Client disconnected: 6ptjvwAe7-EYiERWAAAT
-Client connected: 4mN_E8KH2nNuA4FoAAAW
-User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:/refs.bib
-Client disconnected: 4mN_E8KH2nNuA4FoAAAW
-Client connected: XtUlDwd--0x0lyGsAAAY
-User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:main.tex
-Client disconnected: XtUlDwd--0x0lyGsAAAY
-Client connected: ig3SXayDo5xzc36RAAAa
-User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:/refs.bib
-Client disconnected: ig3SXayDo5xzc36RAAAa
-Client connected: SbaWCXBnBBQPGhroAAAc
-User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:main.tex
-[CompilationQueue] Compiling job eeea2a8d-619d-4a9b-9e22-c81005e85a6d in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/a06818b8-cc4a-4e0d-a70a-834b18761367
-[CompilationQueue] Job eeea2a8d-619d-4a9b-9e22-c81005e85a6d completed successfully
-Client disconnected: SbaWCXBnBBQPGhroAAAc
-Client connected: jP9cGaeD3Vp5bQc3AAAf
-User Nguyễn Đăng Minh Phúc joined room project:697bf755-50e6-43fa-84be-ec4f3e0bba11:/Tudien.tex
-[CompilationQueue] Compiling job 897c02e5-63e2-4046-9f6b-d37cdb3643c1 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/697bf755-50e6-43fa-84be-ec4f3e0bba11
-[CompilationQueue] Job 897c02e5-63e2-4046-9f6b-d37cdb3643c1 completed successfully
-Client disconnected: jP9cGaeD3Vp5bQc3AAAf
-Client connected: YyL08TMFlc2Xy5CdAAAh
-User Nguyễn Đăng Minh Phúc joined room project:697bf755-50e6-43fa-84be-ec4f3e0bba11:/3D_surface.tex
-Client disconnected: YyL08TMFlc2Xy5CdAAAh
-Client connected: rrLMFcKhTMw7BJgQAAAj
-User Nguyễn Đăng Minh Phúc joined room project:697bf755-50e6-43fa-84be-ec4f3e0bba11:/Bangbienthien1.tex
-Client disconnected: rrLMFcKhTMw7BJgQAAAj
-Client connected: eR72S-5XWZHE0nSsAAAl
-User Nguyễn Đăng Minh Phúc joined room project:697bf755-50e6-43fa-84be-ec4f3e0bba11:/DothiHSbac2.tex
-Client disconnected: eR72S-5XWZHE0nSsAAAl
-Client connected: 8jDxcB16yvyUYP4GAAAn
+Client connected: 060rqEUqyHCr39HGAAAF
+User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:/tieuluan_tichphan.tex
+Client disconnected: 060rqEUqyHCr39HGAAAF
+Client connected: GHHtQ0XPCHh3DnTkAAAH
+User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:/tieuluan_tichphan.tex
+Client disconnected: GHHtQ0XPCHh3DnTkAAAH
+Client connected: rbk6YBMfwYMhqLpiAAAJ
+User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:/tieuluan_tichphan.tex
+Client disconnected: rbk6YBMfwYMhqLpiAAAJ
+Client connected: o0Jao6hvnbQfg6kHAAAL
+User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:/tl.tex
+Client disconnected: o0Jao6hvnbQfg6kHAAAL
+Client connected: aVr-jfczpYc8A1ogAAAN
+User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:/kshs.tex
+Client disconnected: aVr-jfczpYc8A1ogAAAN
+Client connected: _d3nZrTJcJAn5rIqAAAP
+User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:/tl.tex
+Client disconnected: _d3nZrTJcJAn5rIqAAAP
+Client connected: C5el7wb6rX1muS8GAAAR
+User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:/tl.tex
+Client disconnected: C5el7wb6rX1muS8GAAAR
+Client connected: RTXS5zF9nySB1-0HAAAT
+User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:/tl.tex
+Client disconnected: RTXS5zF9nySB1-0HAAAT
+Client connected: zjuI9osftfU5gSWDAAAV
+User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:/tl.tex
+Client disconnected: zjuI9osftfU5gSWDAAAV
+Client connected: qhAYitWQGm0TNpuEAAAX
+User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:/kshs.tex
+Client disconnected: qhAYitWQGm0TNpuEAAAX
+Client connected: 5hbCaWxp1k5Hb8kwAAAZ
+User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:/tieuluan_tichphan.tex
+Client disconnected: 5hbCaWxp1k5Hb8kwAAAZ
+Client connected: 0eptVaB6Z-PqxRI_AAAb
+User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:/tl.tex
+Client disconnected: 0eptVaB6Z-PqxRI_AAAb
+Client connected: 4qGsKrtoXfnjctTvAAAd
 User Nguyễn Đăng Minh Phúc joined room project:697bf755-50e6-43fa-84be-ec4f3e0bba11:/DothiHSPhanthuc.tex
-Client disconnected: 8jDxcB16yvyUYP4GAAAn
-Client connected: _aDHaXiIegn42XHnAAAp
-User Nguyễn Đăng Minh Phúc joined room project:697bf755-50e6-43fa-84be-ec4f3e0bba11:/DTronNgoaitiep.tex
-Client disconnected: _aDHaXiIegn42XHnAAAp
-Client connected: lRoKLXl63rc3GPUIAAAr
-User Nguyễn Đăng Minh Phúc joined room project:697bf755-50e6-43fa-84be-ec4f3e0bba11:/MatYenNgua.tex
-Client disconnected: lRoKLXl63rc3GPUIAAAr
-Client connected: 6BPSsRfYNqpDWI77AAAt
-User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:main.tex
-[CompilationQueue] Compiling job 23377465-e907-41d8-b32f-7b046b301418 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/a06818b8-cc4a-4e0d-a70a-834b18761367
-[CompilationQueue] Job 23377465-e907-41d8-b32f-7b046b301418 completed successfully
-Client disconnected: 6BPSsRfYNqpDWI77AAAt
-Client connected: RnIX5c7lmSXu2DTsAAAv
-User Nguyễn Đăng Minh Phúc joined room project:fd0e6384-cd04-48fa-a9d4-d2c381d3efbb:main.tex
-[CompilationQueue] Compiling job 142c972f-8490-4ee9-a5fb-7e9ea7abba66 in /Users/mac/heytex/users/e56d8505-5b13-4b42-8fce-661325a2a7ce/fd0e6384-cd04-48fa-a9d4-d2c381d3efbb
-[CompilationQueue] Job 142c972f-8490-4ee9-a5fb-7e9ea7abba66 completed successfully
-Client disconnected: RnIX5c7lmSXu2DTsAAAv
-Client connected: zGAcJ3JLTmQcdsJwAAAx
-User Nguyễn Đăng Minh Phúc joined room project:d43e1f55-0503-46e1-a4ff-45cd34145f64:/main.tex
-Client disconnected: zGAcJ3JLTmQcdsJwAAAx
-Client connected: z35bIA5M7bzkXN7SAAAz
-User Nguyễn Đăng Minh Phúc joined room project:d43e1f55-0503-46e1-a4ff-45cd34145f64:/main.tex
-Client disconnected: z35bIA5M7bzkXN7SAAAz
-Client connected: bIKVmu_mCP2wlWn-AAA1
-User Nguyễn Đăng Minh Phúc joined room project:d43e1f55-0503-46e1-a4ff-45cd34145f64:/main.tex
-Client disconnected: bIKVmu_mCP2wlWn-AAA1
-Client disconnected: BLU_xIleDhG1wHvMAAAH
-Client connected: xAkZKlkVIYnj9ee5AAA3
-User Nguyễn Đăng Minh Phúc joined room project:d43e1f55-0503-46e1-a4ff-45cd34145f64:/main.tex
-Client disconnected: xAkZKlkVIYnj9ee5AAA3
-Client connected: OaOo0-ocBkB3SuD5AAA5
-User Nguyễn Đăng Minh Phúc joined room project:d43e1f55-0503-46e1-a4ff-45cd34145f64:/main.tex
-[CompilationQueue] Compiling job 068fc7a4-6995-49bb-9258-a84eba6e60ba in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/d43e1f55-0503-46e1-a4ff-45cd34145f64
-[CompilationQueue] Job 068fc7a4-6995-49bb-9258-a84eba6e60ba completed successfully
-Client disconnected: OaOo0-ocBkB3SuD5AAA5
-Client connected: 1qn7dXXuHeqyquV3AAA8
-User Nguyễn Đăng Minh Phúc joined room project:fd0e6384-cd04-48fa-a9d4-d2c381d3efbb:main.tex
-Client disconnected: 1qn7dXXuHeqyquV3AAA8
-Client connected: Z5lOvM-Q8SLKrApCAAA-
-User Nguyễn Đăng Minh Phúc joined room project:a06818b8-cc4a-4e0d-a70a-834b18761367:main.tex
-[CompilationQueue] Compiling job 7520402e-1374-4764-a8f9-5064eea82759 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/a06818b8-cc4a-4e0d-a70a-834b18761367
-[CompilationQueue] Job 7520402e-1374-4764-a8f9-5064eea82759 completed successfully
-Client disconnected: Z5lOvM-Q8SLKrApCAAA-
-Client connected: PrxMgQTiex6NquCwAABA
-User Nguyễn Đăng Minh Phúc joined room project:d43e1f55-0503-46e1-a4ff-45cd34145f64:/main.tex
-Client disconnected: PrxMgQTiex6NquCwAABA
-Client connected: zr5Rp-noBS_MTmZLAABC
+Client disconnected: 4qGsKrtoXfnjctTvAAAd
+Client connected: fwLn-SKUN3et4CMOAAAg
+User Nguyễn Đăng Minh Phúc joined room project:1e6e21a7-84ba-4321-b979-7b5acad32263:/tes_1.tex
+Client disconnected: fwLn-SKUN3et4CMOAAAg
+Client connected: h84h2dJXfD5fFNNHAAAi
+User Nguyễn Đăng Minh Phúc joined room project:1e6e21a7-84ba-4321-b979-7b5acad32263:/test_2.tex
+Client disconnected: h84h2dJXfD5fFNNHAAAi
+Client connected: LrsQmbY8zAamzQMOAAAk
+User Nguyễn Đăng Minh Phúc joined room project:1e6e21a7-84ba-4321-b979-7b5acad32263:/test_2columns.tex
+Client disconnected: LrsQmbY8zAamzQMOAAAk
+Client connected: WZvZPw31ODat5boXAAAm
+User Nguyễn Đăng Minh Phúc joined room project:1e6e21a7-84ba-4321-b979-7b5acad32263:/test_3.tex
+Client disconnected: WZvZPw31ODat5boXAAAm
+Client connected: w09nQf3Za0S9cKYDAAAo
+User Nguyễn Đăng Minh Phúc joined room project:1e6e21a7-84ba-4321-b979-7b5acad32263:/test_layout.tex
+Client disconnected: w09nQf3Za0S9cKYDAAAo
+Client disconnected: acRihCflE8VTjxlkAAAD
+Client connected: 0T1HtRAXFvExnPQTAAAq
+User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/tieuluanMaple-Sympy.tex
+Client connected: 3gQDPdifEA4uXhczAAAs
 User Nguyễn Đăng Minh Phúc joined room project:afd6d37c-30d7-4ada-859d-2dceae6a3a31:main.tex
-[CompilationQueue] Compiling job fde9ca02-4f69-4aed-ada9-617e4e60a23d in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/afd6d37c-30d7-4ada-859d-2dceae6a3a31
-[CompilationQueue] Job fde9ca02-4f69-4aed-ada9-617e4e60a23d completed successfully
-Client disconnected: zr5Rp-noBS_MTmZLAABC
+Client disconnected: 3gQDPdifEA4uXhczAAAs
+Client connected: QqlVQ7GgzOYBCn0VAAAu
+User Nguyễn Đăng Minh Phúc joined room project:afd6d37c-30d7-4ada-859d-2dceae6a3a31:main.tex
+Client disconnected: QqlVQ7GgzOYBCn0VAAAu
+Client connected: rJDkzoiRTG1lP1kUAAAw
+User Nguyễn Đăng Minh Phúc joined room project:afd6d37c-30d7-4ada-859d-2dceae6a3a31:main.tex
+Client disconnected: rJDkzoiRTG1lP1kUAAAw
+Client connected: lIBfzFMrjsLCtvVbAAAy
+User Nguyễn Đăng Minh Phúc joined room project:afd6d37c-30d7-4ada-859d-2dceae6a3a31:main.tex
+Client disconnected: lIBfzFMrjsLCtvVbAAAy
+Client connected: RygWu9HIh0iZK026AAA0
+User Nguyễn Đăng Minh Phúc joined room project:afd6d37c-30d7-4ada-859d-2dceae6a3a31:main.tex
+Client disconnected: RygWu9HIh0iZK026AAA0
+Client connected: Ki-jG3ZqrOTdZE7OAAA2
+User Nguyễn Đăng Minh Phúc joined room project:afd6d37c-30d7-4ada-859d-2dceae6a3a31:main.tex
+Client disconnected: Ki-jG3ZqrOTdZE7OAAA2
+Client connected: 1NkmLODiVWj8S1vAAAA4
+User Nguyễn Đăng Minh Phúc joined room project:afd6d37c-30d7-4ada-859d-2dceae6a3a31:main.tex
+Client disconnected: 1NkmLODiVWj8S1vAAAA4
+Client connected: eP8Vi94Kgqz6y63wAAA6
+User Nguyễn Đăng Minh Phúc joined room project:afd6d37c-30d7-4ada-859d-2dceae6a3a31:main.tex
+Client disconnected: eP8Vi94Kgqz6y63wAAA6
+Client disconnected: 0T1HtRAXFvExnPQTAAAq
+Client connected: e3EwZ4QQC2XlJ1tjAAA8
+User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/dothiHS_phanthuc.tex
+Client disconnected: e3EwZ4QQC2XlJ1tjAAA8
+Client connected: _GJ9R7oAn9ceUsgvAAA-
+User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/dothiHSsin.tex
+Client disconnected: _GJ9R7oAn9ceUsgvAAA-
+Client connected: AopXftLwma0waGUDAABA
+User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:main.tex
+Client disconnected: AopXftLwma0waGUDAABA
+Client connected: GzDVZR7psdu4kQMNAABC
+User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/ptbac3.tex
+Client disconnected: GzDVZR7psdu4kQMNAABC
+Client connected: qA0X170aent20fF1AABE
+User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:main.tex
+Client disconnected: qA0X170aent20fF1AABE
+Client connected: 2r4nHFcVnJwOiIpyAABG
+User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/dothiHS_phanthuc.tex
+Client disconnected: 2r4nHFcVnJwOiIpyAABG
+Client connected: IrGF4usuxj984w2SAABI
+User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/ptbac3.tex
+Client disconnected: IrGF4usuxj984w2SAABI
+Client connected: U1xbLxc7QFq5IMa1AABK
+User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/tieuluanMaple-Sympy.tex
+Client disconnected: U1xbLxc7QFq5IMa1AABK
+Client connected: lbxqJLWez4PK3IIgAABM
+User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/ptbac3.tex
+Client disconnected: lbxqJLWez4PK3IIgAABM
+Client connected: _SvO-WgP5ZpoW1YzAABO
+User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/ptbac3.tex
+Client disconnected: _SvO-WgP5ZpoW1YzAABO
+Client connected: _gpSPIyxWY73FGRfAABQ
+User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/ptbac3.tex
+Client disconnected: _gpSPIyxWY73FGRfAABQ
+Client connected: mbL-MCXcN4ViAQPKAABS
+User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/ptbac3.tex
+Client disconnected: mbL-MCXcN4ViAQPKAABS
+Client connected: 4naDlzugBp93nkjUAABU
+User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/tieuluanMaple-Sympy.tex
+Client disconnected: 4naDlzugBp93nkjUAABU
+Client connected: 0y71RWR2kZ7AG_tVAABW
+User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/ptbac3.tex
+Client disconnected: 0y71RWR2kZ7AG_tVAABW
+Client connected: zbBgdDKFgtsb45lkAABY
+User Nguyễn Đăng Minh Phúc joined room project:302789cd-1bdc-45c5-916e-4bc47adc734d:/ptbac3.tex
+Client connected: kbAvhAkK3W9Ay46xAABa
+User Nguyễn Đăng Minh Phúc joined room project:afd6d37c-30d7-4ada-859d-2dceae6a3a31:main.tex
+Client disconnected: kbAvhAkK3W9Ay46xAABa
+Client connected: IDBMDNWklD_4WxEIAABc
+User Nguyễn Đăng Minh Phúc joined room project:afd6d37c-30d7-4ada-859d-2dceae6a3a31:main.tex
+Client disconnected: IDBMDNWklD_4WxEIAABc
+Client connected: yrYhPb37pGTy2PnFAABe
+User Nguyễn Đăng Minh Phúc joined room project:afd6d37c-30d7-4ada-859d-2dceae6a3a31:main.tex
+Client disconnected: yrYhPb37pGTy2PnFAABe
+Client connected: TXZJp59XO0uy-n_sAABg
+User Nguyễn Đăng Minh Phúc joined room project:afd6d37c-30d7-4ada-859d-2dceae6a3a31:main.tex
+Client disconnected: TXZJp59XO0uy-n_sAABg
