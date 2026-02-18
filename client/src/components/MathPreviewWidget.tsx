@@ -18,7 +18,22 @@ export function MathPreviewWidget({ math, displayMode, position, onClose }: Math
         if (!contentRef.current || !math) return;
 
         try {
-            const rendered = katex.renderToString(math, {
+            // Remove equation numbering by converting to starred environments
+            let processedMath = math;
+            const environments = ['equation', 'align', 'gather', 'multline'];
+            environments.forEach(env => {
+                // Only convert non-starred versions to starred versions
+                processedMath = processedMath.replace(
+                    new RegExp(`\\\\begin\\{${env}\\}`, 'g'),
+                    `\\begin{${env}*}`
+                );
+                processedMath = processedMath.replace(
+                    new RegExp(`\\\\end\\{${env}\\}`, 'g'),
+                    `\\end{${env}*}`
+                );
+            });
+
+            const rendered = katex.renderToString(processedMath, {
                 displayMode,
                 throwOnError: false,
                 output: 'html',

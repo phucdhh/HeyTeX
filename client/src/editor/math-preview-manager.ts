@@ -344,12 +344,9 @@ function extractEnvironmentMath(model: monaco.editor.ITextModel, position: monac
     // Check if cursor is within the environment
     if (lineNumber - 1 < envStart || lineNumber - 1 > envEnd) return null;
 
-    // Extract math content
+    // Extract math content - keep the environment tags for KaTeX rendering
     const mathLines = lines.slice(envStart, envEnd + 1);
-    let math = mathLines.join('\n');
-
-    // Remove the begin/end tags for display
-    math = math.replace(`\\begin{${envName}}`, '').replace(`\\end{${envName}}`, '').trim();
+    const math = mathLines.join('\n');
 
     return {
         math,
