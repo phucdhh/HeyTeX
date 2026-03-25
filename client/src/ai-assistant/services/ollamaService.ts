@@ -15,7 +15,7 @@ export class OllamaService {
      */
     async listModels(): Promise<Array<{ name: string; size: number; modified_at: string }>> {
         try {
-            const response = await fetch(`${this.baseUrl}/tags`);
+            const response = await fetch(`${this.baseUrl}/api/tags`);
             if (!response.ok) {
                 throw new Error(`Failed to fetch models: ${response.statusText}`);
             }
@@ -36,7 +36,7 @@ export class OllamaService {
         onToken?: (token: string) => void
     ): AsyncGenerator<string, void, unknown> {
         try {
-            const response = await fetch(`${this.baseUrl}/chat`, {
+            const response = await fetch(`${this.baseUrl}/api/chat`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

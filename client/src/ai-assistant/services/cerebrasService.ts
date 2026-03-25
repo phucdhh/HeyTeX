@@ -21,16 +21,13 @@ interface CerebrasStreamResponse {
     }>;
 }
 
-const CEREBRAS_BASE_URL = 'https://api.cerebras.ai/v1';
-const CEREBRAS_API_KEY = import.meta.env.VITE_CEREBRAS_API_KEY || '';
+const CEREBRAS_BASE_URL = '/api/cerebras';
 
 export class CerebrasService {
     private baseUrl: string;
-    private apiKey: string;
 
-    constructor(baseUrl: string = CEREBRAS_BASE_URL, apiKey: string = CEREBRAS_API_KEY) {
+    constructor(baseUrl: string = CEREBRAS_BASE_URL) {
         this.baseUrl = baseUrl;
-        this.apiKey = apiKey;
     }
 
     /**
@@ -38,12 +35,7 @@ export class CerebrasService {
      */
     async listModels(): Promise<Array<{ id: string; object: string }>> {
         try {
-            const response = await fetch(`${this.baseUrl}/models`, {
-                headers: {
-                    'Authorization': `Bearer ${this.apiKey}`,
-                    'Content-Type': 'application/json',
-                },
-            });
+            const response = await fetch(`${this.baseUrl}/models`);
             if (!response.ok) {
                 throw new Error(`Failed to fetch Cerebras models: ${response.statusText}`);
             }
@@ -67,7 +59,6 @@ export class CerebrasService {
             const response = await fetch(`${this.baseUrl}/chat/completions`, {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${this.apiKey}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
@@ -134,17 +125,8 @@ export class CerebrasService {
      */
     async healthCheck(): Promise<boolean> {
         try {
-            if (!this.apiKey) {
-                console.warn('Cerebras API key not configured');
-                return false;
-            }
-
             const response = await fetch(`${this.baseUrl}/models`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${this.apiKey}`,
-                    'Content-Type': 'application/json',
-                },
             });
             return response.ok;
         } catch (error) {

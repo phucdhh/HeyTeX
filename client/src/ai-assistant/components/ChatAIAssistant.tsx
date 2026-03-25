@@ -13,6 +13,9 @@ interface ChatAIAssistantProps {
     compilationLog?: string;
 }
 
+const CEREBRAS_MAX_CONTEXT_CHARS = 7000;
+const CEREBRAS_MAX_MESSAGE_CHARS = 2400;
+
 export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistantProps) {
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState('');
@@ -139,6 +142,62 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
         return hasVietnamese ? SYSTEM_PROMPTS.defaultVi : SYSTEM_PROMPTS.default;
     };
 
+    const truncateForContext = (content: string, maxChars: number): string => {
+        if (content.length <= maxChars) {
+            return content;
+        }
+
+        const separator = '\n...\n[truncated]\n...\n';
+        const availableChars = Math.max(maxChars - separator.length, 0);
+        const headLength = Math.ceil(availableChars * 0.6);
+        const tailLength = Math.max(availableChars - headLength, 0);
+
+        return `${content.slice(0, headLength)}${separator}${content.slice(-tailLength)}`;
+    };
+
+    const buildApiMessages = (
+        provider: 'ollama' | 'cerebras',
+        systemPrompt: string,
+        currentUserContent: string,
+    ): Array<{ role: 'system' | 'user' | 'assistant'; content: string }> => {
+        if (provider === 'ollama') {
+            return [
+                { role: 'system', content: systemPrompt },
+                ...messages.map(m => ({ role: m.role as 'user' | 'assistant' | 'system', content: m.content })),
+                { role: 'user', content: currentUserContent },
+            ];
+        }
+
+        const trimmedSystemPrompt = truncateForContext(systemPrompt, 1200);
+        const trimmedCurrentUser = truncateForContext(currentUserContent, 2800);
+        let remainingBudget = CEREBRAS_MAX_CONTEXT_CHARS - trimmedSystemPrompt.length - trimmedCurrentUser.length;
+        const recentHistory: Array<{ role: 'user' | 'assistant'; content: string }> = [];
+
+        for (let index = messages.length - 1; index >= 0 && remainingBudget > 0; index -= 1) {
+            const message = messages[index];
+            if (message.role !== 'user' && message.role !== 'assistant') {
+                continue;
+            }
+
+            const trimmedMessage = truncateForContext(message.content, CEREBRAS_MAX_MESSAGE_CHARS);
+            if (trimmedMessage.length > remainingBudget) {
+                continue;
+            }
+
+            recentHistory.unshift({
+                role: message.role,
+                content: trimmedMessage,
+            });
+            remainingBudget -= trimmedMessage.length;
+        }
+
+        return [
+            { role: 'system', content: trimmedSystemPrompt },
+            ...recentHistory,
+            { role: 'user', content: trimmedCurrentUser },
+        ];
+    };
+
     // Send message to AI
     const handleSend = async () => {
         if (!input.trim() || isLoading) return;
@@ -157,11 +216,8 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
         try {
             // Prepare messages for API with language-appropriate system prompt
             const systemPrompt = getSystemPrompt();
-            const apiMessages = [
-                { role: 'system' as const, content: systemPrompt },
-                ...messages.map(m => ({ role: m.role as 'user' | 'assistant' | 'system', content: m.content })),
-                { role: 'user' as const, content: userMessage.content },
-            ];
+            const provider = getAIProvider(selectedModel);
+            const apiMessages = buildApiMessages(provider, systemPrompt, userMessage.content);
 
             let assistantContent = '';
             const assistantMessage: Message = {
@@ -177,7 +233,6 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
 
             // Stream response - use appropriate service based on model
             setThinkingContent(''); // Reset thinking content
-            const provider = getAIProvider(selectedModel);
             
             if (provider === 'cerebras') {
                 // Use Cerebras service
@@ -223,10 +278,13 @@ export function ChatAIAssistant({ onInsertCode, compilationLog }: ChatAIAssistan
             console.error('Error sending message:', error);
             const provider = getAIProvider(selectedModel);
             const providerName = provider === 'cerebras' ? 'Cerebras AI' : 'Ollama';
+            const details = error instanceof Error ? error.message.slice(0, 240) : '';
             const errorMessage: Message = {
                 id: `msg-${Date.now()}-error`,
                 role: 'assistant',
-                content: `Lỗi: Không thể kết nối với ${providerName}. ${provider === 'cerebras' ? 'Vui lòng kiểm tra API key.' : 'Vui lòng kiểm tra xem Ollama đã chạy chưa.'}`,
+                content: details
+                    ? `Lỗi với ${providerName}: ${details}`
+                    : `Lỗi: Không thể kết nối với ${providerName}. ${provider === 'cerebras' ? 'Vui lòng kiểm tra API key.' : 'Vui lòng kiểm tra xem Ollama đã chạy chưa.'}`,
                 timestamp: new Date(),
             };
             setMessages(prev => [...prev, errorMessage]);
