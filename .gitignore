@@ -51,6 +51,7 @@ yarn-error.log*
 # Testing
 coverage/
 .nyc_output/
+chrome_test/
 
 # Production secrets
 cloudflare-tunnel-config.yml
