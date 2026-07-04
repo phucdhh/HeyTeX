@@ -5,9 +5,9 @@
 
 const { setupBrowser, login, takeScreenshot, delay } = require('./utils');
 
-const BASE_URL = 'https://heytex.truyenthong.edu.vn';
-const TEST_EMAIL = 'test@example.com';
-const TEST_PASSWORD = 'password';
+const BASE_URL = process.env.TEST_BASE_URL || 'https://heytex.truyenthong.edu.vn';
+const TEST_EMAIL = process.env.TEST_EMAIL || 'test@example.com';
+const TEST_PASSWORD = process.env.TEST_PASSWORD || 'test-password';
 
 async function testFeatureName() {
     console.log('🧪 Testing: [Feature Name]');

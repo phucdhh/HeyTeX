@@ -7,7 +7,7 @@ export const API_URL = 'http://localhost:3001/api';
 export const TEST_USER = {
     name: 'Test User',
     email: `test${Date.now()}@heytex.com`,
-    password: 'test123456'
+    password: process.env.TEST_PASSWORD || 'test-password-123'
 };
 
 export async function createBrowser() {

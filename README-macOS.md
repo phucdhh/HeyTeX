@@ -95,8 +95,8 @@ curl http://localhost:9000/minio/health/live
 
 ### MinIO Console
 Truy cập MinIO Console tại: http://localhost:9001
-- Username: `heytex_admin`
-- Password: `heytex_minio_2024`
+- Username: `your_minio_admin_user`
+- Password: `your_secure_password`
 
 ## 📂 Cấu trúc quan trọng
 

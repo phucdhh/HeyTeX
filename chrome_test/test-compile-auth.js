@@ -7,10 +7,10 @@ import { createBrowser, createPage, waitAndClick, waitAndType, takeScreenshot, l
 import fs from 'fs';
 
 // Configuration
-const BASE_URL = 'https://heytex.truyenthong.edu.vn';
+const BASE_URL = process.env.TEST_BASE_URL || 'https://heytex.truyenthong.edu.vn';
 const TEST_CREDENTIALS = {
-    email: 'phuc@gmail.com',
-    password: 'phuc@123'
+    email: process.env.TEST_EMAIL,
+    password: process.env.TEST_PASSWORD
 };
 const PROJECT_ID = 'e224b352-0569-4c7a-8a3c-6c73bda023ce';
 

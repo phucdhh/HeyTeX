@@ -5,10 +5,10 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const BASE_URL = 'https://heytex.truyenthong.edu.vn';
-const EMAIL = 'phuc@gmail.com';
-const PASSWORD = 'phuc@123';
-const PROJECT_ID = 'e224b352-0569-4c7a-8a3c-6c73bda023ce';
+const BASE_URL = process.env.TEST_BASE_URL || 'https://heytex.truyenthong.edu.vn';
+const EMAIL = process.env.TEST_EMAIL;
+const PASSWORD = process.env.TEST_PASSWORD;
+const PROJECT_ID = process.env.TEST_PROJECT_ID || 'e224b352-0569-4c7a-8a3c-6c73bda023ce';
 
 async function testRealtimeOutput() {
     console.log('🚀 Starting real-time compilation output test...\n');

@@ -4,7 +4,11 @@
  * This tests both Llama 3.1 8B and Llama 3.3 70B models
  */
 
-const CEREBRAS_API_KEY = 'csk-rcpemnfh4r4txmr2m528y3vepp2fv28jtjy3x5jke2kdjwhw';
+const CEREBRAS_API_KEY = process.env.CEREBRAS_API_KEY;
+if (!CEREBRAS_API_KEY) {
+    console.error('❌ CEREBRAS_API_KEY environment variable is required');
+    process.exit(1);
+}
 const CEREBRAS_BASE_URL = 'https://api.cerebras.ai/v1';
 
 async function testCerebrasModel(modelName) {

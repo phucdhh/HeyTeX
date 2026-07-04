@@ -18,7 +18,7 @@ const minioClient = new Minio.Client({
     port: 5434,
     useSSL: false,
     accessKey: process.env.MINIO_ACCESS_KEY || 'heytex_admin',
-    secretKey: process.env.MINIO_SECRET_KEY || 'heytex_secret_2024',
+    secretKey: process.env.MINIO_SECRET_KEY || (() => { throw new Error('MINIO_SECRET_KEY environment variable is required'); })(),
 });
 
 async function migrateAvatars() {
