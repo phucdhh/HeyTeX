@@ -65,6 +65,9 @@ texlyre.github.io/
 wasm-latex-tools/
 node_modules
 
+# Shell scripts
+*.sh
+
 # References
 texlyre
 texlyre-infrastructure
