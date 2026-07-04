@@ -1,13 +1,20 @@
 import { Router, Response } from 'express';
 import { prisma } from '../lib/prisma';
 import { authMiddleware, AuthRequest } from '../middleware/auth';
-import { uploadFile, getFileUrl, deleteFile } from '../lib/minio';
+import { uploadFile, getFileUrl, deleteFile, moveFile } from '../lib/minio';
 import { config } from '../config/index';
 import { fileStorage } from '../services/FileStorage';
 import fs from 'fs/promises';
 import path from 'path';
 
 const router = Router();
+
+// Ensure a File.path always has a leading slash. Historically some code paths stored
+// paths without one (e.g. "main.tex" instead of "/main.tex"), which is indistinguishable
+// from the normalized form to a human but NOT to a `projectId_path` unique lookup - this
+// caused duplicate rows (e.g. a compile-time sync creating a second "/main.tex" alongside
+// the original "main.tex"). Always normalize at this trust boundary before touching the DB.
+const normalizeFilePath = (p: string): string => (p.startsWith('/') ? p : `/${p}`);
 
 // Get all files for a project
 router.get('/project/:projectId', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
@@ -160,7 +167,8 @@ router.get('/:id', authMiddleware, async (req: AuthRequest, res: Response): Prom
 // Create new file or folder
 router.post('/', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
     try {
-        const { projectId, name, path, isFolder = false, content = '' } = req.body;
+        const { projectId, name, isFolder = false, content = '' } = req.body;
+        const path = req.body.path ? normalizeFilePath(req.body.path) : req.body.path;
 
         if (!projectId || !name || !path) {
             res.status(400).json({ error: 'Project ID, name, and path are required' });
@@ -254,11 +262,17 @@ router.patch('/:id', authMiddleware, async (req: AuthRequest, res: Response): Pr
             return;
         }
 
+        const isRename = Boolean(name && name !== file.name);
+        const newPath = isRename
+            ? path.posix.join(path.posix.dirname(file.path), name)
+            : file.path;
+
         const updated = await prisma.file.update({
             where: { id },
             data: {
                 ...(content !== undefined && { content }),
                 ...(name && { name }),
+                ...(isRename && newPath !== file.path && { path: newPath }),
             },
         });
 
@@ -267,16 +281,31 @@ router.patch('/:id', authMiddleware, async (req: AuthRequest, res: Response): Pr
             if (content !== undefined && !file.isFolder) {
                 await fileStorage.saveFile(file.project.ownerId, file.projectId, file.path, content);
             }
-            if (name && name !== file.name) {
-                // Handle rename - update path if needed
-                const newPath = file.path.replace(file.name, name);
-                if (newPath !== file.path) {
+            if (isRename && newPath !== file.path) {
+                // Rename on local disk
+                try {
                     await fileStorage.renameFile(file.project.ownerId, file.projectId, file.path, newPath);
+                } catch (renameError) {
+                    console.error('[FileStorage] Local rename failed, file may only exist in MinIO:', renameError);
+                }
+
+                // Rename the underlying object in MinIO for binary files (content stored in MinIO, not DB)
+                if (!file.isFolder && file.content === null) {
+                    try {
+                        await moveFile(
+                            config.minio.bucketProjects,
+                            `${file.projectId}${file.path}`,
+                            `${file.projectId}${newPath}`
+                        );
+                    } catch (minioError) {
+                        console.error('[FileStorage] Failed to rename object in MinIO:', minioError);
+                    }
                 }
             }
         } catch (storageError) {
             console.error('[FileStorage] Failed to update file:', storageError);
         }
+
 
         res.json({ file: updated });
     } catch (error) {
@@ -350,10 +379,108 @@ router.delete('/:id', authMiddleware, async (req: AuthRequest, res: Response): P
     }
 });
 
+// Batch delete files/folders (supports multi-select delete in the file explorer)
+router.post('/batch-delete', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+        const { ids } = req.body as { ids?: string[] };
+
+        if (!Array.isArray(ids) || ids.length === 0) {
+            res.status(400).json({ error: 'No file ids provided' });
+            return;
+        }
+
+        const requestedFiles = await prisma.file.findMany({
+            where: { id: { in: ids } },
+            include: {
+                project: {
+                    select: {
+                        id: true,
+                        ownerId: true,
+                        collaborators: { select: { userId: true, role: true } },
+                    },
+                },
+            },
+        });
+
+        if (requestedFiles.length === 0) {
+            res.status(404).json({ error: 'No matching files found' });
+            return;
+        }
+
+        // Verify edit access to every project referenced by the selection
+        for (const file of requestedFiles) {
+            const hasEditAccess =
+                file.project.ownerId === req.userId ||
+                file.project.collaborators.some(
+                    c => c.userId === req.userId && c.role !== 'VIEWER'
+                );
+            if (!hasEditAccess) {
+                res.status(403).json({ error: 'No edit access' });
+                return;
+            }
+        }
+
+        const projectId = requestedFiles[0].projectId;
+
+        // Expand folders to include all descendant files/folders so nothing is left orphaned
+        const allProjectFiles = await prisma.file.findMany({ where: { projectId } });
+        const idsToDelete = new Set<string>();
+
+        for (const file of requestedFiles) {
+            idsToDelete.add(file.id);
+            if (file.isFolder) {
+                const prefix = file.path.endsWith('/') ? file.path : `${file.path}/`;
+                for (const candidate of allProjectFiles) {
+                    if (candidate.path.startsWith(prefix)) {
+                        idsToDelete.add(candidate.id);
+                    }
+                }
+            }
+        }
+
+        const filesToDelete = allProjectFiles.filter(f => idsToDelete.has(f.id));
+
+        // Clean up MinIO/local storage for actual files (folders are removed recursively below)
+        for (const file of filesToDelete) {
+            if (file.isFolder) continue;
+            if (!file.content && file.mimeType) {
+                try {
+                    await deleteFile(config.minio.bucketProjects, `${file.projectId}/${file.path}`);
+                } catch (e) {
+                    console.error('Failed to delete from MinIO:', e);
+                }
+            }
+        }
+
+        const ownerId = requestedFiles[0].project.ownerId;
+
+        // Remove top-level selected folders from local disk recursively; plain files individually
+        for (const file of requestedFiles) {
+            try {
+                if (file.isFolder) {
+                    await fileStorage.deleteFolder(ownerId, projectId, file.path);
+                } else {
+                    await fileStorage.deleteFile(ownerId, projectId, file.path);
+                }
+            } catch (storageError) {
+                console.error('[FileStorage] Failed to delete file:', storageError);
+            }
+        }
+
+        await prisma.file.deleteMany({ where: { id: { in: Array.from(idsToDelete) } } });
+
+        res.json({ deleted: idsToDelete.size });
+    } catch (error) {
+        console.error('Batch delete files error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Upload binary file
 router.post('/upload', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
     try {
-        const { projectId, path, name, mimeType, data } = req.body;
+        const { projectId, name, mimeType, data } = req.body;
+        const path = req.body.path ? normalizeFilePath(req.body.path) : req.body.path;
 
         if (!projectId || !path || !name || !data) {
             res.status(400).json({ error: 'Missing required fields' });

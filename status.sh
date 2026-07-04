@@ -63,7 +63,7 @@ fi
 
 echo ""
 echo "🔹 PostgreSQL:"
-if pg_isready -q 2>/dev/null; then
+if /opt/homebrew/opt/postgresql@16/bin/pg_isready -q 2>/dev/null; then
     echo "   ✅ Running"
     PG_VERSION=$(psql --version 2>/dev/null | awk '{print $3}' || echo "Unknown")
     echo "   Version: $PG_VERSION"

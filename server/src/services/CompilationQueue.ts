@@ -177,6 +177,9 @@ class CompilationQueue {
      * Biên dịch LaTeX job
      */
     private async compileJob(job: CompilationJob): Promise<void> {
+        let projectOwnerId: string | undefined;
+        let projectFilesDirForSync: string | undefined;
+
         try {
             // Get project owner ID for correct file path
             const project = await prisma.project.findUnique({
@@ -190,10 +193,19 @@ class CompilationQueue {
 
             // Use owner's directory, not collaborator's
             const projectFilesDir = fileStorage.getProjectFilesDir(project.ownerId, job.projectId);
+            projectOwnerId = project.ownerId;
+            projectFilesDirForSync = projectFilesDir;
             const texPath = path.join(projectFilesDir, job.fileName);
 
             // Ghi nội dung mới nhất của file .tex
             await fs.writeFile(texPath, job.content, 'utf-8');
+
+            // Reset compile.log trước mỗi lần biên dịch mới - nếu không, log của các lần
+            // biên dịch trước (kể cả các lỗi đã cũ/đã sửa) sẽ tích lũy mãi trong file, khiến
+            // logic phát hiện lỗi bên dưới (tìm "fatal:"/"No output PDF file written" trong
+            // toàn bộ nội dung log) báo sai job là thất bại dù lần biên dịch hiện tại đã thành công.
+            const compileLogPath = path.join(projectFilesDir, 'compile.log');
+            await fs.writeFile(compileLogPath, '').catch(() => {});
 
             console.log(`[CompilationQueue] Compiling job ${job.id} in ${projectFilesDir}`);
 
@@ -311,6 +323,17 @@ class CompilationQueue {
             console.error(`[CompilationQueue] Job ${job.id} failed:`, error);
         } finally {
             job.completedAt = new Date();
+
+            // Đồng bộ các file mới được sinh ra trong quá trình biên dịch
+            // (PDF, .log, .aux, .bbl, ảnh placeholder, ...) vào database để
+            // hiển thị trong danh sách file của dự án
+            if (projectOwnerId && projectFilesDirForSync) {
+                try {
+                    await this.syncGeneratedFiles(job.projectId, projectOwnerId, projectFilesDirForSync);
+                } catch (syncError) {
+                    console.error(`[CompilationQueue] Failed to sync generated files for job ${job.id}:`, syncError);
+                }
+            }
 
             // Chuyển từ active sang completed
             this.activeJobs.delete(job.id);
@@ -456,6 +479,162 @@ class CompilationQueue {
                 console.error(`[CompilationQueue] Failed to generate placeholder for ${filename}:`, error);
             }
         }
+    }
+
+    /**
+     * Quét thư mục project sau khi biên dịch và đăng ký (vào DB) các file
+     * mới được sinh ra (PDF, .log, .aux, .bbl, ảnh placeholder, ...) để
+     * chúng xuất hiện trong danh sách file/thư mục của dự án ở client.
+     * Với các file *thuần do trình biên dịch sinh ra* (REFRESHABLE_EXTENSIONS)
+     * đã có sẵn trong DB từ lần biên dịch trước, nội dung/size sẽ được cập
+     * nhật lại (không thì DB sẽ mãi giữ nội dung của lần sync đầu tiên, dẫn
+     * đến việc mở file như compile.log/.log/.aux luôn hiển thị nội dung cũ/rỗng
+     * dù file thực tế trên đĩa đã được ghi đè bởi lần biên dịch mới nhất).
+     * Các file khác đã tồn tại trong DB (ví dụ .tex nguồn do người dùng viết)
+     * thì không bao giờ bị ghi đè ở đây.
+     */
+    private async syncGeneratedFiles(
+        projectId: string,
+        ownerId: string,
+        projectDir: string
+    ): Promise<void> {
+        const SKIP_NAMES = new Set(['.DS_Store', 'Thumbs.db', '.git']);
+        const TEXT_EXTENSIONS = new Set([
+            '.log', '.aux', '.toc', '.out', '.lof', '.lot', '.bib',
+            '.tex', '.sty', '.cls', '.txt', '.md',
+        ]);
+        // Chỉ những phần mở rộng thuần do trình biên dịch sinh ra (không bao giờ
+        // do người dùng tự viết/tải lên) mới được phép ghi đè nội dung DB đã có
+        // sẵn ở lần sync sau. Cố tình KHÔNG bao gồm .tex/.sty/.cls/.bib/.txt/.md/
+        // .png/.jpg/... để tránh làm mất nội dung người dùng đã chỉnh sửa.
+        const REFRESHABLE_EXTENSIONS = new Set([
+            '.log', '.aux', '.toc', '.out', '.lof', '.lot',
+            '.bbl', '.bcf', '.blg', '.fls', '.fdb_latexmk',
+        ]);
+        const MIME_TYPES: Record<string, string> = {
+            '.pdf': 'application/pdf',
+            '.log': 'text/plain',
+            '.aux': 'text/plain',
+            '.toc': 'text/plain',
+            '.out': 'text/plain',
+            '.lof': 'text/plain',
+            '.lot': 'text/plain',
+            '.bbl': 'text/x-bibtex',
+            '.bcf': 'application/xml',
+            '.blg': 'text/plain',
+            '.fls': 'text/plain',
+            '.fdb_latexmk': 'text/plain',
+            '.synctex.gz': 'application/gzip',
+            '.png': 'image/png',
+            '.jpg': 'image/jpeg',
+            '.jpeg': 'image/jpeg',
+            '.gif': 'image/gif',
+            '.svg': 'image/svg+xml',
+        };
+        const MAX_TEXT_CONTENT_SIZE = 1024 * 1024; // 1MB
+
+        const existing = await prisma.file.findMany({
+            where: { projectId },
+            select: { id: true, path: true },
+        });
+        // Normalize legacy paths missing a leading slash (e.g. "main.tex" instead of
+        // "/main.tex") so they still match the "/"-prefixed relPath this walk always
+        // builds below - otherwise a legacy file gets treated as "not yet tracked" and
+        // a duplicate row is created for it on every compile.
+        const normalize = (p: string) => (p.startsWith('/') ? p : `/${p}`);
+        const existingPaths = new Map(existing.map((f) => [normalize(f.path), f.id]));
+
+        const walk = async (dir: string, relBase: string) => {
+            let entries;
+            try {
+                entries = await fs.readdir(dir, { withFileTypes: true });
+            } catch {
+                return;
+            }
+
+            for (const entry of entries) {
+                if (SKIP_NAMES.has(entry.name)) continue;
+
+                const relPath = `${relBase}/${entry.name}`;
+                const fullPath = path.join(dir, entry.name);
+                const existingId = existingPaths.get(relPath);
+
+                if (entry.isDirectory()) {
+                    if (existingId === undefined) {
+                        try {
+                            await prisma.file.create({
+                                data: {
+                                    name: entry.name,
+                                    path: relPath,
+                                    mimeType: 'inode/directory',
+                                    size: 0,
+                                    content: null,
+                                    projectId,
+                                    isFolder: true,
+                                },
+                            });
+                            existingPaths.set(relPath, 'created');
+                        } catch {
+                            // Đã tồn tại (race condition), bỏ qua
+                        }
+                    }
+                    await walk(fullPath, relPath);
+                    continue;
+                }
+
+                const ext = entry.name.endsWith('.synctex.gz')
+                    ? '.synctex.gz'
+                    : path.extname(entry.name).toLowerCase();
+
+                if (existingId === undefined) {
+                    try {
+                        const stats = await fs.stat(fullPath);
+                        const mimeType = MIME_TYPES[ext] || 'application/octet-stream';
+
+                        let content: string | null = null;
+                        if (TEXT_EXTENSIONS.has(ext) && stats.size <= MAX_TEXT_CONTENT_SIZE) {
+                            content = await fs.readFile(fullPath, 'utf-8');
+                        }
+
+                        await prisma.file.create({
+                            data: {
+                                name: entry.name,
+                                path: relPath,
+                                mimeType,
+                                size: stats.size,
+                                content,
+                                projectId,
+                                isFolder: false,
+                            },
+                        });
+                        existingPaths.set(relPath, 'created');
+                    } catch (err) {
+                        console.error(`[CompilationQueue] Failed to sync generated file ${relPath}:`, err);
+                    }
+                } else if (REFRESHABLE_EXTENSIONS.has(ext) && existingId !== 'created') {
+                    // File đã được theo dõi từ lần biên dịch trước - cập nhật lại
+                    // nội dung/size cho khớp với lần biên dịch mới nhất.
+                    try {
+                        const stats = await fs.stat(fullPath);
+                        const mimeType = MIME_TYPES[ext] || 'application/octet-stream';
+
+                        let content: string | null = null;
+                        if (stats.size <= MAX_TEXT_CONTENT_SIZE) {
+                            content = await fs.readFile(fullPath, 'utf-8');
+                        }
+
+                        await prisma.file.update({
+                            where: { id: existingId },
+                            data: { mimeType, size: stats.size, content },
+                        });
+                    } catch (err) {
+                        console.error(`[CompilationQueue] Failed to refresh generated file ${relPath}:`, err);
+                    }
+                }
+            }
+        };
+
+        await walk(projectDir, '');
     }
 }
 

@@ -34,8 +34,8 @@ fi
 
 # 2. PostgreSQL
 echo -e "${BLUE}2. Stopping PostgreSQL...${NC}"
-if pg_isready -q 2>/dev/null; then
-    pg_ctl -D /opt/homebrew/var/postgresql@16 stop -m fast > /dev/null 2>&1
+if /opt/homebrew/opt/postgresql@16/bin/pg_isready -q 2>/dev/null; then
+    /opt/homebrew/opt/postgresql@16/bin/pg_ctl -D /opt/homebrew/var/postgresql@16 stop -m fast > /dev/null 2>&1
     echo -e "${GREEN}   ✓ Stopped${NC}"
 else
     echo -e "${YELLOW}   - Not running${NC}"

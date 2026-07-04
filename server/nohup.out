@@ -13,6 +13,1455 @@
 🌍 CORS:      http://localhost:5436,https://heytex.truyenthong.edu.vn
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   
-Client connected: r8BMoYy_j3c_MadbAAAB
-User Nguyễn Đăng Minh Phúc joined room project:6abf0994-3026-4234-ac32-53f0ff347c02:main.tex
-Client disconnected: r8BMoYy_j3c_MadbAAAB
+Client connected: YUp0oP3qmyJha4GnAAAB
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Compiling job 8fa560e2-758e-4e2f-89a9-5e7647338009 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Job 8fa560e2-758e-4e2f-89a9-5e7647338009 completed successfully
+Client disconnected: YUp0oP3qmyJha4GnAAAB
+[CompilationQueue] Cleaned up job 8fa560e2-758e-4e2f-89a9-5e7647338009 from memory
+No template.json in book
+No template.json in document
+No template.json in book
+No template.json in document
+[FileStorage] Created user directory: 966849cf-81ec-4b0b-aad7-bd99fde644c3
+[FileStorage] Created project directory: 966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[FileStorage] Created project structure for 966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e with 1 files
+Client connected: dXJpF_WcfiDRstY4AAAD
+User Khiêm Huỳnh Gia joined room project:91223d85-3075-4c72-98f4-0ebbe4a44e7e:/main.tex
+[CompilationQueue] Compiling job bd5ad9ca-fcfb-4956-b2ca-6a2e545d8017 in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job bd5ad9ca-fcfb-4956-b2ca-6a2e545d8017 completed successfully
+[CompilationQueue] Compiling job bea260d6-48f5-4915-8bfb-87793047b73f in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job bea260d6-48f5-4915-8bfb-87793047b73f completed successfully
+[CompilationQueue] Compiling job 6519209a-2ac1-485d-a391-1169664a286e in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 6519209a-2ac1-485d-a391-1169664a286e completed successfully
+[CompilationQueue] Compiling job cb339ca6-1f24-4352-a4ad-0c4d22a7327d in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job cb339ca6-1f24-4352-a4ad-0c4d22a7327d completed successfully
+[CompilationQueue] Compiling job f710b159-b052-4c6a-8acc-52e275142a11 in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job f710b159-b052-4c6a-8acc-52e275142a11 completed successfully
+[CompilationQueue] Compiling job 953ad51f-7f02-47e2-bff6-d2a5f757226d in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 953ad51f-7f02-47e2-bff6-d2a5f757226d completed successfully
+[CompilationQueue] Compiling job ba5c3a92-e2c6-4a23-a270-4b965f5098d2 in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job ba5c3a92-e2c6-4a23-a270-4b965f5098d2 completed successfully
+[CompilationQueue] Compiling job ead53fda-c84a-447b-b68d-6d4782bcf2a5 in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job ead53fda-c84a-447b-b68d-6d4782bcf2a5 completed successfully
+[CompilationQueue] Compiling job 8fc10371-76c6-47de-b081-f14caf298be1 in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 8fc10371-76c6-47de-b081-f14caf298be1 completed successfully
+[CompilationQueue] Compiling job 0046cc6a-6e62-40c5-980c-65088ba5f45f in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 0046cc6a-6e62-40c5-980c-65088ba5f45f completed successfully
+[CompilationQueue] Compiling job 35d0cb47-47ba-45ba-9041-25debaea4cce in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 35d0cb47-47ba-45ba-9041-25debaea4cce completed successfully
+[CompilationQueue] Compiling job 013977af-74c6-4585-b9f5-a8fe2e484586 in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 013977af-74c6-4585-b9f5-a8fe2e484586 completed successfully
+[CompilationQueue] Compiling job ea124e53-6f0d-4396-b574-31e16f71c5d1 in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job ea124e53-6f0d-4396-b574-31e16f71c5d1 completed successfully
+[CompilationQueue] Compiling job 4159d6d2-4ab7-4df6-bb8a-518abced729a in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 4159d6d2-4ab7-4df6-bb8a-518abced729a completed successfully
+[CompilationQueue] Compiling job e50e7b1f-785e-41ec-a281-53d90a762948 in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job e50e7b1f-785e-41ec-a281-53d90a762948 completed successfully
+[CompilationQueue] Compiling job 19d7ff35-62bb-4f30-9cd4-1cb0fe5b10f1 in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 19d7ff35-62bb-4f30-9cd4-1cb0fe5b10f1 completed successfully
+[CompilationQueue] Compiling job 6813df7f-75dd-4df2-86cd-e04fba8e3717 in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 6813df7f-75dd-4df2-86cd-e04fba8e3717 completed successfully
+[CompilationQueue] Compiling job 6b38f1c1-67ad-4dfc-8413-e713f960e79a in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 6b38f1c1-67ad-4dfc-8413-e713f960e79a completed successfully
+[CompilationQueue] Compiling job 041b1909-8fcb-463f-b35c-334193d4ba99 in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 041b1909-8fcb-463f-b35c-334193d4ba99 completed successfully
+[CompilationQueue] Compiling job 34083209-6678-4db6-a1b2-fdb5ef66fcca in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 34083209-6678-4db6-a1b2-fdb5ef66fcca completed successfully
+Client disconnected: dXJpF_WcfiDRstY4AAAD
+Client connected: b1hlw_IVk7M4gM7AAAAF
+User Khiêm Huỳnh Gia joined room project:91223d85-3075-4c72-98f4-0ebbe4a44e7e:/Ảnh chụp màn hình 2026-04-02 221905.png
+Client disconnected: b1hlw_IVk7M4gM7AAAAF
+Client connected: vFN-wvQcyeaXwTgWAAAH
+User Khiêm Huỳnh Gia joined room project:91223d85-3075-4c72-98f4-0ebbe4a44e7e:/main.tex
+[CompilationQueue] Compiling job fe5b2162-67c4-40cf-81f1-efa253e6eb9f in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job fe5b2162-67c4-40cf-81f1-efa253e6eb9f completed successfully
+[CompilationQueue] Compiling job f72d8ed5-c111-4232-9842-ee745e6e7e00 in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job f72d8ed5-c111-4232-9842-ee745e6e7e00 completed successfully
+[CompilationQueue] Compiling job 2889c98b-905d-4f71-9d99-53b78b57188e in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 2889c98b-905d-4f71-9d99-53b78b57188e completed successfully
+[CompilationQueue] Compiling job ad26f06a-ab2b-4cbf-908f-e829eee5d49e in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job ad26f06a-ab2b-4cbf-908f-e829eee5d49e completed successfully
+Client connected: 9IyUHgSF4iYknI_QAAAJ
+User Khiêm Huỳnh Gia joined room project:91223d85-3075-4c72-98f4-0ebbe4a44e7e:/main.tex
+Client connected: TBZtmTGhn8uYDWH_AAAL
+User Khiêm Huỳnh Gia joined room project:91223d85-3075-4c72-98f4-0ebbe4a44e7e:/main.tex
+[CompilationQueue] Compiling job 822c31f8-fc80-40ef-883d-166e040e94b4 in /Users/mac/heytex/users/966849cf-81ec-4b0b-aad7-bd99fde644c3/91223d85-3075-4c72-98f4-0ebbe4a44e7e
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 822c31f8-fc80-40ef-883d-166e040e94b4 completed successfully
+Client disconnected: 9IyUHgSF4iYknI_QAAAJ
+Client disconnected: vFN-wvQcyeaXwTgWAAAH
+Client disconnected: TBZtmTGhn8uYDWH_AAAL
+Client connected: 9x2vJ_sU0suzoMPIAAAN
+User Khiêm Huỳnh Gia joined room project:91223d85-3075-4c72-98f4-0ebbe4a44e7e:/main.tex
+Client disconnected: 9x2vJ_sU0suzoMPIAAAN
+Client connected: H3fhpJbXKMBc4JTLAAAP
+User Khiêm Huỳnh Gia joined room project:91223d85-3075-4c72-98f4-0ebbe4a44e7e:/main.tex
+Client disconnected: H3fhpJbXKMBc4JTLAAAP
+Client connected: u3UVluoopwdDEhDVAAAR
+User Khiêm Huỳnh Gia joined room project:91223d85-3075-4c72-98f4-0ebbe4a44e7e:/Ảnh chụp màn hình 2026-04-02 221905.png
+Client disconnected: u3UVluoopwdDEhDVAAAR
+Client connected: 7Cnk_ENwT6jmciFGAAAT
+User Khiêm Huỳnh Gia joined room project:91223d85-3075-4c72-98f4-0ebbe4a44e7e:/main.tex
+[CompilationQueue] Cleaned up job bd5ad9ca-fcfb-4956-b2ca-6a2e545d8017 from memory
+Client connected: wbZt4l55imbhdm9VAAAV
+User Khiêm Huỳnh Gia joined room project:91223d85-3075-4c72-98f4-0ebbe4a44e7e:/main.tex
+[CompilationQueue] Cleaned up job bea260d6-48f5-4915-8bfb-87793047b73f from memory
+Client disconnected: 7Cnk_ENwT6jmciFGAAAT
+[CompilationQueue] Cleaned up job 6519209a-2ac1-485d-a391-1169664a286e from memory
+Client connected: ZtLvUnj1cmC72FJHAAAX
+User Khiêm Huỳnh Gia joined room project:91223d85-3075-4c72-98f4-0ebbe4a44e7e:/main.tex
+[CompilationQueue] Cleaned up job cb339ca6-1f24-4352-a4ad-0c4d22a7327d from memory
+[CompilationQueue] Cleaned up job f710b159-b052-4c6a-8acc-52e275142a11 from memory
+Client disconnected: wbZt4l55imbhdm9VAAAV
+[CompilationQueue] Cleaned up job 953ad51f-7f02-47e2-bff6-d2a5f757226d from memory
+[CompilationQueue] Cleaned up job ba5c3a92-e2c6-4a23-a270-4b965f5098d2 from memory
+Client connected: MnN4rnSngjZTjQ81AAAZ
+User Khiêm Huỳnh Gia joined room project:91223d85-3075-4c72-98f4-0ebbe4a44e7e:/main.tex
+[CompilationQueue] Cleaned up job ead53fda-c84a-447b-b68d-6d4782bcf2a5 from memory
+Client disconnected: ZtLvUnj1cmC72FJHAAAX
+[CompilationQueue] Cleaned up job 8fc10371-76c6-47de-b081-f14caf298be1 from memory
+[CompilationQueue] Cleaned up job 0046cc6a-6e62-40c5-980c-65088ba5f45f from memory
+[CompilationQueue] Cleaned up job 35d0cb47-47ba-45ba-9041-25debaea4cce from memory
+[CompilationQueue] Cleaned up job 013977af-74c6-4585-b9f5-a8fe2e484586 from memory
+[CompilationQueue] Cleaned up job ea124e53-6f0d-4396-b574-31e16f71c5d1 from memory
+[CompilationQueue] Cleaned up job 4159d6d2-4ab7-4df6-bb8a-518abced729a from memory
+No template.json in book
+No template.json in document
+No template.json in book
+No template.json in document
+[Project] Using template latex-blank with 1 files
+[FileStorage] Created user directory: 7020e7c4-9e06-4348-82fa-798cd5ece461
+[FileStorage] Created project directory: 7020e7c4-9e06-4348-82fa-798cd5ece461/24b6aea0-c341-452d-baed-fbaad65f87d6
+[FileStorage] Created project structure for 7020e7c4-9e06-4348-82fa-798cd5ece461/24b6aea0-c341-452d-baed-fbaad65f87d6 with 1 files
+[CompilationQueue] Cleaned up job e50e7b1f-785e-41ec-a281-53d90a762948 from memory
+[CompilationQueue] Cleaned up job 19d7ff35-62bb-4f30-9cd4-1cb0fe5b10f1 from memory
+[CompilationQueue] Cleaned up job 6813df7f-75dd-4df2-86cd-e04fba8e3717 from memory
+[CompilationQueue] Cleaned up job 6b38f1c1-67ad-4dfc-8413-e713f960e79a from memory
+[CompilationQueue] Cleaned up job 041b1909-8fcb-463f-b35c-334193d4ba99 from memory
+[CompilationQueue] Cleaned up job 34083209-6678-4db6-a1b2-fdb5ef66fcca from memory
+[CompilationQueue] Cleaned up job fe5b2162-67c4-40cf-81f1-efa253e6eb9f from memory
+[CompilationQueue] Cleaned up job f72d8ed5-c111-4232-9842-ee745e6e7e00 from memory
+[CompilationQueue] Cleaned up job 2889c98b-905d-4f71-9d99-53b78b57188e from memory
+[CompilationQueue] Cleaned up job ad26f06a-ab2b-4cbf-908f-e829eee5d49e from memory
+[CompilationQueue] Cleaned up job 822c31f8-fc80-40ef-883d-166e040e94b4 from memory
+Client disconnected: MnN4rnSngjZTjQ81AAAZ
+Client connected: qzA5QtXzpvagiM7nAAAb
+User Khiêm Huỳnh Gia joined room project:91223d85-3075-4c72-98f4-0ebbe4a44e7e:/main.tex
+Client disconnected: qzA5QtXzpvagiM7nAAAb
+Client connected: 0yw-Vife1Ibrm1iuAAAd
+User Khiêm Huỳnh Gia joined room project:91223d85-3075-4c72-98f4-0ebbe4a44e7e:/main.tex
+Client disconnected: 0yw-Vife1Ibrm1iuAAAd
+Client connected: xngT8dNqC7e1_UW2AAAf
+User Khiêm Huỳnh Gia joined room project:91223d85-3075-4c72-98f4-0ebbe4a44e7e:/Ảnh chụp màn hình 2026-04-02 221905.png
+Client disconnected: xngT8dNqC7e1_UW2AAAf
+Client connected: 7Xuqm7UuFtCOYF3UAAAh
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Compiling job 95b05be4-0fa0-4088-a86d-b9fb83868103 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Job 95b05be4-0fa0-4088-a86d-b9fb83868103 completed successfully
+Client disconnected: 7Xuqm7UuFtCOYF3UAAAh
+Client connected: 2HNys0UwBusrEKmfAAAj
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: 2HNys0UwBusrEKmfAAAj
+Client connected: 2DkLqjFc1H1A619PAAAl
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: 2DkLqjFc1H1A619PAAAl
+Client connected: Sg7s29FOfEVxXzK4AAAn
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: Sg7s29FOfEVxXzK4AAAn
+Client connected: Mem4jm3CP_S84ykUAAAp
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Compiling job faa92b92-40b7-4eb7-b9c8-de86efb2add8 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Job faa92b92-40b7-4eb7-b9c8-de86efb2add8 completed successfully
+[CompilationQueue] Compiling job 49a08bbd-ad4c-433d-a447-ae16c3762081 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Job 49a08bbd-ad4c-433d-a447-ae16c3762081 completed successfully
+Client disconnected: Mem4jm3CP_S84ykUAAAp
+Client connected: IVyghQFJhBOl76JZAAAr
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Compiling job 2709b59a-2637-4aeb-8e66-168eddd46b5e in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Job 2709b59a-2637-4aeb-8e66-168eddd46b5e completed successfully
+[CompilationQueue] Compiling job be62a172-2cf9-445d-8812-4bfe44f0a190 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Job be62a172-2cf9-445d-8812-4bfe44f0a190 completed successfully
+[CompilationQueue] Compiling job 79acdc3e-c93c-4f02-a4e2-f7bbb4bbde7a in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 79acdc3e-c93c-4f02-a4e2-f7bbb4bbde7a failed: PDF generation failed with errors
+[CompilationQueue] Compiling job 889dc187-c222-431f-b864-e12512e4f6f1 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 889dc187-c222-431f-b864-e12512e4f6f1 failed: PDF generation failed with errors
+[CompilationQueue] Compiling job be84d5cc-b4ef-44e6-9aa4-ae1e3e9491e4 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job be84d5cc-b4ef-44e6-9aa4-ae1e3e9491e4 failed: PDF generation failed with errors
+Client disconnected: IVyghQFJhBOl76JZAAAr
+Client connected: FH1eak5iUSgdF2yIAAAt
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Compiling job c2cb1c1c-0a25-42c9-96a6-ba08d714d3ee in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job c2cb1c1c-0a25-42c9-96a6-ba08d714d3ee failed: PDF generation failed with errors
+[CompilationQueue] Compiling job 8b3cad59-c823-4d23-9e5e-698c6f77aaba in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 8b3cad59-c823-4d23-9e5e-698c6f77aaba failed: PDF generation failed with errors
+[CompilationQueue] Compiling job e17a23aa-f214-4e29-9883-c794af415613 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job e17a23aa-f214-4e29-9883-c794af415613 failed: PDF generation failed with errors
+[CompilationQueue] Compiling job 8e5f6887-5f34-4f3f-9ec4-e9a938f15c36 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 8e5f6887-5f34-4f3f-9ec4-e9a938f15c36 failed: PDF generation failed with errors
+[CompilationQueue] Compiling job d493ad62-817d-4d0e-b0f8-e743d8a766e6 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job d493ad62-817d-4d0e-b0f8-e743d8a766e6 failed: PDF generation failed with errors
+[CompilationQueue] Compiling job 58b65249-09c1-4226-8c5c-754c35b0bf5f in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 58b65249-09c1-4226-8c5c-754c35b0bf5f failed: PDF generation failed with errors
+[CompilationQueue] Compiling job 8c181ef4-03f7-407b-8217-6cdd9784447e in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 8c181ef4-03f7-407b-8217-6cdd9784447e failed: PDF generation failed with errors
+[CompilationQueue] Compiling job 9a788c52-ac72-498b-ae25-47e4e2542a2e in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 9a788c52-ac72-498b-ae25-47e4e2542a2e failed: PDF generation failed with errors
+[CompilationQueue] Compiling job 972bd38d-f534-43da-a686-ce7c64248340 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 972bd38d-f534-43da-a686-ce7c64248340 failed: PDF generation failed with errors
+[CompilationQueue] Compiling job a8ad7a2d-2e30-42cb-95a0-c03bdf402df9 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job a8ad7a2d-2e30-42cb-95a0-c03bdf402df9 failed: PDF generation failed with errors
+[CompilationQueue] Compiling job 80e54b64-c22b-4aaf-9b38-5300b8ea79db in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 80e54b64-c22b-4aaf-9b38-5300b8ea79db failed: PDF generation failed with errors
+[CompilationQueue] Compiling job 73bfb7b3-4d35-4df7-a506-0cb51ecd2973 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 73bfb7b3-4d35-4df7-a506-0cb51ecd2973 failed: PDF generation failed with errors
+Client disconnected: FH1eak5iUSgdF2yIAAAt
+Client connected: RLLb_U8OI7igDdOZAAAv
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Compiling job a23ae186-7d06-48e6-96f1-c78423898abb in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job a23ae186-7d06-48e6-96f1-c78423898abb failed: PDF generation failed with errors
+[CompilationQueue] Compiling job bc49215e-c501-4f1b-878c-970b0634678f in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job bc49215e-c501-4f1b-878c-970b0634678f failed: PDF generation failed with errors
+[CompilationQueue] Compiling job 7168e46d-703a-416a-abfe-ec00d20ce99d in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 7168e46d-703a-416a-abfe-ec00d20ce99d failed: PDF generation failed with errors
+[CompilationQueue] Compiling job 125d5961-6dd8-4a85-a3e3-e682d90e5ca4 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 125d5961-6dd8-4a85-a3e3-e682d90e5ca4 failed: PDF generation failed with errors
+[CompilationQueue] Cleaned up job 95b05be4-0fa0-4088-a86d-b9fb83868103 from memory
+Client disconnected: RLLb_U8OI7igDdOZAAAv
+[CompilationQueue] Cleaned up job faa92b92-40b7-4eb7-b9c8-de86efb2add8 from memory
+[CompilationQueue] Cleaned up job 49a08bbd-ad4c-433d-a447-ae16c3762081 from memory
+[CompilationQueue] Cleaned up job 2709b59a-2637-4aeb-8e66-168eddd46b5e from memory
+[CompilationQueue] Cleaned up job be62a172-2cf9-445d-8812-4bfe44f0a190 from memory
+[CompilationQueue] Cleaned up job 79acdc3e-c93c-4f02-a4e2-f7bbb4bbde7a from memory
+[CompilationQueue] Cleaned up job 889dc187-c222-431f-b864-e12512e4f6f1 from memory
+[CompilationQueue] Cleaned up job be84d5cc-b4ef-44e6-9aa4-ae1e3e9491e4 from memory
+[CompilationQueue] Cleaned up job c2cb1c1c-0a25-42c9-96a6-ba08d714d3ee from memory
+[CompilationQueue] Cleaned up job 8b3cad59-c823-4d23-9e5e-698c6f77aaba from memory
+[CompilationQueue] Cleaned up job e17a23aa-f214-4e29-9883-c794af415613 from memory
+[CompilationQueue] Cleaned up job 8e5f6887-5f34-4f3f-9ec4-e9a938f15c36 from memory
+[CompilationQueue] Cleaned up job d493ad62-817d-4d0e-b0f8-e743d8a766e6 from memory
+[CompilationQueue] Cleaned up job 58b65249-09c1-4226-8c5c-754c35b0bf5f from memory
+[CompilationQueue] Cleaned up job 8c181ef4-03f7-407b-8217-6cdd9784447e from memory
+[CompilationQueue] Cleaned up job 9a788c52-ac72-498b-ae25-47e4e2542a2e from memory
+[CompilationQueue] Cleaned up job 972bd38d-f534-43da-a686-ce7c64248340 from memory
+[CompilationQueue] Cleaned up job a8ad7a2d-2e30-42cb-95a0-c03bdf402df9 from memory
+[CompilationQueue] Cleaned up job 80e54b64-c22b-4aaf-9b38-5300b8ea79db from memory
+[CompilationQueue] Cleaned up job 73bfb7b3-4d35-4df7-a506-0cb51ecd2973 from memory
+[CompilationQueue] Cleaned up job a23ae186-7d06-48e6-96f1-c78423898abb from memory
+[CompilationQueue] Cleaned up job bc49215e-c501-4f1b-878c-970b0634678f from memory
+[CompilationQueue] Cleaned up job 7168e46d-703a-416a-abfe-ec00d20ce99d from memory
+[CompilationQueue] Cleaned up job 125d5961-6dd8-4a85-a3e3-e682d90e5ca4 from memory
+Client connected: PEow3v7KUfvZ3VvHAAAx
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Compiling job 4379caaa-a41d-4e0a-bd46-8caa87bd2be0 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 4379caaa-a41d-4e0a-bd46-8caa87bd2be0 failed: PDF generation failed with errors
+[CompilationQueue] Compiling job ea44023d-b6fb-44bb-8e64-84ccf46227dc in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job ea44023d-b6fb-44bb-8e64-84ccf46227dc failed: PDF generation failed with errors
+[CompilationQueue] Compiling job 70e78fdc-1106-487f-a807-7520e6463155 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 70e78fdc-1106-487f-a807-7520e6463155 failed: PDF generation failed with errors
+[CompilationQueue] Compiling job 73c42a48-081a-42d4-a31d-b39166dc7ee7 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 73c42a48-081a-42d4-a31d-b39166dc7ee7 failed: PDF generation failed with errors
+[CompilationQueue] Compiling job bf5389b1-4cf4-4364-8ef8-734384c3cb1b in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job bf5389b1-4cf4-4364-8ef8-734384c3cb1b failed: PDF generation failed with errors
+Client disconnected: PEow3v7KUfvZ3VvHAAAx
+Client connected: gnuX4R5AscoB4wg3AAAz
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Compiling job 1b639144-9d62-48af-a5d3-38611a76f87a in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 1b639144-9d62-48af-a5d3-38611a76f87a failed: PDF generation failed with errors
+[CompilationQueue] Compiling job 1985e843-dd8c-4e25-a947-db405cb7bf9a in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 1985e843-dd8c-4e25-a947-db405cb7bf9a failed: PDF generation failed with errors
+[CompilationQueue] Compiling job a2c472c0-e3e1-4651-b52c-73cd40e4b6bc in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job a2c472c0-e3e1-4651-b52c-73cd40e4b6bc failed: PDF generation failed with errors
+No template.json in book
+No template.json in document
+No template.json in book
+No template.json in document
+[Project] Using template latex-paper with 2 files
+[FileStorage] Created user directory: a9cdb4e3-cbc9-4e0c-8e4a-4b3e5dc05a80
+[FileStorage] Created project directory: a9cdb4e3-cbc9-4e0c-8e4a-4b3e5dc05a80/38471023-0303-4433-9778-38d90fdadb48
+[FileStorage] Created project structure for a9cdb4e3-cbc9-4e0c-8e4a-4b3e5dc05a80/38471023-0303-4433-9778-38d90fdadb48 with 2 files
+Client disconnected: gnuX4R5AscoB4wg3AAAz
+Client connected: uO4SWOA_21Wn9mgvAAA2
+User Trương Thị Phương Anh joined room project:38471023-0303-4433-9778-38d90fdadb48:paper.tex
+Client disconnected: uO4SWOA_21Wn9mgvAAA2
+Client connected: FkYIq0Aepuq3_ZBXAAA4
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Compiling job 40373481-a809-423e-b416-570262fcd4c6 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 40373481-a809-423e-b416-570262fcd4c6 failed: PDF generation failed with errors
+Client disconnected: FkYIq0Aepuq3_ZBXAAA4
+Client connected: GbCVAEtf3xkkshkXAAA6
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: GbCVAEtf3xkkshkXAAA6
+Client connected: SXgCaphfgXAJAifOAAA8
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: SXgCaphfgXAJAifOAAA8
+Client connected: 5UIi2AexypbI7awyAAA-
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: 5UIi2AexypbI7awyAAA-
+Client connected: nJCoZpocsLGTrb-FAABA
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: nJCoZpocsLGTrb-FAABA
+Client connected: dcBAVB26cifrGBfVAABF
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: dcBAVB26cifrGBfVAABF
+[CompilationQueue] Cleaned up job 4379caaa-a41d-4e0a-bd46-8caa87bd2be0 from memory
+Client connected: 2qn9ae2isHJ7dUjyAABZ
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Compiling job 2283dd81-e5d4-47a9-9383-638c59c63f2c in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 2283dd81-e5d4-47a9-9383-638c59c63f2c failed: PDF generation failed with errors
+Client disconnected: 2qn9ae2isHJ7dUjyAABZ
+Client connected: 10MmZwPzo-YM-knYAABb
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:academic-cv.tex
+Client disconnected: 10MmZwPzo-YM-knYAABb
+Client connected: 8fcNmXJ0QlNYZr6gAABd
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: 8fcNmXJ0QlNYZr6gAABd
+Client connected: hrGN7UsHVgxNQ1BxAABf
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:academic-cv.tex
+Client disconnected: hrGN7UsHVgxNQ1BxAABf
+Client connected: KcDPq9yPPjD_76jkAABh
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Cleaned up job ea44023d-b6fb-44bb-8e64-84ccf46227dc from memory
+[CompilationQueue] Cleaned up job 70e78fdc-1106-487f-a807-7520e6463155 from memory
+[CompilationQueue] Cleaned up job 73c42a48-081a-42d4-a31d-b39166dc7ee7 from memory
+[CompilationQueue] Cleaned up job bf5389b1-4cf4-4364-8ef8-734384c3cb1b from memory
+[CompilationQueue] Compiling job 9bcec16c-f4b5-4ff5-994e-7f316ea50c4d in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 9bcec16c-f4b5-4ff5-994e-7f316ea50c4d failed: PDF generation failed with errors
+[CompilationQueue] Cleaned up job 1b639144-9d62-48af-a5d3-38611a76f87a from memory
+[CompilationQueue] Cleaned up job 1985e843-dd8c-4e25-a947-db405cb7bf9a from memory
+[CompilationQueue] Compiling job f3601923-549d-4379-9afc-9c190d0503af in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job f3601923-549d-4379-9afc-9c190d0503af failed: PDF generation failed with errors
+[CompilationQueue] Compiling job 766abe89-afe9-4c3d-9e7c-b58d1aacc011 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 766abe89-afe9-4c3d-9e7c-b58d1aacc011 failed: PDF generation failed with errors
+[CompilationQueue] Compiling job a07165db-f83b-4692-92fe-d574be98bbb6 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job a07165db-f83b-4692-92fe-d574be98bbb6 failed: PDF generation failed with errors
+Client connected: 3DE-TDkiiOab923lAABj
+User Trương Thị Phương Anh joined room project:38471023-0303-4433-9778-38d90fdadb48:paper.tex
+[CompilationQueue] Compiling job 0eef15da-3240-4934-bd17-32dd7bd9fc90 in /Users/mac/heytex/users/a9cdb4e3-cbc9-4e0c-8e4a-4b3e5dc05a80/38471023-0303-4433-9778-38d90fdadb48
+[CompilationQueue] Using bibtex for paper.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job 0eef15da-3240-4934-bd17-32dd7bd9fc90 failed: PDF was not generated
+[CompilationQueue] Compiling job c7762b34-e403-466f-b1bf-3d618438bd1b in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job c7762b34-e403-466f-b1bf-3d618438bd1b failed: PDF generation failed with errors
+[CompilationQueue] Compiling job ea807b9d-5f7c-496a-a5db-b39ca4cebd14 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job ea807b9d-5f7c-496a-a5db-b39ca4cebd14 failed: PDF generation failed with errors
+Client disconnected: KcDPq9yPPjD_76jkAABh
+Client disconnected: 3DE-TDkiiOab923lAABj
+[CompilationQueue] Cleaned up job a2c472c0-e3e1-4651-b52c-73cd40e4b6bc from memory
+Client connected: tLF2sV6iMxH8ynfAAABl
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client connected: MmtZgpPjkVkFDnQMAABn
+User Trương Thị Phương Anh joined room project:38471023-0303-4433-9778-38d90fdadb48:paper.tex
+Client disconnected: MmtZgpPjkVkFDnQMAABn
+Client disconnected: tLF2sV6iMxH8ynfAAABl
+Client connected: 6UbI_iYgaQ8xQXH-AABp
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client connected: aP7w0PvrDOIIfXO0AABr
+User Trương Thị Phương Anh joined room project:38471023-0303-4433-9778-38d90fdadb48:paper.tex
+Client connected: pG5rAiZIQC7ZLFxEAABt
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Compiling job b1afbdd3-09d4-4cd1-a669-42f36a31b1ec in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job b1afbdd3-09d4-4cd1-a669-42f36a31b1ec failed: PDF generation failed with errors
+Client connected: 57VMfjOk0oS8K5YxAABv
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: pG5rAiZIQC7ZLFxEAABt
+[CompilationQueue] Cleaned up job 40373481-a809-423e-b416-570262fcd4c6 from memory
+[CompilationQueue] Compiling job d1280cd2-c568-4a30-9e95-35cddb7d361b in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job d1280cd2-c568-4a30-9e95-35cddb7d361b failed: PDF generation failed with errors
+Client disconnected: 57VMfjOk0oS8K5YxAABv
+Client disconnected: 6UbI_iYgaQ8xQXH-AABp
+Client disconnected: aP7w0PvrDOIIfXO0AABr
+Client connected: Hyk_DhjTCV1YWi9sAABy
+Client disconnected: Hyk_DhjTCV1YWi9sAABy
+Client connected: XFX5p6zEPEwA6gI3AAB3
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client connected: ITxg02m1rFURNO6xAAB7
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Compiling job a035d7af-2fa2-4551-b0f4-5c0935a1434a in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job a035d7af-2fa2-4551-b0f4-5c0935a1434a failed: PDF generation failed with errors
+[CompilationQueue] Compiling job f32d53be-5a00-453a-bfb9-e6f50318f72f in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b
+[CompilationQueue] Using bibtex for tieuluan.tex (biblatex: false)
+[CompilationQueue] Compile log indicates fatal error
+[CompilationQueue] Job f32d53be-5a00-453a-bfb9-e6f50318f72f failed: PDF generation failed with errors
+Client disconnected: ITxg02m1rFURNO6xAAB7
+Client connected: qfD2kxjHQd5EDtaDAACI
+Client disconnected: qfD2kxjHQd5EDtaDAACI
+Client connected: sAbKJP4HDN590ZNXAACK
+Client disconnected: sAbKJP4HDN590ZNXAACK
+Client connected: TBgbuxtXWUacRnNcAACQ
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: TBgbuxtXWUacRnNcAACQ
+Client connected: KZ54JjxzTbCiycpOAACV
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: KZ54JjxzTbCiycpOAACV
+Client connected: 8zZFjO8LamSBk_onAACa
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: XFX5p6zEPEwA6gI3AAB3
+Client disconnected: 8zZFjO8LamSBk_onAACa
+Client connected: MgNr25FlTUj_XvUUAACc
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: MgNr25FlTUj_XvUUAACc
+Client connected: 2okoyD6hfQE6s_eaAACe
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: 2okoyD6hfQE6s_eaAACe
+Client connected: KHylbrFBHLipmyMhAACh
+Client connected: J4imZ1jtzvTZowa7AACi
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: KHylbrFBHLipmyMhAACh
+[CompilationQueue] Cleaned up job 2283dd81-e5d4-47a9-9383-638c59c63f2c from memory
+[CompilationQueue] Cleaned up job 9bcec16c-f4b5-4ff5-994e-7f316ea50c4d from memory
+[CompilationQueue] Cleaned up job f3601923-549d-4379-9afc-9c190d0503af from memory
+Client connected: a5ptaSzCA9SEQrApAACk
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Cleaned up job 766abe89-afe9-4c3d-9e7c-b58d1aacc011 from memory
+Client disconnected: a5ptaSzCA9SEQrApAACk
+[CompilationQueue] Cleaned up job a07165db-f83b-4692-92fe-d574be98bbb6 from memory
+[CompilationQueue] Cleaned up job 0eef15da-3240-4934-bd17-32dd7bd9fc90 from memory
+[CompilationQueue] Cleaned up job c7762b34-e403-466f-b1bf-3d618438bd1b from memory
+[CompilationQueue] Cleaned up job ea807b9d-5f7c-496a-a5db-b39ca4cebd14 from memory
+Client disconnected: J4imZ1jtzvTZowa7AACi
+Client connected: 9xO9acuJVCB2tXS9AACm
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Cleaned up job b1afbdd3-09d4-4cd1-a669-42f36a31b1ec from memory
+Client disconnected: 9xO9acuJVCB2tXS9AACm
+Client connected: -XC1eWa1csy-DdpDAACo
+User Trương Thị Phương Anh joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: -XC1eWa1csy-DdpDAACo
+Client connected: Fjpa8BIUTSDqnOOxAACq
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Cleaned up job d1280cd2-c568-4a30-9e95-35cddb7d361b from memory
+[CompilationQueue] Cleaned up job a035d7af-2fa2-4551-b0f4-5c0935a1434a from memory
+[CompilationQueue] Cleaned up job f32d53be-5a00-453a-bfb9-e6f50318f72f from memory
+Client disconnected: Fjpa8BIUTSDqnOOxAACq
+Client connected: l0GOEeV6YaL6EbiPAACs
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: l0GOEeV6YaL6EbiPAACs
+Client connected: xaBmqH4sfobvBCINAACu
+User Nguyễn Đăng Minh Phúc joined room project:a048c0f3-fc10-4bfd-9a92-73c6e9391345:main.tex
+[CompilationQueue] Compiling job 79f3d075-0a34-493a-9bfe-5b4511ad2545 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/a048c0f3-fc10-4bfd-9a92-73c6e9391345
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 79f3d075-0a34-493a-9bfe-5b4511ad2545 completed successfully
+Client disconnected: xaBmqH4sfobvBCINAACu
+[CompilationQueue] Compiling job b7d8c6dc-b5d8-4313-8d7e-727a46abe6f2 in /Users/mac/heytex/users/aa83a4ee-065d-4560-aefe-cdaea1b71bed/a048c0f3-fc10-4bfd-9a92-73c6e9391345
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job b7d8c6dc-b5d8-4313-8d7e-727a46abe6f2 completed successfully
+Client connected: DWXyvPIBvWfHCK51AACx
+User Nguyễn Đăng Minh Phúc joined room project:715dca47-7263-4c64-a2ce-f85f5a9b082f:beamer.tex
+Client disconnected: DWXyvPIBvWfHCK51AACx
+[CompilationQueue] Cleaned up job 79f3d075-0a34-493a-9bfe-5b4511ad2545 from memory
+[CompilationQueue] Cleaned up job b7d8c6dc-b5d8-4313-8d7e-727a46abe6f2 from memory
+Client connected: Gp-u8mcRvOo1IgdTAACz
+User Nguyễn Đăng Minh Phúc joined room project:a048c0f3-fc10-4bfd-9a92-73c6e9391345:main.tex
+Client disconnected: Gp-u8mcRvOo1IgdTAACz
+Client connected: rh6K-g0ZfFJAl63MAAC1
+User Long Mai Linh joined room project:381ad2b1-2839-4e25-a9a6-b1f74ffb2fc9:beamer.tex
+[CompilationQueue] Compiling job 1735d09c-7357-4356-b637-54f2f663e341 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/381ad2b1-2839-4e25-a9a6-b1f74ffb2fc9
+[CompilationQueue] Using bibtex for beamer.tex (biblatex: false)
+[CompilationQueue] Job 1735d09c-7357-4356-b637-54f2f663e341 completed successfully
+Client disconnected: rh6K-g0ZfFJAl63MAAC1
+No template.json in book
+No template.json in document
+No template.json in book
+No template.json in document
+[FileStorage] Created project directory: db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[FileStorage] Created project structure for db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f with 1 files
+Client connected: e2NerotkexP8Rvc5AAC3
+User Long Mai Linh joined room project:b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f:/main.tex
+[CompilationQueue] Compiling job 3a274574-08ca-4167-9150-7b50324b2a86 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 3a274574-08ca-4167-9150-7b50324b2a86 completed successfully
+[CompilationQueue] Compiling job 7eddd949-5263-4923-95ea-99937bc790d5 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 7eddd949-5263-4923-95ea-99937bc790d5 completed successfully
+[CompilationQueue] Compiling job fd49bde0-e6ef-4430-ab31-4ed639a2fddd in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job fd49bde0-e6ef-4430-ab31-4ed639a2fddd completed successfully
+[CompilationQueue] Compiling job 059564c2-847a-4392-b6d6-4eb5a6a50e6a in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 059564c2-847a-4392-b6d6-4eb5a6a50e6a completed successfully
+[CompilationQueue] Compiling job f62f6893-b77a-4a45-b2dc-0ea7f85e97e8 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job f62f6893-b77a-4a45-b2dc-0ea7f85e97e8 completed successfully
+[CompilationQueue] Compiling job f49c406d-0dfc-43de-8f01-dc31ca5e5977 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job f49c406d-0dfc-43de-8f01-dc31ca5e5977 completed successfully
+[CompilationQueue] Compiling job c075186d-3684-41b7-ad19-6615257da6c4 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job c075186d-3684-41b7-ad19-6615257da6c4 completed successfully
+[CompilationQueue] Compiling job b6a48fa4-3d59-4ddf-a7d3-37cdfbf492b8 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job b6a48fa4-3d59-4ddf-a7d3-37cdfbf492b8 completed successfully
+[CompilationQueue] Compiling job 951de096-f06f-48e0-a086-b752ea74a418 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 951de096-f06f-48e0-a086-b752ea74a418 completed successfully
+[CompilationQueue] Compiling job a3554518-02c6-4b1a-ab9b-dfdbeec4f6d8 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job a3554518-02c6-4b1a-ab9b-dfdbeec4f6d8 completed successfully
+[CompilationQueue] Compiling job 88361ce5-5364-40f7-8318-c94de1ef84a8 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 88361ce5-5364-40f7-8318-c94de1ef84a8 completed successfully
+[CompilationQueue] Compiling job f30d67ff-1f12-4ae1-9b10-e597bff3980b in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job f30d67ff-1f12-4ae1-9b10-e597bff3980b completed successfully
+[CompilationQueue] Compiling job 764c1af3-058a-4989-8606-c257d98257b9 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 764c1af3-058a-4989-8606-c257d98257b9 completed successfully
+Client disconnected: e2NerotkexP8Rvc5AAC3
+Client connected: k-j6rF0A61nRC3gzAAC5
+User Long Mai Linh joined room project:b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f:/main.tex
+[CompilationQueue] Compiling job e0f6bb6f-9065-490c-abfe-75a1dec98e89 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job e0f6bb6f-9065-490c-abfe-75a1dec98e89 completed successfully
+[CompilationQueue] Compiling job 039805af-ef1c-4de5-ae7e-6269f4851d74 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 039805af-ef1c-4de5-ae7e-6269f4851d74 completed successfully
+[CompilationQueue] Compiling job 9e4f21d2-139d-4c73-a9cf-253698be67ef in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 9e4f21d2-139d-4c73-a9cf-253698be67ef completed successfully
+[CompilationQueue] Compiling job 9a02b7f9-001e-4517-bf32-9515ada3ebc6 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 9a02b7f9-001e-4517-bf32-9515ada3ebc6 completed successfully
+[CompilationQueue] Compiling job da862ebd-4433-4b07-ab70-d7a420544dec in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job da862ebd-4433-4b07-ab70-d7a420544dec completed successfully
+[CompilationQueue] Compiling job adf8378c-8345-4575-8999-d95ca4b3efcf in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job adf8378c-8345-4575-8999-d95ca4b3efcf completed successfully
+[CompilationQueue] Compiling job c78a4dc2-4c69-4fa9-a696-f836988c03f9 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job c78a4dc2-4c69-4fa9-a696-f836988c03f9 completed successfully
+Client disconnected: k-j6rF0A61nRC3gzAAC5
+Client connected: 5BUiy2_68cJLFk5bAAC7
+User Long Mai Linh joined room project:b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f:/main.tex
+Client disconnected: 5BUiy2_68cJLFk5bAAC7
+Client connected: 4lD9Oxjg8_8NJkBKAAC9
+User Long Mai Linh joined room project:b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f:/main.tex
+[CompilationQueue] Compiling job ac667e66-0a9e-4711-aafe-09721a9b7dc7 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job ac667e66-0a9e-4711-aafe-09721a9b7dc7 completed successfully
+[CompilationQueue] Compiling job e12759d2-a61a-4e21-bf6a-a504f6ced916 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job e12759d2-a61a-4e21-bf6a-a504f6ced916 completed successfully
+[CompilationQueue] Compiling job 53de9b91-367a-49e6-83a4-533bb4c8f39e in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 53de9b91-367a-49e6-83a4-533bb4c8f39e completed successfully
+[CompilationQueue] Compiling job 4a452b04-b781-41b0-8b96-cee4a8ecc9a2 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 4a452b04-b781-41b0-8b96-cee4a8ecc9a2 completed successfully
+[CompilationQueue] Compiling job b56eba14-dfce-4506-8df4-dfc0e69d5788 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job b56eba14-dfce-4506-8df4-dfc0e69d5788 completed successfully
+[CompilationQueue] Compiling job d68a4c0a-fb75-4a9a-b6cf-bfeb175481c2 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job d68a4c0a-fb75-4a9a-b6cf-bfeb175481c2 completed successfully
+[CompilationQueue] Compiling job 1d61a77a-1be1-47e6-ba55-c8894b8fd305 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 1d61a77a-1be1-47e6-ba55-c8894b8fd305 completed successfully
+[CompilationQueue] Compiling job a9cf4baa-e690-411c-ba33-7d83f2139f4b in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job a9cf4baa-e690-411c-ba33-7d83f2139f4b completed successfully
+[CompilationQueue] Compiling job f96bdecc-e1eb-411e-a3e9-4632579543cb in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job f96bdecc-e1eb-411e-a3e9-4632579543cb completed successfully
+[CompilationQueue] Compiling job 94479e12-51ec-4d8d-b4be-8cd145686796 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 94479e12-51ec-4d8d-b4be-8cd145686796 completed successfully
+[CompilationQueue] Compiling job 559b63f0-e3f0-4550-bb58-0690be2cd39c in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 559b63f0-e3f0-4550-bb58-0690be2cd39c completed successfully
+[CompilationQueue] Compiling job 307a8aaa-1448-486b-9e3f-efa311913de8 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 307a8aaa-1448-486b-9e3f-efa311913de8 completed successfully
+[CompilationQueue] Compiling job 44388b84-0ffd-49d5-8d63-2e1be078364b in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 44388b84-0ffd-49d5-8d63-2e1be078364b completed successfully
+[CompilationQueue] Compiling job 1b64ea9a-f04e-4621-8b04-e6fae3abde9a in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 1b64ea9a-f04e-4621-8b04-e6fae3abde9a completed successfully
+Client disconnected: 4lD9Oxjg8_8NJkBKAAC9
+Client connected: 8ecGpea6DXv81kcjAAC_
+User Long Mai Linh joined room project:b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f:/main.tex
+Client disconnected: 8ecGpea6DXv81kcjAAC_
+Client connected: TWE3CC9__jXctQ5sAADB
+User Long Mai Linh joined room project:b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f:/main.tex
+Client disconnected: TWE3CC9__jXctQ5sAADB
+[CompilationQueue] Cleaned up job 1735d09c-7357-4356-b637-54f2f663e341 from memory
+[CompilationQueue] Cleaned up job 3a274574-08ca-4167-9150-7b50324b2a86 from memory
+[CompilationQueue] Cleaned up job 7eddd949-5263-4923-95ea-99937bc790d5 from memory
+[CompilationQueue] Cleaned up job fd49bde0-e6ef-4430-ab31-4ed639a2fddd from memory
+[CompilationQueue] Cleaned up job 059564c2-847a-4392-b6d6-4eb5a6a50e6a from memory
+[CompilationQueue] Cleaned up job f62f6893-b77a-4a45-b2dc-0ea7f85e97e8 from memory
+[CompilationQueue] Cleaned up job f49c406d-0dfc-43de-8f01-dc31ca5e5977 from memory
+[CompilationQueue] Cleaned up job c075186d-3684-41b7-ad19-6615257da6c4 from memory
+[CompilationQueue] Cleaned up job b6a48fa4-3d59-4ddf-a7d3-37cdfbf492b8 from memory
+[CompilationQueue] Cleaned up job 951de096-f06f-48e0-a086-b752ea74a418 from memory
+[CompilationQueue] Cleaned up job a3554518-02c6-4b1a-ab9b-dfdbeec4f6d8 from memory
+[CompilationQueue] Cleaned up job 88361ce5-5364-40f7-8318-c94de1ef84a8 from memory
+[CompilationQueue] Cleaned up job f30d67ff-1f12-4ae1-9b10-e597bff3980b from memory
+[CompilationQueue] Cleaned up job 764c1af3-058a-4989-8606-c257d98257b9 from memory
+[CompilationQueue] Cleaned up job e0f6bb6f-9065-490c-abfe-75a1dec98e89 from memory
+[CompilationQueue] Cleaned up job 039805af-ef1c-4de5-ae7e-6269f4851d74 from memory
+[CompilationQueue] Cleaned up job 9e4f21d2-139d-4c73-a9cf-253698be67ef from memory
+[CompilationQueue] Cleaned up job 9a02b7f9-001e-4517-bf32-9515ada3ebc6 from memory
+[CompilationQueue] Cleaned up job da862ebd-4433-4b07-ab70-d7a420544dec from memory
+[CompilationQueue] Cleaned up job adf8378c-8345-4575-8999-d95ca4b3efcf from memory
+[CompilationQueue] Cleaned up job c78a4dc2-4c69-4fa9-a696-f836988c03f9 from memory
+[CompilationQueue] Cleaned up job ac667e66-0a9e-4711-aafe-09721a9b7dc7 from memory
+[CompilationQueue] Cleaned up job e12759d2-a61a-4e21-bf6a-a504f6ced916 from memory
+[CompilationQueue] Cleaned up job 53de9b91-367a-49e6-83a4-533bb4c8f39e from memory
+[CompilationQueue] Cleaned up job 4a452b04-b781-41b0-8b96-cee4a8ecc9a2 from memory
+[CompilationQueue] Cleaned up job b56eba14-dfce-4506-8df4-dfc0e69d5788 from memory
+[CompilationQueue] Cleaned up job d68a4c0a-fb75-4a9a-b6cf-bfeb175481c2 from memory
+[CompilationQueue] Cleaned up job 1d61a77a-1be1-47e6-ba55-c8894b8fd305 from memory
+[CompilationQueue] Cleaned up job a9cf4baa-e690-411c-ba33-7d83f2139f4b from memory
+[CompilationQueue] Cleaned up job f96bdecc-e1eb-411e-a3e9-4632579543cb from memory
+[CompilationQueue] Cleaned up job 94479e12-51ec-4d8d-b4be-8cd145686796 from memory
+[CompilationQueue] Cleaned up job 559b63f0-e3f0-4550-bb58-0690be2cd39c from memory
+Client connected: SHsplfpmNI5_s1XHAADD
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Cleaned up job 307a8aaa-1448-486b-9e3f-efa311913de8 from memory
+Client disconnected: SHsplfpmNI5_s1XHAADD
+[CompilationQueue] Cleaned up job 44388b84-0ffd-49d5-8d63-2e1be078364b from memory
+[CompilationQueue] Cleaned up job 1b64ea9a-f04e-4621-8b04-e6fae3abde9a from memory
+Client connected: zMj-_50pbA5jFNvaAADF
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: zMj-_50pbA5jFNvaAADF
+Client connected: ZaYar_pW9RDNxa04AADH
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: ZaYar_pW9RDNxa04AADH
+Client connected: b_tyVpO0eK34-kaJAADJ
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: b_tyVpO0eK34-kaJAADJ
+Client connected: VIVXZ6TdHkJXHnVuAADL
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client connected: 0Ls3cCldd50WxTS9AADN
+User Long Mai Linh joined room project:b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f:/main.tex
+Client disconnected: VIVXZ6TdHkJXHnVuAADL
+[CompilationQueue] Compiling job 180997ec-e1c1-4abb-850a-8de56ae1964b in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 180997ec-e1c1-4abb-850a-8de56ae1964b completed successfully
+[CompilationQueue] Compiling job ecad6d8b-fe2c-4b1d-983b-e314d2f58362 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job ecad6d8b-fe2c-4b1d-983b-e314d2f58362 completed successfully
+[CompilationQueue] Compiling job 1404de68-b1a7-4bef-b9f5-a71c0e8c1c28 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 1404de68-b1a7-4bef-b9f5-a71c0e8c1c28 completed successfully
+[CompilationQueue] Compiling job bdc7f0d8-0570-4969-b54f-72581d6fe6da in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job bdc7f0d8-0570-4969-b54f-72581d6fe6da completed successfully
+[CompilationQueue] Compiling job 8907ec9b-958b-4cac-8bf4-827b5ba3f9ec in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 8907ec9b-958b-4cac-8bf4-827b5ba3f9ec completed successfully
+[CompilationQueue] Compiling job 21bcc1e6-d51d-487c-83f6-f8ef7f6094e3 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 21bcc1e6-d51d-487c-83f6-f8ef7f6094e3 completed successfully
+Client disconnected: 0Ls3cCldd50WxTS9AADN
+Client connected: hw7wJXJUCmtQiMYFAADP
+User Long Mai Linh joined room project:b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f:/main.tex
+Client disconnected: hw7wJXJUCmtQiMYFAADP
+Client connected: 6kWaRfZazrV_X8IOAADR
+User Long Mai Linh joined room project:381ad2b1-2839-4e25-a9a6-b1f74ffb2fc9:beamer.tex
+Client disconnected: 6kWaRfZazrV_X8IOAADR
+Client connected: OjcQAuCqA1TGYKLJAADT
+User Long Mai Linh joined room project:381ad2b1-2839-4e25-a9a6-b1f74ffb2fc9:/10_Gtrinh-dsdc1_CaoHuyLinh_3_chinhthuc.pdf
+Client disconnected: OjcQAuCqA1TGYKLJAADT
+Client connected: DaLALq-GukAYhn8eAADV
+User Long Mai Linh joined room project:381ad2b1-2839-4e25-a9a6-b1f74ffb2fc9:beamer.tex
+Client disconnected: DaLALq-GukAYhn8eAADV
+Client connected: NKSuk3ji5yXmzAxdAADX
+User Long Mai Linh joined room project:381ad2b1-2839-4e25-a9a6-b1f74ffb2fc9:/10_Gtrinh-dsdc1_CaoHuyLinh_3_chinhthuc.pdf
+Client disconnected: NKSuk3ji5yXmzAxdAADX
+Client connected: EqAj5W3Vo-Ttj7bzAADZ
+User Long Mai Linh joined room project:381ad2b1-2839-4e25-a9a6-b1f74ffb2fc9:beamer.tex
+Client disconnected: EqAj5W3Vo-Ttj7bzAADZ
+Client connected: hC6fydxAHpVRAA2mAADb
+User Long Mai Linh joined room project:381ad2b1-2839-4e25-a9a6-b1f74ffb2fc9:/10_Gtrinh-dsdc1_CaoHuyLinh_3_chinhthuc.pdf
+Failed to delete from MinIO: S3Error: Object name contains unsupported characters.
+    at parseError (/Users/mac/heytex/server/node_modules/minio/dist/main/internal/xml-parser.js:58:13)
+    at Object.parseResponseError (/Users/mac/heytex/server/node_modules/minio/dist/main/internal/xml-parser.js:113:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async Client.makeRequestStreamAsync (/Users/mac/heytex/server/node_modules/minio/dist/main/internal/client.js:514:19)
+    at async Client.makeRequestAsyncOmit (/Users/mac/heytex/server/node_modules/minio/dist/main/internal/client.js:445:17)
+    at async Client.removeObject (/Users/mac/heytex/server/node_modules/minio/dist/main/internal/client.js:964:5)
+    at async deleteFile (/Users/mac/heytex/server/dist/lib/minio.js:59:5)
+    at async /Users/mac/heytex/server/dist/routes/files.js:277:17 {
+  code: 'XMinioInvalidObjectName',
+  key: '381ad2b1-2839-4e25-a9a6-b1f74ffb2fc9//10_Gtrinh-dsdc1_CaoHuyLinh_3_chinhthuc.pdf',
+  bucketname: 'heytex-projects',
+  resource: '/heytex-projects/381ad2b1-2839-4e25-a9a6-b1f74ffb2fc9//10_Gtrinh-dsdc1_CaoHuyLinh_3_chinhthuc.pdf',
+  requestid: '18A4122805FC55E8',
+  hostid: 'b07382ffaf9da6acfc1605651ba6414927025d270586bc434a69434f0cf7a56a',
+  amzRequestid: '18A4122805FC55E8',
+  amzId2: 'b07382ffaf9da6acfc1605651ba6414927025d270586bc434a69434f0cf7a56a',
+  amzBucketRegion: undefined
+}
+Client disconnected: hC6fydxAHpVRAA2mAADb
+Client connected: Ja8ZBDbvzo5x8V2gAADd
+User Long Mai Linh joined room project:b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f:/main.tex
+Client disconnected: Ja8ZBDbvzo5x8V2gAADd
+Client connected: 5IvHXXJqYxycuWgoAADf
+User Long Mai Linh joined room project:b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f:/main.tex
+Client disconnected: 5IvHXXJqYxycuWgoAADf
+Client connected: eumPEezto2tdDHaPAADh
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: eumPEezto2tdDHaPAADh
+Client connected: 1m8jjT00NSAfj3q8AADj
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+[CompilationQueue] Cleaned up job 180997ec-e1c1-4abb-850a-8de56ae1964b from memory
+[CompilationQueue] Cleaned up job ecad6d8b-fe2c-4b1d-983b-e314d2f58362 from memory
+[CompilationQueue] Cleaned up job 1404de68-b1a7-4bef-b9f5-a71c0e8c1c28 from memory
+[CompilationQueue] Cleaned up job bdc7f0d8-0570-4969-b54f-72581d6fe6da from memory
+[CompilationQueue] Cleaned up job 8907ec9b-958b-4cac-8bf4-827b5ba3f9ec from memory
+[CompilationQueue] Cleaned up job 21bcc1e6-d51d-487c-83f6-f8ef7f6094e3 from memory
+Client disconnected: 1m8jjT00NSAfj3q8AADj
+Client connected: IQwjpANPnURoqZ3mAADl
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: IQwjpANPnURoqZ3mAADl
+Client connected: bWwyohdqhgRKl_JPAADn
+User Tân Trương Văn joined room project:1a1ce405-05ea-4a40-a6d6-cfd6dc0a199b:/main.tex
+Client disconnected: bWwyohdqhgRKl_JPAADn
+No template.json in book
+No template.json in document
+No template.json in book
+No template.json in document
+[Project] Using template latex-blank with 1 files
+[FileStorage] Created user directory: 7a14853c-e04c-4df8-985b-966c931dd4f4
+[FileStorage] Created project directory: 7a14853c-e04c-4df8-985b-966c931dd4f4/88723b5f-d18a-452f-97d5-32d305b78bc1
+[FileStorage] Created project structure for 7a14853c-e04c-4df8-985b-966c931dd4f4/88723b5f-d18a-452f-97d5-32d305b78bc1 with 1 files
+Client connected: Xk0j1v1-HVnTpCO9AADp
+User Hoàng Nam joined room project:88723b5f-d18a-452f-97d5-32d305b78bc1:main.tex
+[CompilationQueue] Compiling job 885635fe-389e-4889-87c2-bc92f82b9fb6 in /Users/mac/heytex/users/7a14853c-e04c-4df8-985b-966c931dd4f4/88723b5f-d18a-452f-97d5-32d305b78bc1
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 885635fe-389e-4889-87c2-bc92f82b9fb6 completed successfully
+[CompilationQueue] Compiling job e86bcf5f-1f33-4af1-bca1-b953c8c79f18 in /Users/mac/heytex/users/7a14853c-e04c-4df8-985b-966c931dd4f4/88723b5f-d18a-452f-97d5-32d305b78bc1
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job e86bcf5f-1f33-4af1-bca1-b953c8c79f18 completed successfully
+[CompilationQueue] Compiling job 6acf6070-ee56-45f3-be64-a3eba0e6e56d in /Users/mac/heytex/users/7a14853c-e04c-4df8-985b-966c931dd4f4/88723b5f-d18a-452f-97d5-32d305b78bc1
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 6acf6070-ee56-45f3-be64-a3eba0e6e56d completed successfully
+[CompilationQueue] Compiling job 1c42f206-cb59-4006-88a3-5076d3fb58d4 in /Users/mac/heytex/users/7a14853c-e04c-4df8-985b-966c931dd4f4/88723b5f-d18a-452f-97d5-32d305b78bc1
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 1c42f206-cb59-4006-88a3-5076d3fb58d4 completed successfully
+[CompilationQueue] Compiling job 7988865a-61eb-4b86-80dc-2df006463b14 in /Users/mac/heytex/users/7a14853c-e04c-4df8-985b-966c931dd4f4/88723b5f-d18a-452f-97d5-32d305b78bc1
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 7988865a-61eb-4b86-80dc-2df006463b14 completed successfully
+Client disconnected: Xk0j1v1-HVnTpCO9AADp
+Client connected: GgXsS6jca2VaxKw0AADr
+User Hoàng Nam joined room project:88723b5f-d18a-452f-97d5-32d305b78bc1:/h
+Client disconnected: GgXsS6jca2VaxKw0AADr
+[CompilationQueue] Cleaned up job 885635fe-389e-4889-87c2-bc92f82b9fb6 from memory
+[CompilationQueue] Cleaned up job e86bcf5f-1f33-4af1-bca1-b953c8c79f18 from memory
+[CompilationQueue] Cleaned up job 6acf6070-ee56-45f3-be64-a3eba0e6e56d from memory
+[CompilationQueue] Cleaned up job 1c42f206-cb59-4006-88a3-5076d3fb58d4 from memory
+[CompilationQueue] Cleaned up job 7988865a-61eb-4b86-80dc-2df006463b14 from memory
+Client connected: ImFDGLB3MNgifxoyAADt
+User Nguyễn Văn Thanh Long joined room project:3e9b9fb7-7d12-4bf0-a2d3-74fb658f47cb:/main.tex
+Client disconnected: ImFDGLB3MNgifxoyAADt
+Client connected: NVWV7HUO4bEyFQ1vAADv
+User Nguyễn Văn Thanh Long joined room project:3e9b9fb7-7d12-4bf0-a2d3-74fb658f47cb:/tl
+Client disconnected: NVWV7HUO4bEyFQ1vAADv
+Client connected: dX3xsynqBPLRmepGAADx
+User Nguyễn Văn Thanh Long joined room project:3e9b9fb7-7d12-4bf0-a2d3-74fb658f47cb:/main.tex
+[CompilationQueue] Compiling job 880fa4ee-1e73-4d1d-b87b-e5fcd7b3b3b9 in /Users/mac/heytex/users/ca0a5363-6b88-40bc-a015-f107f94bb6b8/3e9b9fb7-7d12-4bf0-a2d3-74fb658f47cb
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 880fa4ee-1e73-4d1d-b87b-e5fcd7b3b3b9 completed successfully
+Client disconnected: dX3xsynqBPLRmepGAADx
+[CompilationQueue] Cleaned up job 880fa4ee-1e73-4d1d-b87b-e5fcd7b3b3b9 from memory
+Client connected: qgD_PYXfp_t5oFQ8AADz
+User Nguyễn Văn Thanh Long joined room project:3e9b9fb7-7d12-4bf0-a2d3-74fb658f47cb:/main.tex
+Client disconnected: qgD_PYXfp_t5oFQ8AADz
+No template.json in book
+No template.json in document
+No template.json in book
+No template.json in document
+[FileStorage] Created project directory: 053e2b77-62c2-4183-9482-1c51d780133d/95728c28-f42a-479d-9e5f-658466e7c367
+[FileStorage] Created project structure for 053e2b77-62c2-4183-9482-1c51d780133d/95728c28-f42a-479d-9e5f-658466e7c367 with 1 files
+Client connected: ePTdzjJi_FuqG4KLAAD1
+User Diệu Linh Phạm Thị joined room project:95728c28-f42a-479d-9e5f-658466e7c367:/main.typ
+Client disconnected: ePTdzjJi_FuqG4KLAAD1
+[FileStorage] Deleted project: 053e2b77-62c2-4183-9482-1c51d780133d/95728c28-f42a-479d-9e5f-658466e7c367
+[FileStorage] Deleted project 053e2b77-62c2-4183-9482-1c51d780133d/95728c28-f42a-479d-9e5f-658466e7c367
+No template.json in book
+No template.json in document
+No template.json in book
+No template.json in document
+[FileStorage] Created project directory: 053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[FileStorage] Created project structure for 053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990 with 1 files
+Client connected: rdBwQ79LnfY1VIMZAAD4
+User Diệu Linh Phạm Thị joined room project:33ff18d6-cc4c-42b4-a827-9f250e730990:/main.tex
+[CompilationQueue] Compiling job c199adaa-1096-4551-a8dc-e17c0ce46c00 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job c199adaa-1096-4551-a8dc-e17c0ce46c00 completed successfully
+[CompilationQueue] Compiling job 8cb94d40-a15b-430b-89a6-b125ae09be22 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 8cb94d40-a15b-430b-89a6-b125ae09be22 completed successfully
+[CompilationQueue] Compiling job 82d52743-79a5-4158-9f70-02af3195c827 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 82d52743-79a5-4158-9f70-02af3195c827 completed successfully
+[CompilationQueue] Compiling job 632b2ef1-7865-41d4-83ec-85da1c4b648d in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 632b2ef1-7865-41d4-83ec-85da1c4b648d completed successfully
+[CompilationQueue] Compiling job 8a635486-092d-4d08-9d30-d8a5b9dd2ad9 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 8a635486-092d-4d08-9d30-d8a5b9dd2ad9 completed successfully
+[CompilationQueue] Compiling job ec940345-ee54-42c2-9e91-bfa712e22eb7 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job ec940345-ee54-42c2-9e91-bfa712e22eb7 completed successfully
+[CompilationQueue] Compiling job cb828509-6901-47e3-9a29-61a9876ec86d in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job cb828509-6901-47e3-9a29-61a9876ec86d completed successfully
+[CompilationQueue] Compiling job 46a33752-9e15-4a8c-9794-452c63910fda in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 46a33752-9e15-4a8c-9794-452c63910fda completed successfully
+[CompilationQueue] Compiling job 75cabf2a-8125-4895-bd61-58c1c819ef55 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 75cabf2a-8125-4895-bd61-58c1c819ef55 completed successfully
+[CompilationQueue] Compiling job abe89b26-9faf-419a-9135-18682b7972a1 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job abe89b26-9faf-419a-9135-18682b7972a1 completed successfully
+[CompilationQueue] Compiling job 6d4bb3c6-7685-4c14-b452-873a873fbea0 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 6d4bb3c6-7685-4c14-b452-873a873fbea0 completed successfully
+[CompilationQueue] Compiling job b0288a0f-c6f2-4123-9965-e8a4ebc94e4c in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job b0288a0f-c6f2-4123-9965-e8a4ebc94e4c completed successfully
+[CompilationQueue] Compiling job 72ddeb7c-74e3-4088-b8c1-fbc3ce099350 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 72ddeb7c-74e3-4088-b8c1-fbc3ce099350 completed successfully
+[CompilationQueue] Compiling job e20c98d1-3808-44ba-8769-897dcec202aa in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job e20c98d1-3808-44ba-8769-897dcec202aa completed successfully
+Client connected: 88blFt7vhHMidk-iAAD6
+User Diệu Linh Phạm Thị joined room project:33ff18d6-cc4c-42b4-a827-9f250e730990:/main.tex
+Client disconnected: rdBwQ79LnfY1VIMZAAD4
+[CompilationQueue] Compiling job 278d642e-08e6-4cae-a8f8-6b9a95224ea1 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 278d642e-08e6-4cae-a8f8-6b9a95224ea1 completed successfully
+[CompilationQueue] Compiling job 32f765fa-8eff-4e7d-8abb-5564b67f9f38 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 32f765fa-8eff-4e7d-8abb-5564b67f9f38 completed successfully
+[CompilationQueue] Compiling job 147232d1-927f-4694-8cc7-f4db8f360fd0 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 147232d1-927f-4694-8cc7-f4db8f360fd0 completed successfully
+[CompilationQueue] Compiling job 4e3b1993-54e4-47a5-ae2a-e2d56be6e543 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 4e3b1993-54e4-47a5-ae2a-e2d56be6e543 completed successfully
+[CompilationQueue] Compiling job 50672f4b-a79c-47e5-9a18-aa648b57c495 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 50672f4b-a79c-47e5-9a18-aa648b57c495 completed successfully
+[CompilationQueue] Compiling job c71f484f-856d-46e6-9b35-9aaea92c8591 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job c71f484f-856d-46e6-9b35-9aaea92c8591 completed successfully
+[CompilationQueue] Compiling job a42bc071-d086-43ce-ad15-3787e3a313af in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job a42bc071-d086-43ce-ad15-3787e3a313af completed successfully
+[CompilationQueue] Compiling job 62e1ad95-dbe0-4ae9-91f8-fa77cf289de9 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 62e1ad95-dbe0-4ae9-91f8-fa77cf289de9 completed successfully
+[CompilationQueue] Compiling job 3068aa19-2127-490c-ab5a-2abcf857441b in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 3068aa19-2127-490c-ab5a-2abcf857441b completed successfully
+[CompilationQueue] Compiling job d6d22f48-a161-4a2d-9605-65e5944c316c in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job d6d22f48-a161-4a2d-9605-65e5944c316c completed successfully
+[CompilationQueue] Compiling job 4d4ef520-f93a-4bbc-9bc6-0c121e8f8a2e in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 4d4ef520-f93a-4bbc-9bc6-0c121e8f8a2e completed successfully
+[CompilationQueue] Compiling job c00d8e7b-0cfe-4110-a92e-997881a76fab in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job c00d8e7b-0cfe-4110-a92e-997881a76fab completed successfully
+[CompilationQueue] Compiling job ee38ee0c-439c-491f-9d23-6d81768b1c3f in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job ee38ee0c-439c-491f-9d23-6d81768b1c3f completed successfully
+Client connected: DErJQvooLHpFkCUXAAD8
+User Long Mai Linh joined room project:b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f:/main.tex
+[CompilationQueue] Compiling job 514c625e-5de7-45ff-a8e5-2e1890a6d626 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 514c625e-5de7-45ff-a8e5-2e1890a6d626 completed successfully
+[CompilationQueue] Compiling job 5bc7eab5-e35f-45d9-974a-f5f24bb65aef in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 5bc7eab5-e35f-45d9-974a-f5f24bb65aef completed successfully
+[CompilationQueue] Compiling job 61755751-7f7e-4704-a302-e814246d27d4 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 61755751-7f7e-4704-a302-e814246d27d4 completed successfully
+[CompilationQueue] Compiling job efec9367-338c-4a6e-b740-517ecdc855a2 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job efec9367-338c-4a6e-b740-517ecdc855a2 completed successfully
+[CompilationQueue] Compiling job e852ef94-01c4-45f2-8546-03a894597b7f in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job e852ef94-01c4-45f2-8546-03a894597b7f completed successfully
+[CompilationQueue] Compiling job ce6726aa-a95e-4cdd-8314-59fc4eb1ca8c in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job ce6726aa-a95e-4cdd-8314-59fc4eb1ca8c completed successfully
+[CompilationQueue] Compiling job 947d48ea-a8c9-48fb-9b8c-3613730df42d in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 947d48ea-a8c9-48fb-9b8c-3613730df42d completed successfully
+[CompilationQueue] Compiling job d22a771b-f06a-4bdf-87c2-cf283c55af13 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job d22a771b-f06a-4bdf-87c2-cf283c55af13 completed successfully
+[CompilationQueue] Compiling job 59884777-1f53-4d92-a4ff-3428fde4fd11 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 59884777-1f53-4d92-a4ff-3428fde4fd11 completed successfully
+[CompilationQueue] Compiling job bd64e147-c235-406e-8f5d-dea572ce9e4a in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job bd64e147-c235-406e-8f5d-dea572ce9e4a completed successfully
+[CompilationQueue] Compiling job ecef41d1-efd1-4a1f-b897-e3a213bee447 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job ecef41d1-efd1-4a1f-b897-e3a213bee447 completed successfully
+[CompilationQueue] Compiling job cfbb02b4-c8d8-432e-9a0c-b1045069958f in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job cfbb02b4-c8d8-432e-9a0c-b1045069958f completed successfully
+[CompilationQueue] Compiling job 156b522c-821f-4612-86ea-22311425e622 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 156b522c-821f-4612-86ea-22311425e622 completed successfully
+[CompilationQueue] Compiling job 533169c0-fb59-4c80-af35-64e2fba17c0a in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 533169c0-fb59-4c80-af35-64e2fba17c0a completed successfully
+[CompilationQueue] Compiling job 429489de-80fb-4398-a6e3-9e5e758a2363 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 429489de-80fb-4398-a6e3-9e5e758a2363 completed successfully
+[CompilationQueue] Compiling job 28f8b719-660c-414f-b6f1-66bd93ab93ff in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 28f8b719-660c-414f-b6f1-66bd93ab93ff completed successfully
+[CompilationQueue] Compiling job 004a7a99-14f8-4554-b872-f850cbfb3977 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 004a7a99-14f8-4554-b872-f850cbfb3977 completed successfully
+[CompilationQueue] Compiling job c08cdce9-5395-47f6-8844-3392e321133e in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job c08cdce9-5395-47f6-8844-3392e321133e completed successfully
+[CompilationQueue] Compiling job 492f4b03-ed27-4a19-80b8-f19da5b06e24 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 492f4b03-ed27-4a19-80b8-f19da5b06e24 completed successfully
+[CompilationQueue] Compiling job d07d6bca-c604-429f-b6fb-10debee70e06 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job d07d6bca-c604-429f-b6fb-10debee70e06 completed successfully
+[CompilationQueue] Compiling job 941c8150-cdab-46fc-a407-91f6cbf7c562 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 941c8150-cdab-46fc-a407-91f6cbf7c562 completed successfully
+[CompilationQueue] Compiling job 970b6ee6-95e7-4263-be10-b2a9eb684871 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 970b6ee6-95e7-4263-be10-b2a9eb684871 completed successfully
+[CompilationQueue] Compiling job 03d315fb-d6a6-458c-9600-c1ee6d3067fd in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 03d315fb-d6a6-458c-9600-c1ee6d3067fd completed successfully
+[CompilationQueue] Compiling job c9d0801e-35d8-4b44-b692-84b70cf0593f in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job c9d0801e-35d8-4b44-b692-84b70cf0593f completed successfully
+[CompilationQueue] Compiling job d0988777-52c8-4700-b21e-16a8165ecbdd in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job d0988777-52c8-4700-b21e-16a8165ecbdd completed successfully
+[CompilationQueue] Compiling job d926d9a9-6b45-43b8-bba8-933702805631 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job d926d9a9-6b45-43b8-bba8-933702805631 completed successfully
+[CompilationQueue] Compiling job 317daec3-8498-4fbf-913c-2284ceaf1ddf in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 317daec3-8498-4fbf-913c-2284ceaf1ddf completed successfully
+[CompilationQueue] Compiling job d86882ab-5ea8-49ff-9343-d9e127233ea6 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job d86882ab-5ea8-49ff-9343-d9e127233ea6 completed successfully
+[CompilationQueue] Compiling job 555c6fe5-a0d5-4db9-8368-6cee841fb124 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 555c6fe5-a0d5-4db9-8368-6cee841fb124 completed successfully
+[CompilationQueue] Compiling job d7e352cc-0049-4ff0-81a4-7acc1fffbe14 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job d7e352cc-0049-4ff0-81a4-7acc1fffbe14 completed successfully
+[CompilationQueue] Compiling job 4d1cafd7-8f57-4881-b84d-5f64886d3185 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 4d1cafd7-8f57-4881-b84d-5f64886d3185 completed successfully
+[CompilationQueue] Compiling job 65bf1216-f866-4434-8202-6ebfd7bf7cf8 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 65bf1216-f866-4434-8202-6ebfd7bf7cf8 completed successfully
+[CompilationQueue] Compiling job eb1a3bd0-567d-4dae-be20-f42512acc331 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job eb1a3bd0-567d-4dae-be20-f42512acc331 completed successfully
+[CompilationQueue] Compiling job fc574370-e580-4006-9a71-673ffc9b0319 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job fc574370-e580-4006-9a71-673ffc9b0319 completed successfully
+[CompilationQueue] Compiling job d74adbeb-fb3f-45ab-956a-fbfb5eeb51d0 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job d74adbeb-fb3f-45ab-956a-fbfb5eeb51d0 completed successfully
+[CompilationQueue] Compiling job 1d695c7d-8fcf-4a62-b4d3-544ef358a939 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 1d695c7d-8fcf-4a62-b4d3-544ef358a939 completed successfully
+[CompilationQueue] Compiling job 1d6489df-3229-452a-8cd1-a773db3292f9 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 1d6489df-3229-452a-8cd1-a773db3292f9 completed successfully
+[CompilationQueue] Compiling job d8297e34-6d78-4910-ad4f-4d20c986db44 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job d8297e34-6d78-4910-ad4f-4d20c986db44 completed successfully
+[CompilationQueue] Compiling job 31e54bde-5559-45ce-bb0f-6e4034274d3a in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 31e54bde-5559-45ce-bb0f-6e4034274d3a completed successfully
+[CompilationQueue] Compiling job 81ec101a-8524-4a9a-bb8a-81af4f42d725 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 81ec101a-8524-4a9a-bb8a-81af4f42d725 completed successfully
+[CompilationQueue] Compiling job e69e8e87-0dee-4e20-a9bb-1ae444f3c7da in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job e69e8e87-0dee-4e20-a9bb-1ae444f3c7da completed successfully
+[CompilationQueue] Compiling job da599f13-2a6c-4803-98b6-df677578e3f2 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job da599f13-2a6c-4803-98b6-df677578e3f2 completed successfully
+[CompilationQueue] Compiling job a50e3362-7f24-4cea-a7c5-bbb0535a9f99 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job a50e3362-7f24-4cea-a7c5-bbb0535a9f99 completed successfully
+[CompilationQueue] Compiling job 44ca91e2-0cd6-4cff-be2d-e35fd8f225bc in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 44ca91e2-0cd6-4cff-be2d-e35fd8f225bc completed successfully
+[CompilationQueue] Compiling job 11d76651-1d3e-43c4-8032-402b7fa35931 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 11d76651-1d3e-43c4-8032-402b7fa35931 completed successfully
+[CompilationQueue] Compiling job 27232544-df64-4408-9d8b-f4c660acdf6d in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 27232544-df64-4408-9d8b-f4c660acdf6d completed successfully
+[CompilationQueue] Compiling job 98b7549b-4f51-4ff5-b88e-f08fb4675b3a in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 98b7549b-4f51-4ff5-b88e-f08fb4675b3a completed successfully
+[CompilationQueue] Compiling job 3c2211a0-8b27-4db3-805c-1329d9262794 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 3c2211a0-8b27-4db3-805c-1329d9262794 completed successfully
+[CompilationQueue] Compiling job c1938ce9-141f-4829-9559-e425a6ab9fb5 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job c1938ce9-141f-4829-9559-e425a6ab9fb5 completed successfully
+[CompilationQueue] Compiling job 56ea10ac-6d9b-46ea-802f-d7636c032c71 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 56ea10ac-6d9b-46ea-802f-d7636c032c71 completed successfully
+[CompilationQueue] Compiling job c7734c42-f06a-4b39-b973-1cf2b85cdc53 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job c7734c42-f06a-4b39-b973-1cf2b85cdc53 completed successfully
+[CompilationQueue] Compiling job 504449dc-1892-49bd-a63d-af29c626c02f in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 504449dc-1892-49bd-a63d-af29c626c02f completed successfully
+[CompilationQueue] Cleaned up job c199adaa-1096-4551-a8dc-e17c0ce46c00 from memory
+[CompilationQueue] Compiling job 6306a81f-37ec-4029-a5ee-7c929d012c8d in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 6306a81f-37ec-4029-a5ee-7c929d012c8d completed successfully
+[CompilationQueue] Cleaned up job 8cb94d40-a15b-430b-89a6-b125ae09be22 from memory
+[CompilationQueue] Compiling job 18b65d85-0337-4595-83d4-a006987b3def in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 18b65d85-0337-4595-83d4-a006987b3def completed successfully
+[CompilationQueue] Compiling job 5d90ac61-9c84-4540-bd90-a69284bc2789 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 5d90ac61-9c84-4540-bd90-a69284bc2789 completed successfully
+[CompilationQueue] Compiling job 6461f67a-f00a-4f7c-b8c5-d3bfac70b55f in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 6461f67a-f00a-4f7c-b8c5-d3bfac70b55f completed successfully
+[CompilationQueue] Compiling job f54b9910-0139-42b4-a1ad-c25eef40a476 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job f54b9910-0139-42b4-a1ad-c25eef40a476 completed successfully
+[CompilationQueue] Compiling job efe3778f-2ab4-4dee-a3f6-d567b46d8470 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job efe3778f-2ab4-4dee-a3f6-d567b46d8470 completed successfully
+[CompilationQueue] Compiling job 3fb52585-1c90-428d-8b2b-e79d75da45ee in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 3fb52585-1c90-428d-8b2b-e79d75da45ee completed successfully
+[CompilationQueue] Compiling job 9b1a466c-a9b5-44f8-8d4b-99f35111c3f7 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 9b1a466c-a9b5-44f8-8d4b-99f35111c3f7 completed successfully
+[CompilationQueue] Compiling job d6e15dd9-59b0-4f80-b023-af05f7487dd2 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job d6e15dd9-59b0-4f80-b023-af05f7487dd2 completed successfully
+[CompilationQueue] Compiling job 7056e4fd-9aee-4ce5-81ab-b251be72a261 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 7056e4fd-9aee-4ce5-81ab-b251be72a261 completed successfully
+[CompilationQueue] Cleaned up job 82d52743-79a5-4158-9f70-02af3195c827 from memory
+[CompilationQueue] Compiling job 173ef995-efc1-4326-8e5f-8a05e3bc4eee in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 173ef995-efc1-4326-8e5f-8a05e3bc4eee completed successfully
+[CompilationQueue] Compiling job 246c7347-41b8-478f-9222-ece5aec4340c in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 246c7347-41b8-478f-9222-ece5aec4340c completed successfully
+[CompilationQueue] Cleaned up job 632b2ef1-7865-41d4-83ec-85da1c4b648d from memory
+[CompilationQueue] Compiling job 8a0e1b9b-b5f9-40de-a39c-3ef92c60d00a in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 8a0e1b9b-b5f9-40de-a39c-3ef92c60d00a completed successfully
+[CompilationQueue] Cleaned up job 8a635486-092d-4d08-9d30-d8a5b9dd2ad9 from memory
+[CompilationQueue] Cleaned up job ec940345-ee54-42c2-9e91-bfa712e22eb7 from memory
+[CompilationQueue] Cleaned up job cb828509-6901-47e3-9a29-61a9876ec86d from memory
+[CompilationQueue] Cleaned up job 46a33752-9e15-4a8c-9794-452c63910fda from memory
+[CompilationQueue] Compiling job b0afa691-3153-49f0-a8e6-c79a8961defe in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job b0afa691-3153-49f0-a8e6-c79a8961defe completed successfully
+[CompilationQueue] Cleaned up job 75cabf2a-8125-4895-bd61-58c1c819ef55 from memory
+[CompilationQueue] Cleaned up job abe89b26-9faf-419a-9135-18682b7972a1 from memory
+[CompilationQueue] Compiling job b815c9cf-9f6e-4824-a07b-adf798693e49 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job b815c9cf-9f6e-4824-a07b-adf798693e49 completed successfully
+[CompilationQueue] Compiling job 55a820ce-d2ca-494e-9374-4fbf0819c4fc in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 55a820ce-d2ca-494e-9374-4fbf0819c4fc completed successfully
+[CompilationQueue] Cleaned up job 6d4bb3c6-7685-4c14-b452-873a873fbea0 from memory
+[CompilationQueue] Compiling job d20d7dd9-2ba8-4913-8af3-e4dd9a022f5a in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job d20d7dd9-2ba8-4913-8af3-e4dd9a022f5a completed successfully
+[CompilationQueue] Compiling job 7f26a096-5f8d-4dcf-b927-46c3b535ed48 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 7f26a096-5f8d-4dcf-b927-46c3b535ed48 completed successfully
+[CompilationQueue] Cleaned up job b0288a0f-c6f2-4123-9965-e8a4ebc94e4c from memory
+[CompilationQueue] Cleaned up job 72ddeb7c-74e3-4088-b8c1-fbc3ce099350 from memory
+[CompilationQueue] Cleaned up job e20c98d1-3808-44ba-8769-897dcec202aa from memory
+[CompilationQueue] Compiling job 5a6ba320-6c10-4f80-89d9-1583996f2f4f in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 5a6ba320-6c10-4f80-89d9-1583996f2f4f completed successfully
+[CompilationQueue] Cleaned up job 278d642e-08e6-4cae-a8f8-6b9a95224ea1 from memory
+[CompilationQueue] Cleaned up job 32f765fa-8eff-4e7d-8abb-5564b67f9f38 from memory
+[CompilationQueue] Cleaned up job 147232d1-927f-4694-8cc7-f4db8f360fd0 from memory
+[CompilationQueue] Cleaned up job 4e3b1993-54e4-47a5-ae2a-e2d56be6e543 from memory
+[CompilationQueue] Compiling job a988199a-2762-4b65-8cd5-4289e1e889c4 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job a988199a-2762-4b65-8cd5-4289e1e889c4 completed successfully
+Client disconnected: DErJQvooLHpFkCUXAAD8
+[CompilationQueue] Compiling job 741810da-5eaa-430a-8bc4-c556dbddddf2 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 741810da-5eaa-430a-8bc4-c556dbddddf2 completed successfully
+[CompilationQueue] Cleaned up job 50672f4b-a79c-47e5-9a18-aa648b57c495 from memory
+[CompilationQueue] Compiling job cd5dec2d-02f1-41c1-9cc1-dcccc5dd3bd5 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job cd5dec2d-02f1-41c1-9cc1-dcccc5dd3bd5 completed successfully
+[CompilationQueue] Compiling job fc293e67-b32f-44e3-b4a0-6c4aaa836174 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job fc293e67-b32f-44e3-b4a0-6c4aaa836174 completed successfully
+[CompilationQueue] Compiling job 57180bb6-7162-4e7a-8b27-e7e87e9c77fa in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 57180bb6-7162-4e7a-8b27-e7e87e9c77fa completed successfully
+[CompilationQueue] Cleaned up job c71f484f-856d-46e6-9b35-9aaea92c8591 from memory
+[CompilationQueue] Cleaned up job a42bc071-d086-43ce-ad15-3787e3a313af from memory
+[CompilationQueue] Compiling job 0e62ae2b-c4bf-40b1-8165-f08e866b0ff7 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 0e62ae2b-c4bf-40b1-8165-f08e866b0ff7 completed successfully
+[CompilationQueue] Cleaned up job 62e1ad95-dbe0-4ae9-91f8-fa77cf289de9 from memory
+[CompilationQueue] Compiling job 3761282a-052c-49a4-9797-3a3c25ac377d in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 3761282a-052c-49a4-9797-3a3c25ac377d completed successfully
+[CompilationQueue] Compiling job e0859c62-7e03-46b1-802c-1f9d7995830f in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job e0859c62-7e03-46b1-802c-1f9d7995830f completed successfully
+[CompilationQueue] Compiling job fe7c7a90-bf4a-42ef-b892-f3e28b720ff0 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job fe7c7a90-bf4a-42ef-b892-f3e28b720ff0 completed successfully
+[CompilationQueue] Compiling job f89f760b-8aa4-4760-8b61-35e0e603fe09 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job f89f760b-8aa4-4760-8b61-35e0e603fe09 completed successfully
+[CompilationQueue] Cleaned up job 3068aa19-2127-490c-ab5a-2abcf857441b from memory
+[CompilationQueue] Cleaned up job d6d22f48-a161-4a2d-9605-65e5944c316c from memory
+[CompilationQueue] Cleaned up job 4d4ef520-f93a-4bbc-9bc6-0c121e8f8a2e from memory
+[CompilationQueue] Compiling job e0277970-3c76-4074-a6cb-31526fe93b20 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job e0277970-3c76-4074-a6cb-31526fe93b20 completed successfully
+[CompilationQueue] Compiling job 37dd4fd8-4fb2-44da-9367-abd527f1fa71 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 37dd4fd8-4fb2-44da-9367-abd527f1fa71 completed successfully
+[CompilationQueue] Compiling job 1436c236-4973-48d7-8e95-6dce1f0f3cc4 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 1436c236-4973-48d7-8e95-6dce1f0f3cc4 completed successfully
+[CompilationQueue] Cleaned up job c00d8e7b-0cfe-4110-a92e-997881a76fab from memory
+[CompilationQueue] Cleaned up job ee38ee0c-439c-491f-9d23-6d81768b1c3f from memory
+[CompilationQueue] Cleaned up job 514c625e-5de7-45ff-a8e5-2e1890a6d626 from memory
+[CompilationQueue] Cleaned up job 5bc7eab5-e35f-45d9-974a-f5f24bb65aef from memory
+[CompilationQueue] Cleaned up job 61755751-7f7e-4704-a302-e814246d27d4 from memory
+[CompilationQueue] Cleaned up job efec9367-338c-4a6e-b740-517ecdc855a2 from memory
+[CompilationQueue] Cleaned up job e852ef94-01c4-45f2-8546-03a894597b7f from memory
+[CompilationQueue] Cleaned up job ce6726aa-a95e-4cdd-8314-59fc4eb1ca8c from memory
+[CompilationQueue] Cleaned up job 947d48ea-a8c9-48fb-9b8c-3613730df42d from memory
+[CompilationQueue] Cleaned up job d22a771b-f06a-4bdf-87c2-cf283c55af13 from memory
+[CompilationQueue] Cleaned up job 59884777-1f53-4d92-a4ff-3428fde4fd11 from memory
+[CompilationQueue] Cleaned up job bd64e147-c235-406e-8f5d-dea572ce9e4a from memory
+[CompilationQueue] Cleaned up job ecef41d1-efd1-4a1f-b897-e3a213bee447 from memory
+[CompilationQueue] Cleaned up job cfbb02b4-c8d8-432e-9a0c-b1045069958f from memory
+[CompilationQueue] Cleaned up job 156b522c-821f-4612-86ea-22311425e622 from memory
+[CompilationQueue] Compiling job 60525a25-5ce9-4a82-ab81-ba2b45d69251 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 60525a25-5ce9-4a82-ab81-ba2b45d69251 completed successfully
+[CompilationQueue] Compiling job 9808ce8b-a715-4270-b64d-00685a9a990d in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 9808ce8b-a715-4270-b64d-00685a9a990d completed successfully
+[CompilationQueue] Cleaned up job 533169c0-fb59-4c80-af35-64e2fba17c0a from memory
+[CompilationQueue] Compiling job cc878809-d83e-46b0-b265-403ac4c17311 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job cc878809-d83e-46b0-b265-403ac4c17311 completed successfully
+[CompilationQueue] Compiling job 94d62ed7-2b52-4808-9bd1-c45066736957 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 94d62ed7-2b52-4808-9bd1-c45066736957 completed successfully
+[CompilationQueue] Compiling job 70f1887c-404e-4110-9329-fd2d0cfe9e57 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 70f1887c-404e-4110-9329-fd2d0cfe9e57 completed successfully
+[CompilationQueue] Cleaned up job 429489de-80fb-4398-a6e3-9e5e758a2363 from memory
+[CompilationQueue] Cleaned up job 28f8b719-660c-414f-b6f1-66bd93ab93ff from memory
+[CompilationQueue] Cleaned up job 004a7a99-14f8-4554-b872-f850cbfb3977 from memory
+[CompilationQueue] Compiling job 88b9bf45-9294-4159-acbe-7da3d0e6d063 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 88b9bf45-9294-4159-acbe-7da3d0e6d063 completed successfully
+[CompilationQueue] Compiling job ea0b4090-dff3-4f8a-9035-65cb36c4320e in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job ea0b4090-dff3-4f8a-9035-65cb36c4320e completed successfully
+[CompilationQueue] Cleaned up job c08cdce9-5395-47f6-8844-3392e321133e from memory
+[CompilationQueue] Cleaned up job 492f4b03-ed27-4a19-80b8-f19da5b06e24 from memory
+[CompilationQueue] Cleaned up job d07d6bca-c604-429f-b6fb-10debee70e06 from memory
+[CompilationQueue] Cleaned up job 941c8150-cdab-46fc-a407-91f6cbf7c562 from memory
+[CompilationQueue] Compiling job cd1247b4-8666-4e66-a277-5c5b6c9fe6cd in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job cd1247b4-8666-4e66-a277-5c5b6c9fe6cd completed successfully
+[CompilationQueue] Compiling job 84b29942-8caf-4d38-83da-93bc55691dd0 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 84b29942-8caf-4d38-83da-93bc55691dd0 completed successfully
+[CompilationQueue] Cleaned up job 970b6ee6-95e7-4263-be10-b2a9eb684871 from memory
+[CompilationQueue] Compiling job 62ee0aad-dbc6-4d14-9719-95715d2f1cdf in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 62ee0aad-dbc6-4d14-9719-95715d2f1cdf completed successfully
+[CompilationQueue] Cleaned up job 03d315fb-d6a6-458c-9600-c1ee6d3067fd from memory
+[CompilationQueue] Cleaned up job c9d0801e-35d8-4b44-b692-84b70cf0593f from memory
+[CompilationQueue] Cleaned up job d0988777-52c8-4700-b21e-16a8165ecbdd from memory
+[CompilationQueue] Cleaned up job d926d9a9-6b45-43b8-bba8-933702805631 from memory
+[CompilationQueue] Cleaned up job 317daec3-8498-4fbf-913c-2284ceaf1ddf from memory
+[CompilationQueue] Cleaned up job d86882ab-5ea8-49ff-9343-d9e127233ea6 from memory
+[CompilationQueue] Cleaned up job 555c6fe5-a0d5-4db9-8368-6cee841fb124 from memory
+[CompilationQueue] Cleaned up job d7e352cc-0049-4ff0-81a4-7acc1fffbe14 from memory
+[CompilationQueue] Cleaned up job 4d1cafd7-8f57-4881-b84d-5f64886d3185 from memory
+[CompilationQueue] Cleaned up job 65bf1216-f866-4434-8202-6ebfd7bf7cf8 from memory
+[CompilationQueue] Cleaned up job eb1a3bd0-567d-4dae-be20-f42512acc331 from memory
+[CompilationQueue] Compiling job 6704b2ed-a15b-498a-aa74-3abb7a15517e in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 6704b2ed-a15b-498a-aa74-3abb7a15517e completed successfully
+[CompilationQueue] Cleaned up job fc574370-e580-4006-9a71-673ffc9b0319 from memory
+[CompilationQueue] Cleaned up job d74adbeb-fb3f-45ab-956a-fbfb5eeb51d0 from memory
+[CompilationQueue] Cleaned up job 1d695c7d-8fcf-4a62-b4d3-544ef358a939 from memory
+[CompilationQueue] Cleaned up job 1d6489df-3229-452a-8cd1-a773db3292f9 from memory
+[CompilationQueue] Cleaned up job d8297e34-6d78-4910-ad4f-4d20c986db44 from memory
+[CompilationQueue] Cleaned up job 31e54bde-5559-45ce-bb0f-6e4034274d3a from memory
+[CompilationQueue] Cleaned up job 81ec101a-8524-4a9a-bb8a-81af4f42d725 from memory
+[CompilationQueue] Cleaned up job e69e8e87-0dee-4e20-a9bb-1ae444f3c7da from memory
+[CompilationQueue] Compiling job 8f1a1b11-5576-4f6a-b55b-036dfb63d275 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 8f1a1b11-5576-4f6a-b55b-036dfb63d275 completed successfully
+[CompilationQueue] Cleaned up job da599f13-2a6c-4803-98b6-df677578e3f2 from memory
+[CompilationQueue] Cleaned up job a50e3362-7f24-4cea-a7c5-bbb0535a9f99 from memory
+[CompilationQueue] Cleaned up job 44ca91e2-0cd6-4cff-be2d-e35fd8f225bc from memory
+[CompilationQueue] Compiling job b4d4d996-8de3-44e6-a6d5-5f026e70bd47 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job b4d4d996-8de3-44e6-a6d5-5f026e70bd47 completed successfully
+[CompilationQueue] Cleaned up job 11d76651-1d3e-43c4-8032-402b7fa35931 from memory
+[CompilationQueue] Cleaned up job 27232544-df64-4408-9d8b-f4c660acdf6d from memory
+[CompilationQueue] Cleaned up job 98b7549b-4f51-4ff5-b88e-f08fb4675b3a from memory
+[CompilationQueue] Cleaned up job 3c2211a0-8b27-4db3-805c-1329d9262794 from memory
+[CompilationQueue] Cleaned up job c1938ce9-141f-4829-9559-e425a6ab9fb5 from memory
+[CompilationQueue] Compiling job 4de4c7e3-fe7a-4cb7-be79-6137296d01c0 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 4de4c7e3-fe7a-4cb7-be79-6137296d01c0 completed successfully
+[CompilationQueue] Compiling job e3f965d1-440d-4896-a118-e4952f3861c2 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job e3f965d1-440d-4896-a118-e4952f3861c2 completed successfully
+[CompilationQueue] Compiling job 51c07d82-f6cf-44e5-a13d-da455f7c10e5 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 51c07d82-f6cf-44e5-a13d-da455f7c10e5 completed successfully
+[CompilationQueue] Compiling job a39bb031-3dba-4156-9719-ff0fca40487c in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job a39bb031-3dba-4156-9719-ff0fca40487c completed successfully
+[CompilationQueue] Compiling job 28c017f7-db5f-49e3-812b-d4d60b2fa967 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 28c017f7-db5f-49e3-812b-d4d60b2fa967 completed successfully
+[CompilationQueue] Compiling job ce299de1-203c-4263-966b-6a8f489ae4a6 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job ce299de1-203c-4263-966b-6a8f489ae4a6 completed successfully
+[CompilationQueue] Compiling job 9c828be9-d984-4720-8253-65037d9f0fe7 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 9c828be9-d984-4720-8253-65037d9f0fe7 completed successfully
+[CompilationQueue] Compiling job 44348369-c9b1-4aa2-b3f4-6a166ece57b3 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 44348369-c9b1-4aa2-b3f4-6a166ece57b3 completed successfully
+[CompilationQueue] Compiling job 14f12353-5f48-405f-88d7-7e1c77fd2dc9 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 14f12353-5f48-405f-88d7-7e1c77fd2dc9 completed successfully
+[CompilationQueue] Compiling job a402c783-5540-4c3d-b329-76da35a825cf in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job a402c783-5540-4c3d-b329-76da35a825cf completed successfully
+[CompilationQueue] Compiling job 064da944-7868-4dc9-b2d3-87d9940e8a87 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 064da944-7868-4dc9-b2d3-87d9940e8a87 completed successfully
+[CompilationQueue] Compiling job 4daf1fd7-d0a6-4387-bda3-da57056fe9ad in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 4daf1fd7-d0a6-4387-bda3-da57056fe9ad completed successfully
+[CompilationQueue] Compiling job ff2ba352-cf86-493d-b6fd-334af10479e0 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job ff2ba352-cf86-493d-b6fd-334af10479e0 completed successfully
+[CompilationQueue] Cleaned up job 56ea10ac-6d9b-46ea-802f-d7636c032c71 from memory
+[CompilationQueue] Cleaned up job c7734c42-f06a-4b39-b973-1cf2b85cdc53 from memory
+[CompilationQueue] Cleaned up job 504449dc-1892-49bd-a63d-af29c626c02f from memory
+[CompilationQueue] Cleaned up job 6306a81f-37ec-4029-a5ee-7c929d012c8d from memory
+[CompilationQueue] Cleaned up job 18b65d85-0337-4595-83d4-a006987b3def from memory
+[CompilationQueue] Cleaned up job 5d90ac61-9c84-4540-bd90-a69284bc2789 from memory
+[CompilationQueue] Cleaned up job 6461f67a-f00a-4f7c-b8c5-d3bfac70b55f from memory
+[CompilationQueue] Cleaned up job f54b9910-0139-42b4-a1ad-c25eef40a476 from memory
+[CompilationQueue] Cleaned up job efe3778f-2ab4-4dee-a3f6-d567b46d8470 from memory
+[CompilationQueue] Cleaned up job 3fb52585-1c90-428d-8b2b-e79d75da45ee from memory
+[CompilationQueue] Cleaned up job 9b1a466c-a9b5-44f8-8d4b-99f35111c3f7 from memory
+[CompilationQueue] Cleaned up job d6e15dd9-59b0-4f80-b023-af05f7487dd2 from memory
+[CompilationQueue] Cleaned up job 7056e4fd-9aee-4ce5-81ab-b251be72a261 from memory
+[CompilationQueue] Cleaned up job 173ef995-efc1-4326-8e5f-8a05e3bc4eee from memory
+[CompilationQueue] Cleaned up job 246c7347-41b8-478f-9222-ece5aec4340c from memory
+[CompilationQueue] Cleaned up job 8a0e1b9b-b5f9-40de-a39c-3ef92c60d00a from memory
+[CompilationQueue] Cleaned up job b0afa691-3153-49f0-a8e6-c79a8961defe from memory
+[CompilationQueue] Compiling job ed2e3c82-7942-4111-a830-6e06f779bef3 in /Users/mac/heytex/users/053e2b77-62c2-4183-9482-1c51d780133d/33ff18d6-cc4c-42b4-a827-9f250e730990
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job ed2e3c82-7942-4111-a830-6e06f779bef3 completed successfully
+[CompilationQueue] Cleaned up job b815c9cf-9f6e-4824-a07b-adf798693e49 from memory
+Client disconnected: 88blFt7vhHMidk-iAAD6
+[CompilationQueue] Cleaned up job 55a820ce-d2ca-494e-9374-4fbf0819c4fc from memory
+[CompilationQueue] Cleaned up job d20d7dd9-2ba8-4913-8af3-e4dd9a022f5a from memory
+[CompilationQueue] Cleaned up job 7f26a096-5f8d-4dcf-b927-46c3b535ed48 from memory
+[CompilationQueue] Cleaned up job 5a6ba320-6c10-4f80-89d9-1583996f2f4f from memory
+[CompilationQueue] Cleaned up job a988199a-2762-4b65-8cd5-4289e1e889c4 from memory
+[CompilationQueue] Cleaned up job 741810da-5eaa-430a-8bc4-c556dbddddf2 from memory
+[CompilationQueue] Cleaned up job cd5dec2d-02f1-41c1-9cc1-dcccc5dd3bd5 from memory
+[CompilationQueue] Cleaned up job fc293e67-b32f-44e3-b4a0-6c4aaa836174 from memory
+[CompilationQueue] Cleaned up job 57180bb6-7162-4e7a-8b27-e7e87e9c77fa from memory
+[CompilationQueue] Cleaned up job 0e62ae2b-c4bf-40b1-8165-f08e866b0ff7 from memory
+[CompilationQueue] Cleaned up job 3761282a-052c-49a4-9797-3a3c25ac377d from memory
+[CompilationQueue] Cleaned up job e0859c62-7e03-46b1-802c-1f9d7995830f from memory
+[CompilationQueue] Cleaned up job fe7c7a90-bf4a-42ef-b892-f3e28b720ff0 from memory
+[CompilationQueue] Cleaned up job f89f760b-8aa4-4760-8b61-35e0e603fe09 from memory
+[CompilationQueue] Cleaned up job e0277970-3c76-4074-a6cb-31526fe93b20 from memory
+[CompilationQueue] Cleaned up job 37dd4fd8-4fb2-44da-9367-abd527f1fa71 from memory
+[CompilationQueue] Cleaned up job 1436c236-4973-48d7-8e95-6dce1f0f3cc4 from memory
+[CompilationQueue] Cleaned up job 60525a25-5ce9-4a82-ab81-ba2b45d69251 from memory
+[CompilationQueue] Cleaned up job 9808ce8b-a715-4270-b64d-00685a9a990d from memory
+[CompilationQueue] Cleaned up job cc878809-d83e-46b0-b265-403ac4c17311 from memory
+[CompilationQueue] Cleaned up job 94d62ed7-2b52-4808-9bd1-c45066736957 from memory
+[CompilationQueue] Cleaned up job 70f1887c-404e-4110-9329-fd2d0cfe9e57 from memory
+[CompilationQueue] Cleaned up job 88b9bf45-9294-4159-acbe-7da3d0e6d063 from memory
+[CompilationQueue] Cleaned up job ea0b4090-dff3-4f8a-9035-65cb36c4320e from memory
+[CompilationQueue] Cleaned up job cd1247b4-8666-4e66-a277-5c5b6c9fe6cd from memory
+[CompilationQueue] Cleaned up job 84b29942-8caf-4d38-83da-93bc55691dd0 from memory
+[CompilationQueue] Cleaned up job 62ee0aad-dbc6-4d14-9719-95715d2f1cdf from memory
+[CompilationQueue] Cleaned up job 6704b2ed-a15b-498a-aa74-3abb7a15517e from memory
+[CompilationQueue] Cleaned up job 8f1a1b11-5576-4f6a-b55b-036dfb63d275 from memory
+[CompilationQueue] Cleaned up job b4d4d996-8de3-44e6-a6d5-5f026e70bd47 from memory
+[CompilationQueue] Cleaned up job 4de4c7e3-fe7a-4cb7-be79-6137296d01c0 from memory
+[CompilationQueue] Cleaned up job e3f965d1-440d-4896-a118-e4952f3861c2 from memory
+[CompilationQueue] Cleaned up job 51c07d82-f6cf-44e5-a13d-da455f7c10e5 from memory
+[CompilationQueue] Cleaned up job a39bb031-3dba-4156-9719-ff0fca40487c from memory
+[CompilationQueue] Cleaned up job 28c017f7-db5f-49e3-812b-d4d60b2fa967 from memory
+[CompilationQueue] Cleaned up job ce299de1-203c-4263-966b-6a8f489ae4a6 from memory
+[CompilationQueue] Cleaned up job 9c828be9-d984-4720-8253-65037d9f0fe7 from memory
+[CompilationQueue] Cleaned up job 44348369-c9b1-4aa2-b3f4-6a166ece57b3 from memory
+[CompilationQueue] Cleaned up job 14f12353-5f48-405f-88d7-7e1c77fd2dc9 from memory
+[CompilationQueue] Cleaned up job a402c783-5540-4c3d-b329-76da35a825cf from memory
+[CompilationQueue] Cleaned up job 064da944-7868-4dc9-b2d3-87d9940e8a87 from memory
+[CompilationQueue] Cleaned up job 4daf1fd7-d0a6-4387-bda3-da57056fe9ad from memory
+[CompilationQueue] Cleaned up job ff2ba352-cf86-493d-b6fd-334af10479e0 from memory
+[CompilationQueue] Cleaned up job ed2e3c82-7942-4111-a830-6e06f779bef3 from memory
+Client connected: 2np45jllcpZa_58dAAD-
+User Long Mai Linh joined room project:b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f:/main.tex
+[CompilationQueue] Compiling job 72ba561a-69e5-4f24-9478-51e0090f5366 in /Users/mac/heytex/users/db9395ad-6626-4225-9299-15568b5becc6/b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f
+[CompilationQueue] Using bibtex for main.tex (biblatex: false)
+[CompilationQueue] Job 72ba561a-69e5-4f24-9478-51e0090f5366 completed successfully
+Client disconnected: 2np45jllcpZa_58dAAD-
+Client connected: XCeOwToO4ep7GzbnAAEA
+User Long Mai Linh joined room project:b6fa1c39-91e8-42b8-abb4-f6ed48d3ea8f:/main.tex
+Client disconnected: XCeOwToO4ep7GzbnAAEA
+[CompilationQueue] Cleaned up job 72ba561a-69e5-4f24-9478-51e0090f5366 from memory

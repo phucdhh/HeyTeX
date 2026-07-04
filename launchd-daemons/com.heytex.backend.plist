@@ -14,9 +14,7 @@
     <key>ProgramArguments</key>
     <array>
         <string>/opt/homebrew/bin/node</string>
-        <string>--require</string>
-        <string>tsx/cjs</string>
-        <string>src/index.ts</string>
+        <string>dist/index.js</string>
     </array>
     
     <key>WorkingDirectory</key>

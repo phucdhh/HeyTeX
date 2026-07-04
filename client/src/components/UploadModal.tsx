@@ -28,6 +28,7 @@ export function UploadModal({ projectId, targetPath = '/', onClose, onSuccess, o
     const [files, setFiles] = useState<UploadFile[]>([]);
     const [isDragging, setIsDragging] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
+    const [dropWarning, setDropWarning] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const folderInputRef = useRef<HTMLInputElement>(null);
 
@@ -54,48 +55,59 @@ export function UploadModal({ projectId, targetPath = '/', onClose, onSuccess, o
         e.preventDefault();
         e.stopPropagation();
         setIsDragging(false);
+        setDropWarning(null);
 
         // Cache files immediately before any async operations (DataTransfer gets cleared)
         const cachedFiles = Array.from(e.dataTransfer.files);
         const items = Array.from(e.dataTransfer.items);
         const allFiles: File[] = [];
+        const failedNames: string[] = [];
 
         // Check if browser supports webkitGetAsEntry (for folders)
         const supportsFileSystemAPI = items.length > 0 && items[0].webkitGetAsEntry !== undefined;
 
         if (supportsFileSystemAPI) {
-            // Process all dropped items (files and folders) using FileSystem API
-            for (let i = 0; i < items.length; i++) {
-                const item = items[i];
-                
-                // Some browsers set kind to empty string for subsequent items
-                if (item.kind === 'file' || item.kind === '') {
-                    const entry = item.webkitGetAsEntry();
-                    
-                    if (entry) {
-                        try {
-                            const files = await traverseFileTree(entry);
-                            allFiles.push(...files);
-                        } catch (error) {
-                            console.error('[Upload] Error processing entry:', entry?.name, error);
-                        }
-                    } else {
-                        // Fallback to getAsFile() if webkitGetAsEntry fails
-                        const file = item.getAsFile();
-                        if (file) {
-                            allFiles.push(file);
-                        }
+            // IMPORTANT: resolve webkitGetAsEntry()/getAsFile() for every item synchronously,
+            // in one pass, BEFORE doing any async work (e.g. awaiting traverseFileTree()).
+            // Browsers invalidate the DataTransferItemList shortly after the drop handler
+            // yields to the event loop, so calling these accessors later - e.g. only once we
+            // get around to processing item[1] after `await`-ing item[0]'s traversal - can
+            // silently return null for the remaining items ("unknown item" failures), even
+            // though the drop itself was perfectly valid. The resolved FileSystemEntry/File
+            // objects themselves stay valid for async use afterwards.
+            const resolvedItems = items
+                .filter((item) => item.kind === 'file' || item.kind === '')
+                .map((item) => ({
+                    entry: item.webkitGetAsEntry ? item.webkitGetAsEntry() : null,
+                    file: item.getAsFile(),
+                }));
+
+            for (const { entry, file } of resolvedItems) {
+                if (entry) {
+                    try {
+                        const files = await traverseFileTree(entry);
+                        allFiles.push(...files);
+                    } catch (error) {
+                        console.error('[Upload] Error processing entry:', entry?.name, error);
+                        failedNames.push(entry?.name || file?.name || 'unknown item');
                     }
+                } else if (file) {
+                    // Fallback to the plain File when the FileSystem Entry API genuinely
+                    // could not resolve this item (e.g. unsupported browser for that item).
+                    allFiles.push(file);
+                } else {
+                    failedNames.push('unknown item');
                 }
             }
-            
-            // If we got fewer files than expected, use cached files as fallback
-            if (allFiles.length < cachedFiles.length) {
-                allFiles.length = 0; // Clear
-                allFiles.push(...cachedFiles);
+
+            if (failedNames.length > 0) {
+                setDropWarning(
+                    `Could not read ${failedNames.length} dropped item(s): ${failedNames.join(', ')}. Try dropping them again or use the Select Files / Select Folder buttons.`
+                );
             }
         } else {
-            // Fallback for simple file drops without FileSystem API
+            // Fallback for browsers without FileSystem Entry API support - folders can't be
+            // expanded here, only loose files will come through correctly.
             allFiles.push(...cachedFiles);
         }
         addFiles(allFiles);
@@ -334,6 +346,13 @@ export function UploadModal({ projectId, targetPath = '/', onClose, onSuccess, o
                             className="hidden"
                         />
                     </div>
+
+                    {dropWarning && (
+                        <div className="mt-3 p-3 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 flex items-start gap-2">
+                            <AlertCircle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
+                            <p className="text-sm text-yellow-800 dark:text-yellow-300">{dropWarning}</p>
+                        </div>
+                    )}
 
                     {files.length > 0 && (
                         <div className="mt-6">

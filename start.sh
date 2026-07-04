@@ -18,10 +18,10 @@ export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 
 # 1. PostgreSQL (Port 5432)
 echo -e "${BLUE}1. PostgreSQL (Port 5432)${NC}"
-if pg_isready -h localhost -p 5432 > /dev/null 2>&1; then
+if /opt/homebrew/opt/postgresql@16/bin/pg_isready -h localhost -p 5432 > /dev/null 2>&1; then
     echo -e "${GREEN}   ✓ Already running${NC}"
 else
-    pg_ctl -D /opt/homebrew/var/postgresql@16 start > /dev/null 2>&1
+    /opt/homebrew/opt/postgresql@16/bin/pg_ctl -D /opt/homebrew/var/postgresql@16 start > /dev/null 2>&1
     sleep 2
     echo -e "${GREEN}   ✓ Started${NC}"
 fi

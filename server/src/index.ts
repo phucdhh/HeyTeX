@@ -50,6 +50,8 @@ import storageRoutes from './routes/storage';
 import uploadRoutes from './routes/upload';
 import templateRoutes from './routes/templates';
 import adminRoutes from './routes/admin';
+import ollamaRoutes from './routes/ollama';
+import cerebrasRoutes from './routes/cerebras';
 
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
@@ -61,6 +63,8 @@ app.use('/api/templates', templateRoutes);
 app.use('/api/admin', adminRoutes);
 console.log('[Routes] Mounting upload routes at /api/upload');
 app.use('/api/upload', uploadRoutes);
+app.use('/api/ollama', ollamaRoutes);
+app.use('/api/cerebras', cerebrasRoutes);
 console.log('[Routes] Upload routes mounted successfully');
 
 // Serve user avatars

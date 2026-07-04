@@ -28,3 +28,12 @@ export async function getFileUrl(bucket: string, objectName: string): Promise<st
 export async function deleteFile(bucket: string, objectName: string): Promise<void> {
     await minioClient.removeObject(bucket, objectName);
 }
+
+export async function moveFile(
+    bucket: string,
+    oldObjectName: string,
+    newObjectName: string
+): Promise<void> {
+    await minioClient.copyObject(bucket, newObjectName, `/${bucket}/${oldObjectName}`);
+    await minioClient.removeObject(bucket, oldObjectName);
+}

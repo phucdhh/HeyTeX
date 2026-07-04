@@ -42,6 +42,32 @@ import { ChatAIAssistant } from '../ai-assistant';
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5433';
 
+// Helpers to mirror the file tree rendering order, used for shift-click range selection
+function getRootFiles(allFiles: ProjectFile[]): ProjectFile[] {
+    return allFiles.filter(f => !f.path.includes('/', 1) || f.path.split('/').length === 2);
+}
+
+function getChildFiles(allFiles: ProjectFile[], parent: ProjectFile): ProjectFile[] {
+    return allFiles.filter(f => {
+        const parentPath = f.path.substring(0, f.path.lastIndexOf('/')) || '/';
+        return parentPath === parent.path && f.id !== parent.id;
+    });
+}
+
+function flattenVisibleFiles(allFiles: ProjectFile[], expandedFolders: Set<string>): ProjectFile[] {
+    const result: ProjectFile[] = [];
+    const walk = (nodes: ProjectFile[]) => {
+        for (const node of nodes) {
+            result.push(node);
+            if (node.isFolder && expandedFolders.has(node.path)) {
+                walk(getChildFiles(allFiles, node));
+            }
+        }
+    };
+    walk(getRootFiles(allFiles));
+    return result;
+}
+
 export function EditorPage() {
     const { projectId } = useParams<{ projectId: string }>();
     const navigate = useNavigate();
@@ -77,6 +103,8 @@ export function EditorPage() {
     const [showShareModal, setShowShareModal] = useState(false);
     const [showUploadModal, setShowUploadModal] = useState(false);
     const [selectedFolder, setSelectedFolder] = useState<ProjectFile | null>(null);
+    const [multiSelectedIds, setMultiSelectedIds] = useState<Set<string>>(new Set());
+    const [selectionAnchorId, setSelectionAnchorId] = useState<string | null>(null);
     const [queueStats, setQueueStats] = useState<{ compiling: number; queued: number; available: number } | null>(null);
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [viewMode, setViewMode] = useState<'pdf' | 'logs'>('pdf'); // PDF or Logs view
@@ -460,6 +488,20 @@ export function EditorPage() {
         }
     };
 
+    // Reload the project's file/folder list from the server.
+    // Used after compilation, since LaTeX compilation generates new files
+    // (PDF, .log, .aux, .bbl, placeholder images, ...) directly on the server
+    // that are not yet reflected in the client's file list.
+    const refreshProjectFiles = async () => {
+        if (!currentProject) return;
+        try {
+            const { files: refreshedFiles } = await api.getFiles(currentProject.id);
+            setFiles(refreshedFiles);
+        } catch (error) {
+            console.error('[Compile] Failed to refresh file list:', error);
+        }
+    };
+
     // Compile document
     const handleCompile = async () => {
         if (!currentFile?.content) return;
@@ -598,6 +640,10 @@ export function EditorPage() {
                     // Switch to logs view on error
                     setViewMode('logs');
                 }
+
+                // Compilation sinh ra các file mới (PDF, .log, .aux, .bbl, ảnh placeholder, ...)
+                // trên server. Làm mới danh sách file để chúng hiển thị trong Explorer.
+                await refreshProjectFiles();
             }
         } catch (error) {
             console.error('[Compile] Error:', error);
@@ -655,6 +701,50 @@ export function EditorPage() {
             }
             return next;
         });
+    };
+
+    // Handle clicks on file tree items, supporting Ctrl/Cmd multi-select and Shift range-select
+    const handleTreeItemClick = (file: ProjectFile, e: React.MouseEvent) => {
+        if (e.ctrlKey || e.metaKey) {
+            setMultiSelectedIds(prev => {
+                const next = new Set(prev);
+                if (next.has(file.id)) {
+                    next.delete(file.id);
+                } else {
+                    next.add(file.id);
+                }
+                return next;
+            });
+            setSelectionAnchorId(file.id);
+            return;
+        }
+
+        if (e.shiftKey && selectionAnchorId) {
+            const visibleFiles = flattenVisibleFiles(files, expandedFolders);
+            const anchorIndex = visibleFiles.findIndex(f => f.id === selectionAnchorId);
+            const targetIndex = visibleFiles.findIndex(f => f.id === file.id);
+            if (anchorIndex !== -1 && targetIndex !== -1) {
+                const [start, end] = anchorIndex < targetIndex ? [anchorIndex, targetIndex] : [targetIndex, anchorIndex];
+                const rangeIds = visibleFiles.slice(start, end + 1).map(f => f.id);
+                setMultiSelectedIds(new Set(rangeIds));
+            }
+            return;
+        }
+
+        // Plain click clears multi-selection and falls back to the normal single select/open behavior
+        if (multiSelectedIds.size > 0) {
+            setMultiSelectedIds(new Set());
+        }
+        setSelectionAnchorId(file.id);
+
+        if (file.isFolder) {
+            toggleFolder(file.path);
+            setSelectedFolder(file);
+            setCurrentFile(null);
+        } else {
+            setSelectedFolder(null);
+            addOpenFile(file);
+        }
     };
 
     // File operations handlers
@@ -770,6 +860,39 @@ export function EditorPage() {
     };
 
     const handleDelete = async () => {
+        if (multiSelectedIds.size > 0) {
+            const selectedIds = Array.from(multiSelectedIds);
+            const count = selectedIds.length;
+            if (!confirm(`Are you sure you want to delete ${count} selected item${count > 1 ? 's' : ''}?`)) {
+                return;
+            }
+
+            try {
+                await api.batchDeleteFiles(selectedIds);
+
+                const deletedFolderPaths = files
+                    .filter(f => multiSelectedIds.has(f.id) && f.isFolder)
+                    .map(f => f.path);
+                const updatedFiles = files.filter(f => {
+                    if (multiSelectedIds.has(f.id)) return false;
+                    if (deletedFolderPaths.some(p => f.path.startsWith(`${p}/`))) return false;
+                    return true;
+                });
+
+                setFiles(updatedFiles);
+                selectedIds.forEach(id => removeOpenFile(id));
+                if (selectedFolder && multiSelectedIds.has(selectedFolder.id)) {
+                    setSelectedFolder(null);
+                }
+                setMultiSelectedIds(new Set());
+                setSelectionAnchorId(null);
+            } catch (error) {
+                console.error('Failed to delete selected files:', error);
+                alert('Failed to delete selected files');
+            }
+            return;
+        }
+
         if (!currentFile) {
             alert('Please select a file to delete');
             return;
@@ -1072,20 +1195,22 @@ export function EditorPage() {
                                         </Button>
                                     </div>
                                     <div className="flex items-center gap-1">
-                                        <Button 
-                                            variant="ghost" 
-                                            size="icon" 
-                                            className="h-7 w-7"
-                                            title="Rename"
-                                            onClick={handleRename}
-                                        >
-                                            <FileCode2 className="h-4 w-4" />
-                                        </Button>
+                                        {multiSelectedIds.size === 0 && (
+                                            <Button 
+                                                variant="ghost" 
+                                                size="icon" 
+                                                className="h-7 w-7"
+                                                title="Rename"
+                                                onClick={handleRename}
+                                            >
+                                                <FileCode2 className="h-4 w-4" />
+                                            </Button>
+                                        )}
                                         <Button 
                                             variant="ghost" 
                                             size="icon" 
                                             className="h-7 w-7 hover:text-destructive"
-                                            title="Delete"
+                                            title={multiSelectedIds.size > 0 ? `Delete ${multiSelectedIds.size} selected` : 'Delete'}
                                             onClick={handleDelete}
                                         >
                                             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1095,6 +1220,21 @@ export function EditorPage() {
                                     </div>
                                 </div>
 
+                                {multiSelectedIds.size > 0 && (
+                                    <div className="px-2 py-1 border-b bg-primary/10 flex items-center justify-between gap-2 shrink-0 text-xs">
+                                        <span>{multiSelectedIds.size} selected</span>
+                                        <button
+                                            className="text-muted-foreground hover:text-foreground underline"
+                                            onClick={() => {
+                                                setMultiSelectedIds(new Set());
+                                                setSelectionAnchorId(null);
+                                            }}
+                                        >
+                                            Clear
+                                        </button>
+                                    </div>
+                                )}
+
                                 <div className="flex-1 overflow-y-auto p-2 min-h-0">
                                     {files.filter(f => !f.path.includes('/', 1) || f.path.split('/').length === 2).map(file => (
                                         <FileTreeItem
@@ -1103,19 +1243,10 @@ export function EditorPage() {
                                             files={files}
                                             isExpanded={expandedFolders.has(file.path)}
                                             onToggle={toggleFolder}
-                                            onSelect={(f) => {
-                                                if (f.isFolder) {
-                                                    // Select folder and clear file selection
-                                                    setSelectedFolder(f);
-                                                    setCurrentFile(null);
-                                                } else {
-                                                    // Select file and clear folder selection
-                                                    setSelectedFolder(null);
-                                                    addOpenFile(f);
-                                                }
-                                            }}
+                                            onSelect={handleTreeItemClick}
                                             selectedFileId={currentFile?.id}
                                             selectedFolderId={selectedFolder?.id}
+                                            multiSelectedIds={multiSelectedIds}
                                             expandedFolders={expandedFolders}
                                             level={0}
                                         />
@@ -1475,9 +1606,13 @@ export function EditorPage() {
                     projectId={currentProject.id}
                     targetPath={selectedFolder?.path || '/'}
                     onClose={() => setShowUploadModal(false)}
-                    onUploadComplete={(uploadedFiles) => {
-                        // Refresh files list
-                        setFiles([...files, ...uploadedFiles]);
+                    onUploadComplete={async (uploadedFiles) => {
+                        // Re-fetch the full file list instead of merging the response in place.
+                        // Uploading a dropped folder can implicitly create parent folder records
+                        // on the server (for nested subfolders) that are not included in the
+                        // `uploadedFiles` response, so a naive merge leaves those folders (and
+                        // therefore their nested files) missing from the explorer tree.
+                        await refreshProjectFiles();
                         // Open first uploaded file if it's a text file
                         const firstTextFile = uploadedFiles.find(
                             f => f.name.endsWith('.tex') || f.name.endsWith('.typ') || f.name.endsWith('.txt')
@@ -1508,14 +1643,15 @@ interface FileTreeItemProps {
     files: ProjectFile[];
     isExpanded: boolean;
     onToggle: (path: string) => void;
-    onSelect: (file: ProjectFile) => void;
+    onSelect: (file: ProjectFile, e: React.MouseEvent) => void;
     selectedFileId?: string;
     selectedFolderId?: string;
+    multiSelectedIds?: Set<string>;
     expandedFolders: Set<string>;
     level: number;
 }
 
-function FileTreeItem({ file, files, isExpanded, onToggle, onSelect, selectedFileId, selectedFolderId, expandedFolders, level }: FileTreeItemProps) {
+function FileTreeItem({ file, files, isExpanded, onToggle, onSelect, selectedFileId, selectedFolderId, multiSelectedIds, expandedFolders, level }: FileTreeItemProps) {
     const children = files.filter(f => {
         const parentPath = f.path.substring(0, f.path.lastIndexOf('/')) || '/';
         return parentPath === file.path && f.id !== file.id;
@@ -1525,21 +1661,17 @@ function FileTreeItem({ file, files, isExpanded, onToggle, onSelect, selectedFil
     const isSelected = file.isFolder 
         ? selectedFolderId === file.id 
         : selectedFileId === file.id;
+    const isMultiSelected = multiSelectedIds?.has(file.id) ?? false;
 
     return (
         <div>
             <div
-                onClick={() => {
-                    if (file.isFolder) {
-                        onToggle(file.path);
-                        onSelect(file);
-                    } else {
-                        onSelect(file);
-                    }
-                }}
+                onClick={(e) => onSelect(file, e)}
                 className={cn(
                     'flex items-center gap-2 px-2 py-1 rounded cursor-pointer text-sm',
-                    isSelected ? 'bg-primary/20 text-primary' : 'hover:bg-muted'
+                    isMultiSelected
+                        ? 'bg-primary/30 text-primary ring-1 ring-inset ring-primary'
+                        : isSelected ? 'bg-primary/20 text-primary' : 'hover:bg-muted'
                 )}
                 style={{ paddingLeft: `${level * 12 + 8}px` }}
             >
@@ -1561,6 +1693,7 @@ function FileTreeItem({ file, files, isExpanded, onToggle, onSelect, selectedFil
                     onSelect={onSelect}
                     selectedFileId={selectedFileId}
                     selectedFolderId={selectedFolderId}
+                    multiSelectedIds={multiSelectedIds}
                     expandedFolders={expandedFolders}
                     level={level + 1}
                 />

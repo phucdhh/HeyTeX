@@ -117,6 +117,7 @@ router.post('/files', authMiddleware, upload.array('files', 100), async (req: Au
                 const relativePath = req.body.relativePath;
                 const fileName = relativePath || file.originalname;
                 const filePath = uploadManager.sanitizePath(path.join(targetPath, fileName));
+                const baseName = path.basename(filePath);
                 const buffer = await fs.readFile(file.path);
                 const mimeType = uploadManager['getMimeType'](path.extname(fileName));
 
@@ -178,7 +179,7 @@ router.post('/files', authMiddleware, upload.array('files', 100), async (req: Au
                 // Create file record
                 const dbFile = await prisma.file.create({
                     data: {
-                        name: fileName,
+                        name: baseName,
                         path: filePath,
                         mimeType,
                         size: buffer.length,

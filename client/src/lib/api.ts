@@ -146,6 +146,13 @@ class ApiClient {
         return this.request(`/files/${fileId}`, { method: 'DELETE' });
     }
 
+    async batchDeleteFiles(fileIds: string[]): Promise<{ deleted: number }> {
+        return this.request('/files/batch-delete', {
+            method: 'POST',
+            body: { ids: fileIds },
+        });
+    }
+
     // Compilation
     async compile(content: string): Promise<Blob> {
         return this.request<Blob>('/compile/latex', {
